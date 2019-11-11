@@ -1,7 +1,6 @@
 <template>
     <div class="footer">
         <div class="container">
-            <!-- <img src="../assets/strong.png"/> -->
             <h5>MeFit : Your personal work out organizer </h5>
             <p>&copy; 2019 by MeFit-team | Contact us</p>
         </div>
@@ -28,5 +27,6 @@ img {
 }
 h5 {
     padding-top: 2%;
+    color: #3088a0;
 }
 </style>

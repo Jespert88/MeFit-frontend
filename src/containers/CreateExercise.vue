@@ -70,7 +70,7 @@ export default {
 }
 </script>
 
-<style scooped>
+<style scoped>
 /* Desktop */
     p {
         color: #fff;
@@ -91,9 +91,6 @@ export default {
         width: 100%;
     }
     .submitBtn {
-        /* margin-left: 25%;
-        margin-right: 25%;
-        width: 50%; */
         width: 100%;
         border: 0;
         margin-top: 8px;

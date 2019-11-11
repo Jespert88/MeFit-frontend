@@ -58,7 +58,7 @@ export default {
 }
 </script>
 
-<style scooped>
+<style scoped>
 /* Desktop */
 #createWorkout {
         margin: 10%;
@@ -94,15 +94,10 @@ export default {
 
     #repContainer {
         text-align: center;
-        /* background-color: blue; */
     }
     #repBtnContainer {
         text-align: center;
-       /*  background-color: brown; */
     }
-
-
-
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {

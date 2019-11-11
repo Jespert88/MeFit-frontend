@@ -14,7 +14,7 @@
 <script>
 </script>
 
-<style scooped>
+<style scoped>
 /* Desktop */
     #exerciseCard {
         margin: 1%;
