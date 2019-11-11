@@ -1,22 +1,15 @@
 <template>
 <div>
-
   <div id="sideNavbarDiv">
     <div id="imgContainer">
     <img src="https://source.unsplash.com/random/300x300" class="img-fluid" id="sidebarIMG">
     </div>
     <h4 class="nameTitle">Name here</h4>
-
     <hr class="hrStyle">
-    
-     
     <router-link to="/workout">
       <button class="sideNavBtns">workout component</button>
     </router-link>
-    
-   
   </div>
-
 </div>
 </template>
 
@@ -89,15 +82,11 @@
       border-radius: 50%;
     }
 
-
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
-
 } 
     
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
-    
 } 
-
 </style>

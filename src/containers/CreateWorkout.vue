@@ -1,12 +1,10 @@
 <template>
   <div>
-
     <form>
             <div id="workoutContainer">
                 <h1 id="bodyTitle">Create your workout</h1>
                 <h1 id="workoutTitle">{{name}}</h1>
                 <h1 id="workoutType">{{type}}</h1>
-
                 <div id="inputContainer">
                     <input type="text" class="inputStyle" placeholder="Enter name of workout"  
                         v-model="name"  
@@ -20,34 +18,25 @@
                     >
                     <button>Create workout</button>
                 </div>
-
                 <div id="exerciseArrayDiv">
-
                     <div id="setBtnContainer" v-for="btns in setArray" :key="btns.id">
                         <!-- Subtraction button -->
                         <button class="setBtns" @click="minusSet">-</button>
                         <!-- Add button -->
                         <button class="setBtns" @click="addSet">+</button>
                     </div>
-
                     <!-- Display all of the selected object exercises with buttons for add how many sets -->
-        
                 </div>
-
-
             </div>
             <div id="cardGrid">
                 <ExerciseCard v-for="user in userArray" :key="user.id" :user="user" @clicked-exerciseCard="addToExerciseArray"/>
                 <!-- <ExerciseCard v-for="exercise in exerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/> -->
             </div>
     </form>
-
-
   </div>
 </template>
 
 <script>
-
 import ExerciseCard from '../components/ExerciseCard.vue'
 import axios from 'axios';
 
@@ -63,7 +52,6 @@ data() {
         type: "",
     }
   },
-
 
   created() {
     axios.get('https://jsonplaceholder.typicode.com/users')
@@ -87,7 +75,6 @@ data() {
     props: {
         
     },
-
     methods: {
 
          /* For set */
@@ -103,7 +90,6 @@ data() {
                 this.set -= 1;
             }
         },
-
         addToExerciseArray: function(user) {
             /* Push every data you want to save to the array. */
             this.exerciseArray.push(
@@ -111,10 +97,7 @@ data() {
             )
             console.log(this.exerciseArray);
         }
-
-
     },
-
     components: {
         ExerciseCard
     }
@@ -180,12 +163,13 @@ data() {
     background-color: green;
 }
 
-    #repContainer {
-        text-align: center;
-    }
-    #repBtnContainer {
-        text-align: center;
-    }
+#repContainer {
+    text-align: center;
+}
+
+#repBtnContainer {
+    text-align: center;
+}
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {

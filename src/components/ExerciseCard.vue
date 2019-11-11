@@ -54,7 +54,7 @@ export default {
                 this.repetitions -= 1;
             }
         },
-        
+
          /* Add exercise to exerciseArray */
         addExerciseObj: function(user) {
             /* let result = this.exerciseArray.map(({ id }) => id) */
@@ -105,8 +105,6 @@ export default {
     width: 50px;
     background-color: green;
 }
-
-
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {

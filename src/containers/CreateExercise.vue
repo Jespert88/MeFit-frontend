@@ -9,8 +9,6 @@
           <input type="repetitions" class="inputStyle" placeholder="Repetitions" v-model="Repetitions" id="repetitions" required>
           <button type="submit" class="submitBtn">Create</button>
       </form>
-      <!-- <br><img src="../assets/pushup.jpg" style="width:100%; height:100%;"><br>
-      <br><iframe width="420" height="315" src="https://www.youtube.com/embed/ytmdfIHs_E0"></iframe> -->
   </div>
 
 <h3>Show a specifik exercise</h3>

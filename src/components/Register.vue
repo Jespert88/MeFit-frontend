@@ -1,6 +1,5 @@
 <template>
   <div id="registerDiv">
-
     <!-- onkeypress="return /[a-å,ä,ö]/i.test(event.key)" this is a oneliner that makes the input only accepts alphabetic letters. -->
     <form id="createForm" v-on:submit="userLoggedIn">
         <input type="text" class="inputStyle" placeholder="Enter firstname"  v-model="firstname" id="firstname" required  onkeypress="return /[a-å,ä,ö]/i.test(event.key)" :maxlength="max">
