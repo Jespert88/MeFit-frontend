@@ -60,6 +60,7 @@ export default new Router({
 			children: [
 				/* https://router.vuejs.org/guide/essentials/nested-routes.html */
 				{ path: '/createexercise', component: CreateExercise, props: true },
+				{ path: '/profile', component: Profile, props: true}
 			]
 		}
 	]
