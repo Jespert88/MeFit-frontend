@@ -44,11 +44,6 @@ export default new Router({
 			component: ExerciseCard
 		},
 		{
-			path: "/profile",
-			name: "Profile",
-			component: Profile
-		},
-		{
 			path: "/sidenavbar",
 			name: "SideNavbar",
 			component: SideNavbar

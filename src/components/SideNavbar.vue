@@ -1,31 +1,46 @@
 <template>
   <div>
 
+    <div v-if="parentmessage" class="card-text alert alert-warning" v-html="parentmessage"></div>
+
     <!-- SIDENAVBAR -->
-    <div class="container-fluid" id="main">
-        <div class="row row-offcanvas row-offcanvas-left">
-            <div class="col-md-12 col-lg-12 sidebar-offcanvas bg-light pl-0" id="sidebar" role="navigation">
-                <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+    <aside v-if="parentmessage" v-bind="hej()">
+      <div class="container-fluid" id="main">
+          <div class="row row-offcanvas row-offcanvas-left">
+              <div class="col-md-12 col-lg-12 sidebar-offcanvas bg-light pl-0" id="sidebar" role="navigation">
+                  <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+                      <li class="nav-item" >
+                          <router-link class="nav-link" to="/profile">
+                              <button class="sideNavBtns">Profile</button>
+                          </router-link>
+                      </li>
+                      <li class="nav-item" >
+                          <router-link class="nav-link" to="/createexercise">
+                              <button class="sideNavBtns">Create Exercise</button>
+                          </router-link>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+    </aside>
 
-
-                    <li class="nav-item" >
-                        <router-link class="nav-link" to="/createexercise">
-                            <button class="sideNavBtns">Dashboard component 1</button>
-                        </router-link>
-                    </li>
-                    
-                  
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
+  
   </div>
 </template>
 
 <script>
 export default {
+
+ 
+  props: 
+    ['parentmessage'],
+  
+  methods: {
+    hej: function() {
+      console.log("hej")
+    }
+  }
 
 }
 </script>
@@ -33,12 +48,10 @@ export default {
 <style>
 
 /* Desktop CSS */
-
 #sidebar {
     height: 100vh;
     background-color: rgb(130, 216, 128) !important;
 }
-
 .sideNavBtns {
     text-align: center;
     border: 0;
@@ -51,23 +64,19 @@ export default {
     background-color: rgb(107, 161, 106);
 }
 
-
-
-
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
- .row-offcanvas-left .sidebar-offcanvas {
-        left: -45%;
-    }
+  .row-offcanvas-left .sidebar-offcanvas {
+    left: -100%;
+  }
+  .row-offcanvas-left.active {
+    left: 100%;
+    margin-left: -6px;
+  }
 
-    .row-offcanvas-left.active {
-        left: 45%;
-        margin-left: -6px;
-    }
-
-    .sidebar-offcanvas {
-        width: 45%;
-    }
+  .sidebar-offcanvas {
+    width: 45%;
+  }
 } 
     
 /* Tablet */
