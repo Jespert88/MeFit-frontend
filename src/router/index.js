@@ -1,6 +1,7 @@
 
 import Vue from 'vue'
 import Router from "vue-router"
+import BootstrapVue from 'bootstrap-vue'
 import Login from '../components/Login'
 import Register from '../components/Register'
 import Progress from '../components/Progress'
@@ -10,6 +11,7 @@ import Profile from '../components/Profile'
 import SideNavbar from '../components/SideNavbar'
 
 Vue.use(Router)
+Vue.use(BootstrapVue)
 
 export default new Router({
 	routes: [

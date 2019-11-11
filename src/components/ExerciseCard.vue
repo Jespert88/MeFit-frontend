@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-<template>
-  <div></div>
-</template>
-
-<script>
-export default {
-=======
-
 <template>
 <div>
 
@@ -63,8 +54,7 @@ export default {
                 this.repetitions -= 1;
             }
         },
-
-
+        
          /* Add exercise to exerciseArray */
         addExerciseObj: function(user) {
             /* let result = this.exerciseArray.map(({ id }) => id) */
@@ -73,26 +63,13 @@ export default {
             /* const map1 = this.exerciseArray.map(x => x * 2);
 
             console.log(map1); */
-
         },
+
         removeExerciseObj: function() {
-
         }
-
-
-
     }
->>>>>>> 40b4bab97bf7bdf42c5ef3b541ee8f83ddfbae0e
-
 }
 </script>
-
-<<<<<<< HEAD
-<style>
-
-</style>
-=======
-
 
 <style scoped>
 
@@ -141,4 +118,3 @@ export default {
 
 } 
 </style>
->>>>>>> 40b4bab97bf7bdf42c5ef3b541ee8f83ddfbae0e
