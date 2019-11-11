@@ -15,47 +15,6 @@
                         <button class="navBtns">Login</button>
                     </router-link>
                 </li>
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/register">
-                        <button class="navBtns">Register</button>
-                    </router-link>
-                </li>
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/progress">
-                        <button class="navBtns">Progress</button>
-                    </router-link>
-                </li>
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/goal">
-                        <button class="navBtns">Goal dashboard</button>
-                    </router-link>
-                </li>
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/workout">
-                        <button class="navBtns">Workout</button>
-                    </router-link>
-                </li>
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/exercise">
-                        <button class="navBtns">Exercise</button>
-                    </router-link>
-                </li>
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/profile">
-                        <button class="navBtns">Profile</button>
-                    </router-link>
-                </li>
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/createworkout">
-                        <button class="navBtns">Create Workout</button>
-                    </router-link>
-                </li>
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/calender">
-                        <button class="navBtns">Calender</button>
-                    </router-link>
-                </li>
-
                 <li class="nav-item">
                     <router-link class="nav-link" to="/" @click.native="logout">
                         <button class="navBtns">Logout</button>
@@ -77,7 +36,6 @@
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 /* Desktop */
 .navbar {

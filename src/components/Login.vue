@@ -44,15 +44,15 @@ export default {
                 password: this.password
             })
             .then((results) => {
-                if(results.status == "200") {
-                    console.log("200 all is okey");
+                if(results.status == 201) {
+                    console.log("201 all is okey");
                     /* If the user exsist get status code 200 and then the user will be sent to user dashboard page. */
                 }
-                else if (results.status == "400") {
+                else if (results.status == 400) {
                     console.log("400 bad request");
                     /* This needs to be for inputting like wrong password or email or only one of them. */
                 }
-                else if (results.status == "404") {
+                else if (results.status == 404) {
                     console.log("yo");
                 }
             }).catch((e) => {

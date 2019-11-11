@@ -1,5 +1,5 @@
 <template>
-  <h1>Exercise component</h1>
+  <div></div>
 </template>
 
 <script>
@@ -10,7 +10,11 @@ export default {
 
 <style>
 /* Desktop */
-
+  .card {
+    width: 240px;
+    margin: 10px;
+    background: rgba(70, 155, 172, 0.5);
+  }
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
 

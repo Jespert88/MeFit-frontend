@@ -4,12 +4,10 @@ import Router from "vue-router"
 import Login from '../components/Login'
 import Register from '../components/Register'
 import Progress from '../components/Progress'
-import GoalDashBoard from '../components/GoalDashBoard'
-import Workout from '../components/Workout'
-import Exercise from '../components/Exercise'
-import Profile from '../components/Profile'
-import CreateWorkout from '../components/CreateWorkout'
 import Calender from '../components/Calender'
+import ExerciseCard from '../components/ExerciseCard'
+import Profile from '../components/Profile'
+import SideNavbar from '../components/SideNavbar'
 
 Vue.use(Router)
 
@@ -31,19 +29,14 @@ export default new Router({
 			component: Progress
 		},
 		{
-			path: "/goal",
-			name: "GoalDashBoard",
-			component: GoalDashBoard
+			path: "/calender",
+			name: "Calender",
+			component: Calender
 		},
 		{
-			path: "/workout",
-			name: "Workout",
-			component: Workout
-		},
-		{
-			path: "/exercise",
-			name: "Exercise",
-			component: Exercise
+			path: "/exercisecard",
+			name: "ExerciseCard",
+			component: ExerciseCard
 		},
 		{
 			path: "/profile",
@@ -51,17 +44,9 @@ export default new Router({
 			component: Profile
 		},
 		{
-			path: "/createworkout",
-			name: "CreateWorkout",
-			component: CreateWorkout
-		},
-		{
-			path: "/calender",
-			name: "Calender",
-			component: Calender
-		},
-		
-		
-
+			path: "/sidenavbar",
+			name: "SideNavbar",
+			component: SideNavbar
+		}
 	]
 })
