@@ -1,92 +1,98 @@
 <template>
-<div>
-  <div id="sideNavbarDiv">
-    <div id="imgContainer">
-    <img src="https://source.unsplash.com/random/300x300" class="img-fluid" id="sidebarIMG">
+  <div>
+
+    <!-- SIDENAVBAR -->
+    <div class="container-fluid" id="main">
+        <div class="row row-offcanvas row-offcanvas-left">
+            <div class="col-md-12 col-lg-12 sidebar-offcanvas bg-light pl-0" id="sidebar" role="navigation">
+                <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+
+
+                    <li class="nav-item" >
+                        <router-link class="nav-link" to="/createexercise">
+                            <button class="sideNavBtns">Dashboard component 1</button>
+                        </router-link>
+                    </li>
+                    
+                  
+                </ul>
+            </div>
+        </div>
     </div>
-    <h4 class="nameTitle">Name here</h4>
-    <hr class="hrStyle">
-    <router-link to="/workout">
-      <button class="sideNavBtns">workout component</button>
-    </router-link>
+
+
   </div>
-</div>
 </template>
 
 <script>
-  export default {
-    name: 'SideNavPage',
-    components: {
-    
-    },
-    data(){
-      return {
-   
-      };
-    },
-    methods:{
-      
-    }
-  }
+export default {
+
+}
 </script>
 
 <style>
 
 /* Desktop CSS */
-    #sideNavbarDiv {
-      height: 100%;
-      width: 300px;
-      position: fixed;
-      top: auto;
-      left: 0px;
-      z-index: 1;
-      overflow-x: hidden;
-      background: rgb(0, 94, 112);
-    } 
 
-    .sideNavBtns {
-      text-align: center;
-      background-color: transparent;
-        width: 100%;
-        border: 0;
-        margin-top: 8px;
-        padding: 10px;
-        color: #fff;
-        font-size: 18px;
-        cursor: pointer;
-    }
+#sidebar {
+    height: 100vh;
+    background-color: rgb(130, 216, 128) !important;
+}
 
-    .sideNavBtns:hover {
-      background: rgba(70, 155, 172, 0.8);
-    }
+.sideNavBtns {
+    text-align: center;
+    border: 0;
+    width: 100%;
+    padding: 5px;
+    background-color: rgb(69, 109, 68);
+    color: #fff;
+}
+.sideNavBtns:hover {
+    background-color: rgb(107, 161, 106);
+}
 
-    .hrStyle {
-        background-color: #000;
-        box-shadow: 1px 1px 1px #fff;
-        opacity: 0.2;
-    }
 
-    .nameTitle {
-      text-align: center;
-      color: #fff;
-    }
 
-    #imgContainer {
-      margin-top: 10%;
-      margin-right: 20%;
-      margin-left: 20%;
-      margin-bottom: 3%;
-      /* background-color: green; */
-    }
-    #sidebarIMG {
-      border-radius: 50%;
-    }
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
+ .row-offcanvas-left .sidebar-offcanvas {
+        left: -45%;
+    }
+
+    .row-offcanvas-left.active {
+        left: 45%;
+        margin-left: -6px;
+    }
+
+    .sidebar-offcanvas {
+        width: 45%;
+    }
 } 
     
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
+  .row-offcanvas {
+        position: relative;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+    }
+
+    .row-offcanvas-left .sidebar-offcanvas {
+        left: -33%;
+    }
+
+    .row-offcanvas-left.active {
+        left: 33%;
+        margin-left: -6px;
+    }
+
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 33%;
+        height: 100%;
+    }
 } 
 </style>

@@ -15,6 +15,13 @@
                         <button class="navBtns">Login</button>
                     </router-link>
                 </li>
+
+                <li class="nav-item" >
+                    <router-link class="nav-link" to="/dashboard">
+                        <button class="navBtns">Dashboard</button>
+                    </router-link>
+                </li>
+
                 <li class="nav-item">
                     <router-link class="nav-link" to="/" @click.native="logout">
                         <button class="navBtns">Logout</button>

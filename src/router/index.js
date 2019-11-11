@@ -9,11 +9,14 @@ import Calender from '../components/Calender'
 import ExerciseCard from '../components/ExerciseCard'
 import Profile from '../components/Profile'
 import SideNavbar from '../components/SideNavbar'
+import Dashboard from '../containers/Dashboard'
+import CreateExercise from '../containers/CreateExercise'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
 
 export default new Router({
+	mode:'history',
 	routes: [
 		{
 			path: "/",
@@ -49,6 +52,15 @@ export default new Router({
 			path: "/sidenavbar",
 			name: "SideNavbar",
 			component: SideNavbar
+		},
+		{
+			path: "/dashboard",
+			name: "Dashboard",
+			component: Dashboard,
+			children: [
+				/* https://router.vuejs.org/guide/essentials/nested-routes.html */
+				{ path: '/createexercise', component: CreateExercise, props: true },
+			]
 		}
 	]
 })
