@@ -3,6 +3,7 @@
         <router-link class="navbar-brand" to="/">
            MeFit
         </router-link>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,7 +13,7 @@
 
                 <li class="nav-item" >
                     <router-link class="nav-link" to="/">
-                        <button class="navBtns">Login</button>
+                        <button class="navBtns">Home</button>
                     </router-link>
                 </li>
 
@@ -35,10 +36,15 @@
 <script>
     export default {
         name: 'NavBar',
-        methods: {
-            logout: function() {
-              
+
+        data () {
+            return {
+                
             }
+        },
+
+        methods: {
+            
         }
     }
 </script>
