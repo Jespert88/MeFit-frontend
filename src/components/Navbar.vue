@@ -1,36 +1,37 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <router-link class="navbar-brand" to="/">
-           MeFit
-        </router-link>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand href="#">MeFit</b-navbar-brand>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
+    <!-- Top navbar toggle button -->
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/">
-                        <button class="navBtns">Home</button>
-                    </router-link>
-                </li>
+    <!-- Nav items collapse container -->
+    <b-collapse id="nav-collapse" is-nav>
 
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/dashboard">
-                        <button class="navBtns">Dashboard</button>
-                    </router-link>
-                </li>
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item href="#">
+            <router-link class="nav-link" to="/">
+                <button class="navBtns">Home</button>
+            </router-link>
+        </b-nav-item>
+        <b-nav-item href="#">
+            <router-link class="nav-link" to="/dashboard">
+                <button class="navBtns">Dashboard</button>
+            </router-link>
+        </b-nav-item>
+        <b-nav-item href="#">
+            <router-link class="nav-link" to="/" @click.native="logout">
+                <button class="navBtns">Logout</button>
+            </router-link>
+        </b-nav-item>
+      </b-navbar-nav>
 
-                <li class="nav-item">
-                    <router-link class="nav-link" to="/" @click.native="logout">
-                        <button class="navBtns">Logout</button>
-                    </router-link>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    </b-collapse>
+  </b-navbar>
+
+</div>
 </template>
 
 <script>
