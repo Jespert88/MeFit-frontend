@@ -11,13 +11,12 @@
         <router-link to="/register">
             <button class="submitBtn">Create a account</button>
         </router-link>
-         <button type="submit" class="submitBtn">Create a account</button> -->
      </form> 
 
 
-     <p v-bind:class="{ userLoggedIn }">
+    <!--  <p v-bind:class="{ userLoggedIn }">
         Welcome {{this.email + this.password}}
-    </p> 
+    </p>  -->
 </div>
 
 </div>
