@@ -1,7 +1,7 @@
 <template>
 <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">MeFit</b-navbar-brand>
+    <b-navbar toggleable="lg" type="dark" variant="info" id="TopNavbar">
+    <b-navbar-brand href="#" class=".navbar-brand">MeFit</b-navbar-brand>
 
     <!-- Top navbar toggle button -->
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -52,29 +52,47 @@
 
 <style scoped>
 /* Desktop */
-.navbar {
-    text-align: center;
-    background: rgba(0, 0, 0, 0.5);
+#TopNavbar {
+    margin: 0px !important;
+    padding: 0px !important;
+    background: rgba(0, 0, 0, 0.5) !important;
 }
 .navBtns {
     border: 0;
     background-color: transparent;
     color: #fff;
 }
+.navBtns:hover {
+    color: #a06efd;
+  text-shadow:0px 0px 5px #a06efd;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
 .navbar-brand {
-   padding: 5px;
+   padding: 10px;
    color: #fff;
    font-weight: bold;
 }
-.navbar-brand:hover {
-   color: rgba(255, 255, 255, 0.555);
-}
+
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
+    #TopNavbar {
+        padding: 5px !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        text-align: center;
+    }
 } 
     
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
+    #TopNavbar {
+        padding: 5px !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        text-align: center;
+    }
 } 
 </style>
