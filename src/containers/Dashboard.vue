@@ -1,19 +1,31 @@
 <template>
   <div>
 
-  <div class="row no-gutters">
-    <div class="col-sm-12 col-md-4 col-xl-2">
+  <b-row no-gutters>
+    <b-col cols="12" md="1" xl="1">
+      <SideNavbar :parentmessage="parentmessage"/>
+    </b-col>
+    <b-col cols="12" md="10" xl="10">
+      <router-view />
+    </b-col>
+    <b-col cols="12" md="1" xl="1"></b-col>
+  </b-row>
+
+
+
+ <!--  <div class="row no-gutters">
+    <div class="col-sm-12 col-md-4 col-xl-2"> -->
 
      <!--  <button @click="toggleSidebar()" class="btn btn-info">Send Child A Message</button> -->
-      <SideNavbar :parentmessage="parentmessage"/>
+     <!--  <SideNavbar :parentmessage="parentmessage"/> -->
 
       
-    
+   <!--  
     </div>
     <div class="col-sm-12 col-md-8 col-xl-9">
       <router-view />
     </div>
-  </div>
+  </div> -->
 
 
   </div>
