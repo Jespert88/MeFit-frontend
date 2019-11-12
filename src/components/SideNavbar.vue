@@ -11,12 +11,12 @@
         <ul class="list-group">
             <li class="nav-item">
                 <router-link class="nav-link" to="/profile">
-                    <button class="sideNavBtns">Profile</button>
+                    <button class="sideNavBtns" @click="closeNav()">Profile</button>
                 </router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/createexercise">
-                    <button class="sideNavBtns">Create Exercise</button>
+                    <button class="sideNavBtns" @click="closeNav()">Create Exercise</button>
                 </router-link>
             </li>
         </ul>
