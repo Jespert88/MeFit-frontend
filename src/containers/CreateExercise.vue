@@ -16,7 +16,7 @@
         <br><img src="../assets/pushup.jpg" style="width:80%; height:80%; margin-left: 10%; margin-right: 10%;"><br>
         <div class="card-body">
             <h5 class="card-title">Push-ups</h5>
-            <router-link class="link" to="/showexercise">
+            <router-link class="link" to="/showoneexercise">
             <button class="link">Learn more</button>
             </router-link>
         </div>
