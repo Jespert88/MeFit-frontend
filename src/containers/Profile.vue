@@ -36,6 +36,10 @@ export default {
 
 <style>
 /* Desktop */
+#descriptionContainer > p {
+  color: black;
+  font-size: 14px;
+}
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {}
