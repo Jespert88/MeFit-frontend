@@ -1,14 +1,16 @@
 <template>
 <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar-brand href="#">MeFit</b-navbar-brand>
 
+    <!-- Top navbar toggle button -->
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
+    <!-- Nav items collapse container -->
     <b-collapse id="nav-collapse" is-nav>
+
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-
         <b-nav-item href="#">
             <router-link class="nav-link" to="/">
                 <button class="navBtns">Home</button>
@@ -24,11 +26,9 @@
                 <button class="navBtns">Logout</button>
             </router-link>
         </b-nav-item>
-
-        
       </b-navbar-nav>
-    </b-collapse>
 
+    </b-collapse>
   </b-navbar>
 
 </div>
