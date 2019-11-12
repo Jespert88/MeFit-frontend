@@ -19,7 +19,6 @@
      <!--  <button @click="toggleSidebar()" class="btn btn-info">Send Child A Message</button> -->
      <!--  <SideNavbar :parentmessage="parentmessage"/> -->
 
-      
    <!--  
     </div>
     <div class="col-sm-12 col-md-8 col-xl-9">
