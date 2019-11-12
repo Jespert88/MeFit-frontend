@@ -13,10 +13,6 @@
         </router-link>
      </form> 
 
-
-    <!--  <p v-bind:class="{ userLoggedIn }">
-        Welcome {{this.email + this.password}}
-    </p>  -->
 </div>
 
 </div>

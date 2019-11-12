@@ -1,13 +1,14 @@
 <template>
 <div>
 
-    <button id="openSidenav" @click="openNav()"> &#9776; open </button>
-   <!--  <span style="font-size:30px;cursor:pointer" @click="openNav()">&#9776; open</span> -->
-
+    <!-- Sidebar Toggler button -->
+    <button id="openSidenav" @click="openNav()"> &#9776; </button>
+   
+   <!-- Sidenavbar -->
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-
-        <ul>
+        <button class="closebtn" @click="closeNav()"> &times; </button>
+       
+        <ul class="list-group">
             <li class="nav-item">
                 <router-link class="nav-link" to="/profile">
                     <button class="sideNavBtns">Profile</button>
@@ -21,6 +22,7 @@
         </ul>
     </div>
 
+    <!-- SAVE THIS CODE INCASE!! -->
     <!-- <div v-if="parentmessage" class="card-text alert alert-warning" v-html="parentmessage"></div> -->
 
     <!-- SIDENAVBAR -->
@@ -54,15 +56,13 @@ export default {
     props: ['parentmessage'],
 
     methods: {
-        
         openNav: function () {
-            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("mySidenav").style.width = "300px";
         },
 
         closeNav: function () {
             document.getElementById("mySidenav").style.width = "0px";
         }
-
     }
 
 }
@@ -76,47 +76,56 @@ export default {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background: rgba(0, 0, 0, 0.8);
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.3s;
     padding-top: 60px;
 }
-.sidenav a {
-    padding: 8px 8px 8px 32px;
+/* Sidenavbar ul container */
+.nav-item {
+    width: 100%;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    color: #fff;
     display: block;
     transition: 0.3s;
 }
+.sideNavBtns {
+    margin-top: 10px;
+    padding: 5px;
+    width: 100%;
+    border: 0;
+    
+}
+
+
+
 .sidenav a:hover {
     color: #f1f1f1;
 }
 
 
 #openSidenav {
-  border: 0;
-  color: #fff;
-  padding: 5px;
-  width: 100px;
-  background: rgba(0, 0, 0, 0.5)
+    margin: 5%;
+    height: 40px;
+    width: 40px;
+    border: 0;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5)
 }
-.sidenav .closebtn {
+.closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    right: 10px;
+    font-size: 30px;
+    border: 0;
+    margin: 10px;
+    background: transparent;
+    color: #fff;
+    /* margin-left: 50px; */
 }
 
 @media screen and (max-height: 450px) {
-    .sidenav {
-        padding-top: 15px;
-    }
-
-    .sidenav a {
-        font-size: 18px;
-    }
+    
 }
 
 /* Desktop CSS */
