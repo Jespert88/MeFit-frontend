@@ -7,7 +7,6 @@
    <!-- Sidenavbar -->
     <div id="mySidenav" class="sidenav">
         <button class="closebtn" @click="closeNav()"> &times; </button>
-       
         <ul class="list-group">
             <li class="nav-item">
                 <router-link class="nav-link" to="/profile">
@@ -39,7 +38,6 @@ export default {
             document.getElementById("mySidenav").style.width = "0px";
         }
     }
-
 }
 </script>
 
@@ -99,10 +97,10 @@ export default {
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
-  
+
 }
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
-  
+
 }
 </style>
