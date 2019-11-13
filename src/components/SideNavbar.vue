@@ -18,6 +18,11 @@
                     <button class="sideNavBtns" @click="closeNav()">Create Exercise</button>
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/createworkout">
+                    <button class="sideNavBtns" @click="closeNav()">Create Workout</button>
+                </router-link>
+            </li>
         </ul>
     </div>
 

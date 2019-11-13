@@ -16,28 +16,27 @@
                         required  
                         onkeypress="return /[a-å,ä,ö]/i.test(event.key)"
                     >
-                    <button>Create workout</button>
+                    <button @click="createWorkout">Create workout</button>
                 </div>
 
                  <div id="cardGrid">
-                 <!-- <ExerciseCard v-for="user in userArray" :key="user.id" :user="user" @clicked-exerciseCard="addToExerciseArray"/> -->
                 <ExerciseCard v-for="exercise in chosedExerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
+
             </div>
 
 
                 <div id="exerciseArrayDiv">
-                    <div id="setBtnContainer" v-for="btns in setArray" :key="btns.id">
+                    <div id="repBtnContainer" v-for="btns in setArray" :key="btns.id">
                         <!-- Subtraction button -->
-                        <button class="setBtns" @click="minusSet">-</button>
+                        <button class="setBtns" v-on:click-exerciseCard="minusRep">-</button>
                         <!-- Add button -->
-                        <button class="setBtns" @click="addSet">+</button>
+                        <button class="setBtns" v-on:click-exerciseCard="addRep">+</button>
                     </div>
                     <!-- Display all of the selected object exercises with buttons for add how many sets -->
                 </div>
             </div>
             <div id="cardGrid">
-                 <!-- <ExerciseCard v-for="user in userArray" :key="user.id" :user="user" @clicked-exerciseCard="addToExerciseArray"/> -->
-                <ExerciseCard v-for="exercise in exerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
+                <ExerciseCard v-for="exercise in exerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"></ExerciseCard>
             </div>
     </form>
   </div>
@@ -61,7 +60,6 @@ data() {
   },
 
   created() {
-      console.log(this.exerciseArray)
     axios.get('http://localhost:8080/exercises')
     .then(response => {
       // JSON responses are automatically parsed.
@@ -70,6 +68,11 @@ data() {
     .catch(e => {
       this.errors.push(e)
     })
+   
+
+    // this.exerciseArray.forEach(exercise => {
+      
+    // })
     /* async / await version (created() becomes async created())
     
     try {
@@ -86,26 +89,40 @@ data() {
     methods: {
 
          /* For set */
-        addSet: function() {
+        addRep: function(event) {
+            event.preventDefault()
             this.set += 1;
         },
-        minusSet: function() {
+        minusRep: function(event) {
             if(this.set <= 0) {
                 this.set = 0;
             }
             else {
                 this.set -= 1;
             }
+             event.preventDefault()
         },
         addToExerciseArray: function(exercise) {
-            event.preventDefault()
+        exercise.toBeSelected= true
+        exercise.toChooseReps = true
             /* Push every data you want to save to the array. */
             this.chosedExerciseArray.push(
-                exercise.exerciseId
+                exercise
             )
             var pos = this.exerciseArray.indexOf(exercise)
             this.exerciseArray.splice(pos , 1)
-            console.log(this.chosedExerciseArray);
+            console.log(this.chosedExerciseArray[0]);
+            event.preventDefault()
+
+        }
+        , createWorkout : function(){
+            axios.post('http://localhost:8080/addWorkout',{
+                name : this.name,
+                type : this.type,
+
+
+            })
+
         }
     },
     components: {

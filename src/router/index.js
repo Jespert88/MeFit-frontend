@@ -12,6 +12,7 @@ import SideNavbar from '../components/SideNavbar'
 
 import Profile from '../containers/Profile'
 import Dashboard from '../containers/Dashboard'
+import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
 import ShowOneExercise from '../containers/ShowOneExercise'
 
@@ -58,6 +59,7 @@ export default new Router({
 			children: [
 				/* https://router.vuejs.org/guide/essentials/nested-routes.html */
 				{ path: '/createexercise', component: CreateExercise, props: true },
+				{ path: '/createworkout', component: CreateWorkout, props: true },
 				{ path: '/profile', component: Profile, props: true},
 				{ path:'/showoneexercise', component: ShowOneExercise, props: true}
 			]
