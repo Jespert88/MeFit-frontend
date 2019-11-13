@@ -18,6 +18,13 @@
                     >
                     <button>Create workout</button>
                 </div>
+
+                 <div id="cardGrid">
+                 <!-- <ExerciseCard v-for="user in userArray" :key="user.id" :user="user" @clicked-exerciseCard="addToExerciseArray"/> -->
+                <ExerciseCard v-for="exercise in chosedExerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
+            </div>
+
+
                 <div id="exerciseArrayDiv">
                     <div id="setBtnContainer" v-for="btns in setArray" :key="btns.id">
                         <!-- Subtraction button -->
@@ -29,8 +36,8 @@
                 </div>
             </div>
             <div id="cardGrid">
-                <ExerciseCard v-for="user in userArray" :key="user.id" :user="user" @clicked-exerciseCard="addToExerciseArray"/>
-                <!-- <ExerciseCard v-for="exercise in exerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/> -->
+                 <!-- <ExerciseCard v-for="user in userArray" :key="user.id" :user="user" @clicked-exerciseCard="addToExerciseArray"/> -->
+                <ExerciseCard v-for="exercise in exerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
             </div>
     </form>
   </div>
@@ -44,7 +51,7 @@ export default {
   
 data() {
     return {
-        userArray: [],
+        chosedExerciseArray: [],
         exerciseArray: [],
         setArray: [],
         errors: [],
@@ -54,10 +61,11 @@ data() {
   },
 
   created() {
-    axios.get('https://jsonplaceholder.typicode.com/users')
+      console.log(this.exerciseArray)
+    axios.get('http://localhost:8080/exercises')
     .then(response => {
       // JSON responses are automatically parsed.
-      this.userArray = response.data
+      this.exerciseArray = response.data
     })
     .catch(e => {
       this.errors.push(e)
@@ -84,18 +92,20 @@ data() {
         minusSet: function() {
             if(this.set <= 0) {
                 this.set = 0;
-                console.log(this.set);
             }
             else {
                 this.set -= 1;
             }
         },
-        addToExerciseArray: function(user) {
+        addToExerciseArray: function(exercise) {
+            event.preventDefault()
             /* Push every data you want to save to the array. */
-            this.exerciseArray.push(
-                user.id
+            this.chosedExerciseArray.push(
+                exercise.exerciseId
             )
-            console.log(this.exerciseArray);
+            var pos = this.exerciseArray.indexOf(exercise)
+            this.exerciseArray.splice(pos , 1)
+            console.log(this.chosedExerciseArray);
         }
     },
     components: {

@@ -2,25 +2,26 @@
 <div>
   <div id="formDiv">
       <h3>Create a new exercise</h3>
-      <form id="createExercise" v-on:submit="exerciseCreated">
-          <input type="text" class="inputStyle" placeholder="Name of exercise" v-model="Exercise" id="name" required>
-          <input type="text" class="inputStyle" placeholder="Description" v-model="Description" id="description" required>
-          <input type="text" class="inputStyle" placeholder="Muscle group" v-model="MuscleGroup" id="muscle group" required>
-          <input type="repetitions" class="inputStyle" placeholder="Repetitions" v-model="Repetitions" id="repetitions" required>
-          <button type="submit" class="submitBtn">Create</button>
-      </form>
-  </div>
+      <b-form id="createExercise" @submit="onSubmit">
+            <b-form-group>
+          <b-form-input id="input-1"  type="text" required v-model="name"  placeholder="Enter Name"></b-form-input>
+          </b-form-group>
+           <b-form-group>
+          <b-form-input type="text"  placeholder="Description" v-model="description" id="description" required></b-form-input>
+         </b-form-group>
+           <b-form-group>
+          <b-form-input type="text"  placeholder="Muscle group" v-model="muscleGroup" id="muscle group" required></b-form-input>
+          </b-form-group>
+           <b-form-group>
+          <b-form-input type="text" placeholder="imageLink" v-model="image" id="imageLink" required></b-form-input>
+          </b-form-group>
+           <b-form-group>
+          <b-form-input type="text" placeholder="videoLink" v-model="video" id="videoLink" required></b-form-input>
+  </b-form-group>
 
-<h3>Show a specifik exercise</h3>
-    <div class="card">
-        <br><img src="../assets/pushup.jpg" style="width:80%; height:80%; margin-left: 10%; margin-right: 10%;"><br>
-        <div class="card-body">
-            <h5 class="card-title">Push-ups</h5>
-            <router-link class="link" to="/showexercise">
-            <button class="link">Learn more</button>
-            </router-link>
-        </div>
-    </div>
+          <button type="submit" class="submitBtn">Create</button>
+      </b-form>
+  </div>
 </div>
 </template>
 
@@ -41,18 +42,19 @@ export default {
         exerciseCreated: {}
     },
     methods: {
-        newExerciseCreated: function(event) {
+        onSubmit: function(event) {
             event.preventDefault();
-            console.log(this.name + this.description + this.muscleGroup);
-            axios.post("Url here", {
+            console.log('sending data to database');
+            axios.post("http://localhost:8080/addExercise", {
                 name: this.name,
                 description: this.description,
-                muscleGroup: this.muscleGroup,
-                image: this.image,
-                video: this.video
+                targetMuscle: this.muscleGroup,
+                imageLink: this.image,
+                videoLink: this.video,
             })
             .then ((results) => {
-                if(results.status == 200) {
+                console.log('done nd result is ' + results)
+                if(results.status == 201) {
                     console.log("Status 200. This works!");
                 } else if (results.status == 400) {
                     console.log("Status 400. BAD!");
@@ -82,21 +84,7 @@ export default {
         padding: 2%;
         background: rgba(0, 0, 0, 0.3);
     }
-    .inputStyle {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding: 10px;
-        width: 100%;
-    }
-    .submitBtn {
-        width: 100%;
-        border: 0;
-        margin-top: 8px;
-        padding: 10px;
-        background: rgba(0, 0, 0, 0.4);
-        color: #fff;
-        font-size: 18px;
-    }
+
     h3, h5 {
         color: #3088a0;
         text-align: center;
@@ -106,18 +94,5 @@ export default {
         background-color: transparent;
         color: rgb(255, 255, 255);
     }
-    .card {
-        text-align: center;
-        width: 240px;
-        margin: 10px;
-        background: rgba(0, 0, 0, 0.4);
-    }
 
-/* Mobile */
-@media (min-width: 360px) and (max-width: 600px) {
-} 
-    
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1024px) {  
-} 
 </style>
