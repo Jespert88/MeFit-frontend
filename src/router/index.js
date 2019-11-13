@@ -8,6 +8,7 @@ import Register from '../components/Register'
 import Progress from '../components/Progress'
 import Calender from '../components/Calender'
 import ExerciseCard from '../components/ExerciseCard'
+import WorkoutCard from '../components/WorkoutCard'
 import SideNavbar from '../components/SideNavbar'
 
 import Profile from '../containers/Profile'
@@ -52,6 +53,11 @@ export default new Router({
 			path: "/updateexercise",
 			name: "UpdateExercise",
 			component: UpdateExercise
+		},
+		{
+			path: "/workoutcard",
+			name: "WorkoutCard",
+			component: WorkoutCard
 		},
 		{
 			path: "/sidenavbar",
