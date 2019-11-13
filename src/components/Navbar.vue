@@ -1,33 +1,34 @@
 <template>
 <div>
-    <b-navbar toggleable="lg" type="dark" variant="info" id="TopNavbar">
+
+    <b-navbar toggleable="lg" type="dark" variant="dark" id="TopNavbar">
     <b-navbar-brand href="#" class=".navbar-brand">MeFit</b-navbar-brand>
 
     <!-- Top navbar toggle button -->
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
     <!-- Nav items collapse container -->
     <b-collapse id="nav-collapse" is-nav>
-
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item href="#">
-            <router-link class="nav-link" to="/">
-                <button class="navBtns">Home</button>
-            </router-link>
-        </b-nav-item>
-        <b-nav-item href="#">
-            <router-link class="nav-link" to="/dashboard">
-                <button class="navBtns">Dashboard</button>
-            </router-link>
-        </b-nav-item>
-        <b-nav-item href="#">
-            <router-link class="nav-link" to="/" @click.native="logout">
-                <button class="navBtns">Logout</button>
-            </router-link>
-        </b-nav-item>
-      </b-navbar-nav>
 
+        <b-nav-item>
+            <router-link class="nav-link" to="/"> Home </router-link>
+        </b-nav-item>
+        <b-nav-item> 
+            <router-link class="nav-link" to="/dashboard"> Dashboard </router-link>
+        </b-nav-item>
+
+        <!-- Dropdown menu -->
+        <b-nav-item-dropdown text="User" right  class="nav-link">
+            <b-dropdown-item>
+                <router-link class="drop-links" to="/profile">Profile</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+                <router-link class="drop-links" to="/" @click.native="logout">Logout</router-link>
+            </b-dropdown-item>
+        </b-nav-item-dropdown>
+
+      </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 
@@ -57,31 +58,24 @@
     padding: 0px !important;
     background: rgba(0, 0, 0, 0.5) !important;
 }
-.navBtns {
-    border: 0;
-    background-color: transparent;
-    color: #fff;
-}
-.navBtns:hover {
-    color: #a06efd;
-  text-shadow:0px 0px 5px #a06efd;
-  -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-}
-
 .navbar-brand {
    padding: 10px;
    color: #fff;
    font-weight: bold;
+}
+.nav-link {
+    color: #fff !important;
+}
+/* Dropdown Links */
+.drop-links {
+    color: #000 !important;
 }
 
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
     #TopNavbar {
-        padding: 5px !important;
+        padding: 10px !important;
         background: rgba(0, 0, 0, 0.5) !important;
         text-align: center;
     }
