@@ -1,73 +1,92 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <router-link class="navbar-brand" to="/">
-           MeFit
-        </router-link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
+    <b-navbar toggleable="lg" type="dark" variant="dark" id="TopNavbar">
+    <b-navbar-brand href="#" class=".navbar-brand">MeFit</b-navbar-brand>
 
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/">
-                        <button class="navBtns">Login</button>
-                    </router-link>
-                </li>
+    <!-- Top navbar toggle button -->
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <!-- Nav items collapse container -->
+    <b-collapse id="nav-collapse" is-nav>
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
 
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/dashboard">
-                        <button class="navBtns">Dashboard</button>
-                    </router-link>
-                </li>
+        <b-nav-item>
+            <router-link class="nav-link" to="/"> Home </router-link>
+        </b-nav-item>
+        <b-nav-item> 
+            <router-link class="nav-link" to="/dashboard"> Dashboard </router-link>
+        </b-nav-item>
 
-                <li class="nav-item">
-                    <router-link class="nav-link" to="/" @click.native="logout">
-                        <button class="navBtns">Logout</button>
-                    </router-link>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        <!-- Dropdown menu -->
+        <b-nav-item-dropdown text="User" right  class="nav-link">
+            <b-dropdown-item>
+                <router-link class="drop-links" to="/profile">Profile</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+                <router-link class="drop-links" to="/" @click.native="logout">Logout</router-link>
+            </b-dropdown-item>
+        </b-nav-item-dropdown>
+
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+
+</div>
 </template>
 
 <script>
     export default {
         name: 'NavBar',
-        methods: {
-            logout: function() {
-              
+
+        data () {
+            return {
+                
             }
+        },
+
+        methods: {
+            
         }
     }
 </script>
 
 <style scoped>
 /* Desktop */
-.navbar {
-    text-align: center;
-    background: rgba(0, 0, 0, 0.5);
-}
-.navBtns {
-    border: 0;
-    background-color: transparent;
-    color: #fff;
+#TopNavbar {
+    margin: 0px !important;
+    padding: 0px !important;
+    background: rgba(0, 0, 0, 0.5) !important;
 }
 .navbar-brand {
-   padding: 5px;
+   padding: 10px;
    color: #fff;
    font-weight: bold;
 }
-.navbar-brand:hover {
-   color: rgba(255, 255, 255, 0.555);
+.nav-link {
+    color: #fff !important;
 }
+/* Dropdown Links */
+.drop-links {
+    color: #000 !important;
+}
+
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
+    #TopNavbar {
+        padding: 10px !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        text-align: center;
+    }
 } 
     
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
+    #TopNavbar {
+        padding: 5px !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        text-align: center;
+    }
 } 
 </style>
