@@ -9,13 +9,12 @@
             <p>Age:</p>
             <p>Height:</p>
             <p>Weight:</p>
+            <p>Fitness level:</p>
             <p>Goal:</p>
         </div>
-        <li class="nav-item" >
-          <router-link class="nav-link" to="/editprofile">
-            <button class="navBtns">Edit profile</button>
+          <router-link class="link" to="/editprofile">
+            <button class="link">Edit profile</button>
           </router-link>
-        </li>
         </b-card>
         <b-row cols="12" md="4" xl="4" no-gutters>
           <b-col cols="12" md="6" xl="6" style="background-color: orange;">

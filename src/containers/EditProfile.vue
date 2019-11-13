@@ -1,79 +1,131 @@
 <template>
   <div>
-    <div id="formDiv">
-      <h3>Edit profile</h3>
-      <form id="editProfile" v-on:submit="profileEdited">
-          <input type="text" class="inputStyle" placeholder="Name" v-model="Name" id="name" required>
-          <input type="text" class="inputStyle" placeholder="Age" v-model="Age" id="age" required>
-          <input type="text" class="inputStyle" placeholder="Height" v-model="Height" id="height">
-          <input type="text" class="inputStyle" placeholder="Weight" v-model="Weight" id="Weight">
-          <input type="text" class="inputStyle" placeholder="Fitness level" v-model="FitnessLvl" id="fitnesslevel" required>
-          <input type="text" class="inputStyle" placeholder="Goal" v-model="Height" id="goal">
-          <button type="submit" class="submitBtn">Edit</button>
-      </form>
+      <h2>Edit you personal information</h2>
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <div id="editForm">
+      <b-form-group
+        id="input-group-1"
+        label="Email address:"
+        label-for="input-1"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.email"
+          type="email"
+          required
+          placeholder="Email"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Name:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          required
+          placeholder="Enter name"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-3" label="Change password:" label-for="input-2">
+        <b-form-input
+          id="input-3"
+          v-model="form.password"
+          required
+          placeholder="Change password"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-4" label="Fitness level:" label-for="input-3">
+        <b-form-select
+          id="input-4"
+          v-model="form.fitnesslevel"
+          :options="fitnesslevel"
+          required
+        ></b-form-select>
+      </b-form-group>
+
+      <b-form-group id="input-group-5" label="Height" label-for="input-2">
+        <b-form-input
+          id="input-5"
+          v-model="form.height"
+          :options="height"
+          required
+          placeholder="Height in cm"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-6" label="Weight" label-for="input-2">
+        <b-form-input
+          id="input-6"
+          v-model="form.weight"
+          :options="weight"
+          required
+          placeholder="Weight in kg"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-button type="submit" variant="dark">Save</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
+      </div>
+    </b-form>
+    <!-- <b-card class="mt-3" header="Form Data Result">
+      <pre class="m-0">{{ form }}</pre>
+    </b-card> -->
     </div>
-  </div>
 </template>
+ Therefore, a user who logs in without a profile must be directed to a profile creation form which includes:
+
+• Insertion of relevant details.
+• A fitness level evaluation based on these details which will be used to limit goals.
+• Allow the option of submitting a request to be a contributor.
+• Change profile picture.
 
 <script>
-import axios from 'axios'
-export default {
-    name: "Edit Profile",
+  export default {
     data() {
-        return {
-            name: "",
-            age: "",
-            height: "",
-            weight: "",
-            fitnesslevel: "",
-            goal: ""
-        }
-    },
-    props: {
-        editProfile: {}
+      return {
+        form: {
+          email: '',
+          name: '',
+          fitnesslevel: null,
+          checked: []
+        },
+        fitnesslevel: [{ text: 'Select your fitnesslevel', value: null }, 'Newbie', 'Average', 'Fit', 'Professional'],
+        show: true
+      }
     },
     methods: {
-        newEdit: function(event) {
-            event.preventDefault();
-            console.log(this.name + this.age + this.height +  this.weight + this.fitnesslevel + this.goal);
-            axios.post("Url here", {
-                name: this.name,
-                age: this.age,
-                height: this.height,
-                weight: this.weight,
-                fitnesslevel: this.fitnesslevel,
-                goal: this.goal
-            })
-            .then ((results) => {
-                if(results.status == 200) {
-                    console.log("Status 200. This works!");
-                } else if (results.status == 400) {
-                    console.log("Status 400. BAD!");
-                } else if (results.status == 401) {
-                    console.log("Status 404. Whata!");
-                }
-            })
-            .catch ((e) => {
-                console.log("Exception: ",  e)
-            })
-        }
+      onSubmit(evt) {
+        evt.preventDefault()
+        alert(JSON.stringify(this.form))
+      },
+      onReset(evt) {
+        evt.preventDefault()
+        // Reset our form values
+        this.form.email = ''
+        this.form.name = ''
+        this.form.food = null
+        this.form.checked = []
+        // Trick to reset/clear native browser form validation state
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        })
+      }
     }
-}
+  }
 </script>
 
 <style scoped>
 /* Desktop */
-    p {
-        color: #fff;
-        font-size: 20px;
-    }
-    #formDiv {
+    #editForm {
         margin: 1%;
         margin-right: 37%;
         margin-left: 37%;
         margin-bottom: 5%;
         padding: 2%;
         background: rgba(0, 0, 0, 0.3);
+        color: aliceblue;
     }
     .inputStyle {
         margin-top: 5px;
@@ -90,7 +142,7 @@ export default {
         color: #fff;
         font-size: 18px;
     }
-    h3, h5 {
+    h2 {
         color: #3088a0;
         text-align: center;
     }
@@ -104,6 +156,10 @@ export default {
         width: 240px;
         margin: 10px;
         background: rgba(0, 0, 0, 0.4);
+    }
+
+    button {
+        margin: 3px;
     }
 
 /* Mobile */

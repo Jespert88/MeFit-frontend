@@ -53,7 +53,7 @@ export default new Router({
 			component: SideNavbar
 		},
 		{
-			path: "/edit",
+			path: "/editprofile",
 			name: "EditProfile",
 			component: EditProfile,
 		},

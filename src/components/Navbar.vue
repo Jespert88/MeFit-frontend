@@ -23,6 +23,12 @@
                     </router-link>
                 </li>
 
+                <li class="nav-item" >
+                    <router-link class="nav-link" to="/profile">
+                        <button class="navBtns">Profile</button>
+                    </router-link>
+                </li>
+
                 <li class="nav-item">
                     <router-link class="nav-link" to="/" @click.native="logout">
                         <button class="navBtns">Logout</button>
