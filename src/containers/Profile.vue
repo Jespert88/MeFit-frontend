@@ -12,6 +12,10 @@
             <p>Fitness level:</p>
             <p>Goal:</p>
         </div>
+          <router-link class="link" to="/editprofilepicture">
+            <button class="link">Edit profile picture</button>
+          </router-link>
+
           <router-link class="link" to="/editprofile">
             <button class="link">Edit profile</button>
           </router-link>

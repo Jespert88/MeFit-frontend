@@ -12,6 +12,7 @@ import SideNavbar from '../components/SideNavbar'
 
 import Profile from '../containers/Profile'
 import EditProfile from '../containers/EditProfile'
+import EditProfilePicture from '../containers/EditProfilePicture'
 import Dashboard from '../containers/Dashboard'
 import CreateExercise from '../containers/CreateExercise'
 import ShowOneExercise from '../containers/ShowOneExercise'
@@ -56,6 +57,11 @@ export default new Router({
 			path: "/editprofile",
 			name: "EditProfile",
 			component: EditProfile,
+		},
+		{
+			path: "/editprofilepicture",
+			name: "EditProfilePicture",
+			component: EditProfilePicture,
 		},
 		{
 			path: "/dashboard",

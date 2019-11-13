@@ -44,7 +44,7 @@
         ></b-form-select>
       </b-form-group>
 
-      <b-form-group id="input-group-5" label="Height" label-for="input-2">
+      <b-form-group id="input-group-5" label="Height:" label-for="input-2">
         <b-form-input
           id="input-5"
           v-model="form.height"
@@ -54,7 +54,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-6" label="Weight" label-for="input-2">
+      <b-form-group id="input-group-6" label="Weight:" label-for="input-2">
         <b-form-input
           id="input-6"
           v-model="form.weight"
@@ -73,12 +73,6 @@
     </b-card> -->
     </div>
 </template>
- Therefore, a user who logs in without a profile must be directed to a profile creation form which includes:
-
-• Insertion of relevant details.
-• A fitness level evaluation based on these details which will be used to limit goals.
-• Allow the option of submitting a request to be a contributor.
-• Change profile picture.
 
 <script>
   export default {
