@@ -1,28 +1,30 @@
 <template>
 <div>
-
+    <div v-if="loading" class="loading">
+      Loading...
+    </div>
     <b-row no-gutters>
     <b-col></b-col>
 
       <b-col cols="10" md="6" xl="4">
             <h1 class="updateExerciseTitle">Update exercise</h1>
-            <b-form id="updateExercise">
+            <b-form @submit="submitUpdate" id="updateExercise">
                 <b-form-group>
-                    <b-form-input id="input-1" type="text" v-model="name" :placeholder="name" required></b-form-input>
+                    <b-form-input id="input-1" type="text" v-model="name" :placeholder="name || 'name' " required></b-form-input>
                 </b-form-group>
                 <b-form-group>
-                    <b-form-input type="text" v-model="description" id="description" :placeholder="description" required></b-form-input>
+                    <b-form-input type="text" v-model="description" id="description" :placeholder="description || 'description'" required></b-form-input>
                 </b-form-group>
                 <b-form-group>
-                    <b-form-input type="text" v-model="muscleGroup" id="muscle group" :placeholder="muscleGroup" required></b-form-input>
+                    <b-form-input type="text" v-model="muscleGroup" id="muscle group" :placeholder="muscleGroup|| 'muscleGroup'"  required></b-form-input>
                 </b-form-group>
                 <b-form-group>
-                    <b-form-input type="text" v-model="image" id="imageLink" :placeholder="image" required></b-form-input>
+                    <b-form-input type="text" v-model="image" id="imageLink" :placeholder="image || 'image'" required></b-form-input>
                 </b-form-group>
                 <b-form-group>
-                    <b-form-input type="text" v-model="video" id="videoLink" :placeholder="video" required></b-form-input>
+                    <b-form-input type="text" v-model="video" id="videoLink" :placeholder="video || 'video'" required></b-form-input>
                 </b-form-group>
-                <button class="updateBtn" @click="submitUpdate()">Update exercise</button>
+                <button class="updateBtn" type="submit" >Update exercise</button>
             </b-form>
       </b-col>
 
@@ -42,8 +44,13 @@ export default {
             description: "",
             muscleGroup: "",
             image: "",
-            video: ""
+            video: "",
+            error :"",
+            loading : false,
         }
+    },
+    created(){
+       this.fetchingData()
     },
     props: {
         
@@ -51,24 +58,23 @@ export default {
     methods: {
 
         /* Get data from api when this container is created */
-        created: function() {
-            console.log("Got data from api..")
-             axios.get("http://localhost:8080/exercises/1", {
-                    name: this.name,
-                    description: this.description,
-                    targetMuscle: this.muscleGroup,
-                    imageLink: this.image,
-                    videoLink: this.video,
-                })
+        fetchingData: function() {
+            this.error = this.post = null
+            this.loading = true
+             axios.get("http://localhost:8080/exercises/1")
                 .then((results) => {
-                    console.log(results)
-                    console.log('done nd result is ' + results)
-                    if (results.status == 201) {
-                        console.log("Status 201. Got data");
+                    this.loading = false
+                    this.name= results.data.name
+                    this.description=results.data.description
+                    this.muscleGroup=results.data.targetMuscle
+                    this.image = results.data.imageLink
+                    this.video = results.data.videoLink          
+                    if (results.status == 202) {
+                        console.log("Status 202. Got data");
                     } else if (results.status == 400) {
-                        console.log("Status 400. Something went wrong..");
+                        console.log("Status 400. Unauthorized");
                     } else if (results.status == 401) {
-                        console.log("Status 404. Something went wrong..");
+                        console.log("Status 404. not found");
                     }
                 })
                 .catch((e) => {
@@ -80,7 +86,7 @@ export default {
         submitUpdate: function (event) {
             event.preventDefault();
             console.log('sending data to database');
-            axios.post("End point url here!/exercises/1", {
+            axios.patch("http://localhost:8080/exercises/1", {
                     name: this.name,
                     description: this.description,
                     targetMuscle: this.muscleGroup,
