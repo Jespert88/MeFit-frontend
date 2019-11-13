@@ -1,92 +1,86 @@
 <template>
-<div>
+<div id="workoutCardContainer">
 
     <!-- Workout Card -->
-    <b-card
-    title="Workout Card"
-    style="max-width: 20rem;"
-    class="mb-2"
-    >
-    <h5>Type here</h5><br>
-    <!-- Exercise Cars -->
-    <div role="tablist">
-        <b-card no-body class="mb-1">
+    <b-card>
+        <h3 style="text-align: center;">Workout name here</h3>
+        <h5 style="text-align: center;">Type here</h5><br>
 
-            <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block href="#" v-b-toggle.accordion-1 variant="info">Accordion 2</b-button>
-            </b-card-header>
+        <!-- Div with all exercisecards -->
+        <div role="tablist">
+            <b-card no-body class="mb-1">
 
-            <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
-                <b-card-body>
-                    <b-card title="Card Title" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
-                        <b-card-text>
-                            Some quick example text to build on the card title and make up the bulk of the card's content.
-                        </b-card-text>
+                <!-- Exercise card 1 -->
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                    <b-button block href="#" v-b-toggle.accordion-1> Exercise 1 </b-button>
+                </b-card-header>
 
-                        <b-button href="#" variant="primary">Go somewhere</b-button>
-                    </b-card>
-                </b-card-body>
-            </b-collapse>
+                <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+                    <Exercisecard />
+                </b-collapse>
 
-        </b-card>
+                <!-- Exercise card 2 -->
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                    <b-button block href="#" v-b-toggle.accordion-2> Exercise 2 </b-button>
+                </b-card-header>
 
-        <b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block href="#" v-b-toggle.accordion-2 variant="info">Accordion 2</b-button>
-            </b-card-header>
-            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-                <b-card-body>
-                    <b-card title="Card Title" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
-                        <b-card-text>
-                            Some quick example text to build on the card title and make up the bulk of the card's content.
-                        </b-card-text>
+                <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+                   <Exercisecard />
+                </b-collapse>
+            </b-card>
 
-                        <b-button href="#" variant="primary">Go somewhere</b-button>
-                    </b-card>
-                </b-card-body>
-            </b-collapse>
-        </b-card>
-
-        <b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block href="#" v-b-toggle.accordion-3 variant="info">Accordion 3</b-button>
-            </b-card-header>
-            <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-                <b-card-body>
-
-                    <b-card title="Card Title" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
-                        <b-card-text>
-                            Some quick example text to build on the card title and make up the bulk of the card's content.
-                        </b-card-text>
-
-                        <b-button href="#" variant="primary">Go somewhere</b-button>
-                    </b-card>
-                </b-card-body>
-            </b-collapse>
-        </b-card>
-    </div>
-
-
-  </b-card>
-
-
-
-    
-
+        </div>
+    </b-card>
 
 </div>
 </template>
 
 <script>
+import Exercisecard from '../components/ExerciseCard'
 export default {
+    name: "WorkoutCard",
+    components: {
+        Exercisecard
+    },
     data() {
         return {
 
         }
-    }
+    },
+    methods: {
+
+    },
 }
 </script>
 
 <style scoped>
 
+/* Desktop CSS */
+#workoutCardContainer {
+    margin-top: 5%;
+    margin-right: 40%;
+    margin-left: 40%;
+    margin-bottom: 5%;
+}
+title {text-align: center !important;}
+
+/* Mobile */
+@media (min-width: 360px) and (max-width: 600px) {
+    #workoutCardContainer {
+        margin-top: 20%;
+        margin-right: 10%;
+        margin-left: 10%;
+        margin-bottom: 5%;
+    }
+} 
+    
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #workoutCardContainer {
+        margin-top: 20%;
+        margin-right: 20%;
+        margin-left: 20%;
+        margin-bottom: 5%;
+    }
+} 
 </style>
