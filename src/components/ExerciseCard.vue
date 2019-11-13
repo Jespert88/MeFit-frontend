@@ -13,13 +13,18 @@
             <p>Total repetitions: {{ exercise.imageLink }}</p>
             <!-- <p>Total repetitions: {{ exercise.targetMuscle }}</p>
             <p>Total repetitions: {{ exercise.videoLink }}</p> -->
-            <div v-if ="!exercise.toChooseReps" id="repBtnContainer">
-                <!-- Subtraction button -->
-                <button class="repBtns" @click="minus"> - </button>
-                <!-- <button class="repBtns" v-on:click="repetitions -= 1">-</button> -->
-                <!-- Add button -->
-                <button class="repBtns" @click="add"> + </button>
-            </div>
+            <b-input-group v-if="!exercise.toSelectReps">
+                Reps : 
+              <b-input  id="input-1"  type="number" required v-model="reps"  placeholder="">Repetions</b-input>
+              </b-input-group>   
+               <b-input-group v-if="!exercise.toSelectSets">
+                Sets : 
+            <b-input  id="input-1"  type="number" required v-model="sets"  placeholder="">Sets</b-input>
+              </b-input-group>
+            <!-- <b-input v-if="!exercise.toSelectReps" id="input-1"  type="number" required v-model="reps"  placeholder="">Repetions</b-input> -->
+            <!-- <b-input v-if="!exercise.toSelectSets" id="input-1"  type="number" required v-model="sets"  placeholder="">Sets</b-input> -->
+
+
         </div>
     </div>
     <button  v-if ="!exercise.toBeSelected"  type="submit" class="submitBtn" @click="addExerciseObj(exercise)">Select Exercise</button>
@@ -34,33 +39,36 @@
 export default {
     data() {
         return{
-            repetitions: 0,
+            reps: 0,
+            sets:0,
         }
     },
 
     props: {
-        exercise: {},
+        exercise: {}
      
     },
 
     methods: {
 
-        /* For repetitions */
-        add: function() {
-            this.repetitions += 1;
-        },
-        minus: function() {
-            if(this.repetitions <= 0) {
-                this.repetitions = 0;
-                console.log(this.repetitions);
-            }
-            else {
-                this.repetitions -= 1;
-            }
-        },
+        // /* For repetitions */
+        // add: function() {
+        //     this.repetitions += 1;
+        // },
+        // minus: function() {
+        //     if(this.repetitions <= 0) {
+        //         this.repetitions = 0;
+        //         console.log(this.repetitions);
+        //     }
+        //     else {
+        //         this.repetitions -= 1;
+        //     }
+        // },
 
          /* Add exercise to exerciseArray */
         addExerciseObj: function(exercise) {
+            exercise.sets =this.sets
+            exercise.reps= this.reps
             /* let result = this.exerciseArray.map(({ id }) => id) */
             this.$emit("clicked-exerciseCard", exercise)
             // pass a function to map
