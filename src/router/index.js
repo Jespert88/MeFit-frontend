@@ -13,6 +13,7 @@ import SideNavbar from '../components/SideNavbar'
 import Profile from '../containers/Profile'
 import Dashboard from '../containers/Dashboard'
 import CreateExercise from '../containers/CreateExercise'
+import UpdateExercise from '../containers/UpdateExercise'
 import ShowOneExercise from '../containers/ShowOneExercise'
 
 Vue.use(Router)
@@ -45,6 +46,11 @@ export default new Router({
 			path: "/exercisecard",
 			name: "ExerciseCard",
 			component: ExerciseCard
+		},
+		{
+			path: "/updateexercise",
+			name: "UpdateExercise",
+			component: UpdateExercise
 		},
 		{
 			path: "/sidenavbar",
