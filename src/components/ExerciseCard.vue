@@ -1,5 +1,6 @@
 
 
+
  <template>
 
   <b-card  
@@ -33,9 +34,10 @@
 
 
 <script>
-
 export default {
+    name: "ExerciseCard",
     data() {
+
         return{
             reps: 0,
             sets:0,
@@ -74,9 +76,7 @@ export default {
 
             console.log(map1); */
         },
-
-        removeExerciseObj: function() {
-        }
     }
 }
 </script>
+

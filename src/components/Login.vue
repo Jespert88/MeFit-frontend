@@ -1,8 +1,8 @@
 <template>
 <div>
 
- <div id="loginDiv">
-    <form id="loginForm" v-on:submit="userLoggedIn">
+ <div id="loginContainer">
+    <form v-on:submit="userLoggedIn">
         <input type="email" class="inputStyle" placeholder="Enter email"  v-model="email" id="email" required>
         <input type="password" class="inputStyle" placeholder="Password"  v-model="password" id="password" required >
         <button type="submit" class="submitBtn">Login</button>
@@ -12,7 +12,6 @@
             <button class="submitBtn">Create a account</button>
         </router-link>
      </form> 
-
 </div>
 
 </div>
@@ -42,71 +41,47 @@ export default {
                 password: this.password
             })
             .then((results) => {
-                if(results.status == 201) {
-                    console.log("201 all is okey");
-                    /* If the user exsist get status code 200 and then the user will be sent to user dashboard page. */
+                if(results.status == 202) {
+                    console.log("Status 202: Request accepted..");
                 }
                 else if (results.status == 400) {
-                    console.log("400 bad request");
-                    /* This needs to be for inputting like wrong password or email or only one of them. */
+                    console.log("Status 400: Bad request..");
                 }
                 else if (results.status == 404) {
-                    console.log("yo");
+                    console.log("Status 404: Not Found..");
                 }
             }).catch((e) => {
                 console.log('Exception: ', e)
-                /* if(results.email != email) {
-                    alert("Wrong email, try again")
-                }
-                else if(resluts.password != password) {
-                    alert("Wrong password, try again")
-                } */
             })
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 /* Desktop */
-    p {
-        color: #fff;
-        font-size: 20px;
-    }
-    #loginDiv {
-        margin: 10%;
-        margin-right: 37%;
-        margin-left: 37%;
-        margin-bottom: 5%;
-        padding: 2%;
-        background: rgba(0, 0, 0, 0.3);
-    }
-    .inputStyle {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding: 10px;
-        width: 100%;
-    }
-    .submitBtn {
-        width: 100%;
-        border: 0;
-        margin-top: 8px;
-        padding: 10px;
-        background: rgba(0, 0, 0, 0.4);
-        color: #fff;
-        font-size: 18px;
-    }
-    .hrStyle {
-        background-color: #000;
-        box-shadow: 1px 1px 1px #fff;
-        opacity: 0.2;
-    }
+  #loginContainer {
+      margin-top: 10%;
+      margin-right: 40%;
+      margin-left: 40%;
+      margin-bottom: 5%;
+  }
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
+     #loginContainer {
+      margin-top: 20%;
+      margin-right: 10%;
+      margin-left: 10%;
+      margin-bottom: 5%;
+  }
 } 
-    
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
-    
+     #loginContainer {
+      margin-top: 20%;
+      margin-right: 25%;
+      margin-left: 25%;
+      margin-bottom: 5%;
+  }
 } 
 </style>
