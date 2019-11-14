@@ -29,9 +29,6 @@
                         <button class="navBtns">Logout</button>
                     </router-link>
                 </li>
-            </ul>
-        </div>
-    </nav>
         <!-- Dropdown menu -->
         <b-nav-item-dropdown text="User" right  class="nav-link">
             <b-dropdown-item>
