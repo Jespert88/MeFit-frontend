@@ -14,7 +14,9 @@ import Profile from '../containers/Profile'
 import EditProfile from '../containers/EditProfile'
 import EditProfilePicture from '../containers/EditProfilePicture'
 import Dashboard from '../containers/Dashboard'
+import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
+import UpdateExercise from '../containers/UpdateExercise'
 import ShowOneExercise from '../containers/ShowOneExercise'
 
 Vue.use(Router)
@@ -49,6 +51,11 @@ export default new Router({
 			component: ExerciseCard
 		},
 		{
+			path: "/updateexercise",
+			name: "UpdateExercise",
+			component: UpdateExercise
+		},
+		{
 			path: "/sidenavbar",
 			name: "SideNavbar",
 			component: SideNavbar
@@ -70,6 +77,7 @@ export default new Router({
 			children: [
 				/* https://router.vuejs.org/guide/essentials/nested-routes.html */
 				{ path: '/createexercise', component: CreateExercise, props: true },
+				{ path: '/createworkout', component: CreateWorkout, props: true },
 				{ path: '/profile', component: Profile, props: true},
 				{ path:'/showoneexercise', component: ShowOneExercise, props: true}
 			]

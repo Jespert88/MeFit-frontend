@@ -6,7 +6,7 @@
       <SideNavbar :parentmessage="parentmessage"/>
     </b-col>
     <b-col cols="12" md="10" xl="10">
-      <router-view />
+      <router-view id="routerView"/>
     </b-col>
     <b-col cols="12" md="1" xl="1"></b-col>
   </b-row>
@@ -19,7 +19,6 @@
      <!--  <button @click="toggleSidebar()" class="btn btn-info">Send Child A Message</button> -->
      <!--  <SideNavbar :parentmessage="parentmessage"/> -->
 
-      
    <!--  
     </div>
     <div class="col-sm-12 col-md-8 col-xl-9">
@@ -58,6 +57,11 @@ export default {
 </script>
 
 <style>
+
+#routerView {
+  margin-top: 2%;
+}
+
 /* burger */
 
 .hidden {
@@ -138,5 +142,19 @@ button:focus {
 
 #burger.active .burger-bar--3 {
   transform: rotate(-45deg)
+}
+
+/* Mobile */
+@media (min-width: 360px) and (max-width: 600px) {
+  #routerView {
+    margin-top: 0%;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  #routerView {
+  margin-top: 5%;
+}
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
 <div>
+
     <!-- Sidebar Toggler button -->
     <button id="openSidenav" @click="openNav()"> &#9776; </button>
    
@@ -17,8 +18,14 @@
                     <button class="sideNavBtns" @click="closeNav()">Create Exercise</button>
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/createworkout">
+                    <button class="sideNavBtns" @click="closeNav()">Create Workout</button>
+                </router-link>
+            </li>
         </ul>
     </div>
+
 </div>
 </template>
 
@@ -40,6 +47,7 @@ export default {
 </script>
 
 <style>
+/* Desktop CSS */
 .sidenav {
     height: 100%;
     width: 0;
@@ -92,15 +100,10 @@ export default {
     /* margin-left: 50px; */
 }
 
-@media screen and (max-height: 450px) {
-    
-}
-
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
 
 }
-
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
 

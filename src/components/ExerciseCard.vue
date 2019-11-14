@@ -4,22 +4,30 @@
   <div id="CardBody">
     <img src="https://source.unsplash.com/random/400x200" class="img-fluid">
      <!-- <img :src="getImgUrl(pic)" v-bind:alt="pic"> -->
-    <h1 class="cardTitle">{{ user.name }}</h1>
+    <h1 class="cardTitle">{{ exercise.name }}</h1>
     <hr class="hrStyle">
 
     <div class="descDiv">
         <div id="repContainer">
-            <p>Total repetitions: {{ repetitions }}</p>
-            <div id="repBtnContainer">
-                <!-- Subtraction button -->
-                <button class="repBtns" @click="minus"> - </button>
-                <!-- <button class="repBtns" v-on:click="repetitions -= 1">-</button> -->
-                <!-- Add button -->
-                <button class="repBtns" @click="add"> + </button>
-            </div>
+            <p>Total repetitions: {{ exercise.description }}</p>
+            <p>Total repetitions: {{ exercise.imageLink }}</p>
+            <!-- <p>Total repetitions: {{ exercise.targetMuscle }}</p>
+            <p>Total repetitions: {{ exercise.videoLink }}</p> -->
+            <b-input-group v-if="!exercise.toSelectReps">
+                Reps : 
+              <b-input  id="input-1"  type="number" required v-model="reps"  placeholder="">Repetions</b-input>
+              </b-input-group>   
+               <b-input-group v-if="!exercise.toSelectSets">
+                Sets : 
+            <b-input  id="input-1"  type="number" required v-model="sets"  placeholder="">Sets</b-input>
+              </b-input-group>
+            <!-- <b-input v-if="!exercise.toSelectReps" id="input-1"  type="number" required v-model="reps"  placeholder="">Repetions</b-input> -->
+            <!-- <b-input v-if="!exercise.toSelectSets" id="input-1"  type="number" required v-model="sets"  placeholder="">Sets</b-input> -->
+
+
         </div>
     </div>
-    <button type="submit" class="submitBtn" @click="addExerciseObj(user)">Select Exercise</button>
+    <button  v-if ="!exercise.toBeSelected"  type="submit" class="submitBtn" @click="addExerciseObj(exercise)">Select Exercise</button>
     <!-- <button class="subminBtn" @click="addExerciseObj(exercise)">Select Exercise</button> -->
   </div>
 
@@ -31,34 +39,38 @@
 export default {
     data() {
         return{
-            repetitions: 0
+            reps: 0,
+            sets:0,
         }
     },
 
     props: {
-        user: {}
+        exercise: {}
+     
     },
 
     methods: {
 
-        /* For repetitions */
-        add: function() {
-            this.repetitions += 1;
-        },
-        minus: function() {
-            if(this.repetitions <= 0) {
-                this.repetitions = 0;
-                console.log(this.repetitions);
-            }
-            else {
-                this.repetitions -= 1;
-            }
-        },
+        // /* For repetitions */
+        // add: function() {
+        //     this.repetitions += 1;
+        // },
+        // minus: function() {
+        //     if(this.repetitions <= 0) {
+        //         this.repetitions = 0;
+        //         console.log(this.repetitions);
+        //     }
+        //     else {
+        //         this.repetitions -= 1;
+        //     }
+        // },
 
          /* Add exercise to exerciseArray */
-        addExerciseObj: function(user) {
+        addExerciseObj: function(exercise) {
+            exercise.sets =this.sets
+            exercise.reps= this.reps
             /* let result = this.exerciseArray.map(({ id }) => id) */
-            this.$emit("clicked-exerciseCard", user)
+            this.$emit("clicked-exerciseCard", exercise)
             // pass a function to map
             /* const map1 = this.exerciseArray.map(x => x * 2);
 
