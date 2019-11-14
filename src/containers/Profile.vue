@@ -50,6 +50,10 @@ export default {
 
 <style>
 /* Desktop */
+p {
+font-size: 16px;
+}
+
 #descriptionContainer > p {
   color: black;
   font-size: 14px;
@@ -59,10 +63,6 @@ export default {
   color: #3088a0;
   text-align: center;
 }
-p {
-font-size: 16px;
-}
-
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {}
