@@ -1,6 +1,14 @@
 <template>
-  <div>
-    <form>
+
+
+<div>
+       <Loading v-if="!loading"/>
+
+        <div v-if="errors">
+        <b-alert v-for="error in errors" :key="error" show variant="danger">{{error}}</b-alert>
+        </div>
+      
+    <form v-if="loading">
             <div id="workoutContainer">
                 <h1 id="bodyTitle">Create your workout</h1>
                 <h1 id="workoutTitle">{{name}}</h1>
@@ -23,20 +31,9 @@
                 <ExerciseCard v-for="exercise in chosedExerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
 
             </div>
-
-
-                <div id="exerciseArrayDiv">
-                    <div id="repBtnContainer" v-for="btns in setArray" :key="btns.id">
-                        <!-- Subtraction button -->
-                        <button class="setBtns" v-on:click-exerciseCard="minusRep">-</button>
-                        <!-- Add button -->
-                        <button class="setBtns" v-on:click-exerciseCard="addRep">+</button>
-                    </div>
-                    <!-- Display all of the selected object exercises with buttons for add how many sets -->
-                </div>
             </div>
             <div id="cardGrid">
-                <ExerciseCard v-for="exercise in exerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"></ExerciseCard>
+                <ExerciseCard v-for="exercise in exerciseArray" :key="exercise.id" :exercise="exercise"  @clicked-exerciseCard="addToExerciseArray"></ExerciseCard>
             </div>
     </form>
   </div>
@@ -44,6 +41,7 @@
 
 <script>
 import ExerciseCard from '../components/ExerciseCard.vue'
+import Loading from '../components/Loading.vue'
 import axios from 'axios';
 
 export default {
@@ -52,35 +50,27 @@ data() {
     return {
         chosedExerciseArray: [],
         exerciseArray: [],
+        chosedExercisesIds:[],
         setArray: [],
         errors: [],
         name: "",
         type: "",
+        profileId :"",
+        loading : false,
     }
   },
 
   created() {
+    this.loading= true
     axios.get('http://localhost:8080/exercises')
     .then(response => {
+        this.loading= false
       // JSON responses are automatically parsed.
       this.exerciseArray = response.data
     })
     .catch(e => {
       this.errors.push(e)
     })
-   
-
-    // this.exerciseArray.forEach(exercise => {
-      
-    // })
-    /* async / await version (created() becomes async created())
-    
-    try {
-      const response = await axios.get('https://api.exchangeratesapi.io/latest)
-      this.posts = response.data
-    } catch (e) {
-      this.errors.push(e)
-    } */
     },
 
     props: {
@@ -88,45 +78,55 @@ data() {
     },
     methods: {
 
-         /* For set */
-        addRep: function(event) {
-            event.preventDefault()
-            this.set += 1;
-        },
-        minusRep: function(event) {
-            if(this.set <= 0) {
-                this.set = 0;
-            }
-            else {
-                this.set -= 1;
-            }
-             event.preventDefault()
-        },
         addToExerciseArray: function(exercise) {
+        
         exercise.toBeSelected= true
+        exercise.toSelectReps = true
+        exercise.toSelectSets = true
         exercise.toChooseReps = true
             /* Push every data you want to save to the array. */
             this.chosedExerciseArray.push(
                 exercise
             )
+
+            this.chosedExercisesIds.push(
+                exercise.exerciseId
+            )
+
             var pos = this.exerciseArray.indexOf(exercise)
             this.exerciseArray.splice(pos , 1)
-            console.log(this.chosedExerciseArray[0]);
+            console.log(this.chosedExerciseArray);
             event.preventDefault()
 
-        }
-        , createWorkout : function(){
+        },
+         createWorkout : function(){
+             this.loading= true
+            event.preventDefault()
+            console.log(this.chosedExerciseArray)
             axios.post('http://localhost:8080/addWorkout',{
                 name : this.name,
                 type : this.type,
-
-
-            })
+                exercises :this.chosedExerciseArray
+            }).then((results) => {
+                    this.loading=false;
+                    console.log(results)
+                    if (results.status == 201) {
+                        console.log("Status 201. Created!");
+                    } else if (results.status == 400) {
+                        console.log("Status 400. Bad Request..");
+                    } else if (results.status == 401) {
+                        console.log("Status 404. Not Found..");
+                    }
+                })
+                .catch((e) => {
+                    console.log("Exception: ", e)
+                })
 
         }
     },
     components: {
-        ExerciseCard
+        ExerciseCard,
+        Loading
     }
 }
 </script>
@@ -152,7 +152,6 @@ data() {
 #workoutContainer {
     margin: 5%;
     padding: 3%;
-    background-color: #fff;
 }
 #workoutTitle {
     text-align: center;
@@ -172,7 +171,6 @@ data() {
 }
 
 #cardGrid {
-    background-color: #f2f2f2;
     margin: 5%;
     padding: 10px;
     display: grid;
