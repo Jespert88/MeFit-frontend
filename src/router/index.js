@@ -11,6 +11,8 @@ import ExerciseCard from '../components/ExerciseCard'
 import SideNavbar from '../components/SideNavbar'
 
 import Profile from '../containers/Profile'
+import EditProfile from '../containers/EditProfile'
+import EditProfilePicture from '../containers/EditProfilePicture'
 import Dashboard from '../containers/Dashboard'
 import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
@@ -57,6 +59,16 @@ export default new Router({
 			path: "/sidenavbar",
 			name: "SideNavbar",
 			component: SideNavbar
+		},
+		{
+			path: "/editprofile",
+			name: "EditProfile",
+			component: EditProfile,
+		},
+		{
+			path: "/editprofilepicture",
+			name: "EditProfilePicture",
+			component: EditProfilePicture,
 		},
 		{
 			path: "/dashboard",

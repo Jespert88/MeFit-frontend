@@ -9,8 +9,16 @@
             <p>Age:</p>
             <p>Height:</p>
             <p>Weight:</p>
+            <p>Fitness level:</p>
             <p>Goal:</p>
         </div>
+          <router-link class="link" to="/editprofilepicture">
+            <button class="link">Edit profile picture</button>
+          </router-link>
+
+          <router-link class="link" to="/editprofile">
+            <button class="link">Edit profile</button>
+          </router-link>
         </b-card>
         <b-row cols="12" md="4" xl="4" no-gutters>
           <b-col cols="12" md="6" xl="6" style="background-color: orange;">

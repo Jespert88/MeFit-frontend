@@ -18,6 +18,20 @@
             <router-link class="nav-link" to="/dashboard"> Dashboard </router-link>
         </b-nav-item>
 
+                <li class="nav-item" >
+                    <router-link class="nav-link" to="/profile">
+                        <button class="navBtns">Profile</button>
+                    </router-link>
+                </li>
+
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/" @click.native="logout">
+                        <button class="navBtns">Logout</button>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+    </nav>
         <!-- Dropdown menu -->
         <b-nav-item-dropdown text="User" right  class="nav-link">
             <b-dropdown-item>
