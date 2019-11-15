@@ -11,8 +11,8 @@ import ExerciseCard from '../components/ExerciseCard'
 import WorkoutCard from '../components/WorkoutCard'
 import SideNavbar from '../components/SideNavbar'
 
-import EditProfile from '../containers/EditProfile'
-import EditProfilePicture from '../containers/EditProfilePicture'
+// import EditProfile from '../containers/EditProfile'
+// import EditProfilePicture from '../containers/EditProfilePicture'
 import Profile from '../containers/Profile'
 import Dashboard from '../containers/Dashboard'
 import CreateWorkout from '../containers/CreateWorkout'
@@ -70,7 +70,13 @@ export default new Router({
 		{
 			path: "/workoutcard",
 			name: "WorkoutCard",
-			component: WorkoutCard
+			component: WorkoutCard,
+			beforeEnter:authGuard
+		},
+		{
+			path: "/updateworkout",
+			name: "UpdateWorkout",
+			component: UpdateWorkout
 		},
 		{
 			path: "/sidenavbar",
@@ -85,7 +91,8 @@ export default new Router({
 				/* https://router.vuejs.org/guide/essentials/nested-routes.html */
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },
-				{ path: '/profile', component: Profile, props: true},
+				{ path: '/profile', component: Profile, props: true,	beforeEnter:authGuard
+			},
 				{ path:'/showoneexercise', component: ShowOneExercise, props: true}
 			]
 		}
