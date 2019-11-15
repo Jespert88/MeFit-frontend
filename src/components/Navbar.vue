@@ -3,6 +3,7 @@
 
      <!-- User not logged in -->
   <b-navbar toggleable="lg" type="dark" variant="dark" id="navBar" >
+
     <b-navbar-brand href="#" class=".navbar-brand">MeFit</b-navbar-brand>
     <!-- Top navbar toggle button -->
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -28,6 +29,7 @@
               <router-link class="drop-link" to="#" @click.prevent="logout"> Logout </router-link>
             </b-dropdown-item>
         </b-nav-item-dropdown>
+
       </b-navbar-nav>
 
     </b-collapse>
@@ -37,21 +39,19 @@
 </template>
 
 <script>
-    export default {
-        name: 'NavBar',
-
-        data () {
-            return {
-                
-            }
-        },
-
-        methods: {
-            
-        }
+export default {
+  name: "NavBar",
+  methods: {
+    login() {
+      this.$auth.loginWithRedirect();
+    },
+    logout() {
+      this.$auth.logout();
+      this.$router.push({ path: "/" });
     }
+  }
+};
 </script>
-
 <style scoped>
 /* Desktop */
 #TopNavbar {
