@@ -1,6 +1,5 @@
 <template>
 <div>
-
     <b-navbar toggleable="lg" type="dark" variant="dark" id="TopNavbar">
     <b-navbar-brand href="#" class=".navbar-brand">MeFit</b-navbar-brand>
 
@@ -18,26 +17,20 @@
             <router-link class="nav-link" to="/dashboard"> Dashboard </router-link>
         </b-nav-item>
 
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/profile">
-                        <button class="navBtns">Profile</button>
-                    </router-link>
-                </li>
-
-                <li class="nav-item">
-                    <router-link class="nav-link" to="/" @click.native="logout">
-                        <button class="navBtns">Logout</button>
-                    </router-link>
-                </li>
+        <button   v-if="!$auth.isAuthenticated && !$auth.loading"  @click="login">Log in</button>
         <!-- Dropdown menu -->
-        <b-nav-item-dropdown text="User" right  class="nav-link">
+        <b-nav-item-dropdown v-if="$auth.isAuthenticated && !$auth.loading" text="User" right  class="nav-link">
             <b-dropdown-item>
-                <router-link class="drop-links" to="/profile">Profile</router-link>
+                <router-link class="drop-link" to="/dashboard"> Dashboard </router-link>
             </b-dropdown-item>
             <b-dropdown-item>
-                <router-link class="drop-links" to="/" @click.native="logout">Logout</router-link>
+                <button  @click.prevent="logout" class="navBtns">Logout</button>
             </b-dropdown-item>
         </b-nav-item-dropdown>
+
+
+
+                   
 
       </b-navbar-nav>
     </b-collapse>
@@ -47,21 +40,19 @@
 </template>
 
 <script>
-    export default {
-        name: 'NavBar',
-
-        data () {
-            return {
-                
-            }
-        },
-
-        methods: {
-            
-        }
+export default {
+  name: "NavBar",
+  methods: {
+    login() {
+      this.$auth.loginWithRedirect();
+    },
+    logout() {
+      this.$auth.logout();
+      this.$router.push({ path: "/" });
     }
+  }
+};
 </script>
-
 <style scoped>
 /* Desktop */
 #TopNavbar {
