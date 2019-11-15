@@ -5,7 +5,7 @@
       <b-card>
         <div>
           <h2>Personal information</h2>
-          <img src="../assets/logo.png" fluid alt="Responsive image">
+          <img src="../assets/logo.png" fluid>
           
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
@@ -16,20 +16,20 @@
               <b-form-input id="input-2" v-model="form.name" required placeholder="Enter name"></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-3" label="Change password:" label-for="input-2">
+            <b-form-group id="input-group-3" label="Change password:" label-for="input-3">
               <b-form-input id="input-3" v-model="form.password" required placeholder="Change password"></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-4" label="Fitness level:" label-for="input-3">
+            <b-form-group id="input-group-4" label="Fitness level:" label-for="input-4">
               <b-form-select id="input-4" v-model="form.fitnesslevel" :options="fitnesslevel" required></b-form-select>
             </b-form-group>
 
-            <b-form-group id="input-group-5" label="Height:" label-for="input-2">
-              <b-form-input id="input-5" v-model="form.height" :options="height" required placeholder="Height in cm"></b-form-input>
+            <b-form-group id="input-group-5" label="Height:" label-for="input-5">
+              <b-form-input id="input-5" v-model="form.height" required placeholder="Height in cm"></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-6" label="Weight:" label-for="input-2">
-              <b-form-input id="input-6" v-model="form.weight" :options="weight" required placeholder="Weight in kg"></b-form-input>
+            <b-form-group id="input-group-6" label="Weight:" label-for="input-6">
+              <b-form-input id="input-6" v-model="form.weight" required placeholder="Weight in kg"></b-form-input>
             </b-form-group>
             
             <b-button type="submit" variant="dark" style="margin: 3px;">Save</b-button>
@@ -38,14 +38,13 @@
             <b-button v-b-toggle.collapse-1 variant="dark" style="margin: 3px;">Edit profile picture</b-button>
             <b-collapse id="collapse-1" class="mt-2">
               <b-card>
-                <div v-if="!image">
+                <div v-if="!file">
                   <h4>Select an image</h4>
-                  <!-- <input type="file" @change="onFileChange"> -->
                   <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
                   <button v-on:click="submitFile()">Upload</button>
                   </div>
                   <div v-else>
-                    <img :src="image" />
+                    <img :src="file"/>
                     <button @click="removeImage">Remove image</button>
                   </div>
               </b-card>
@@ -88,6 +87,8 @@ export default {
         email: '',
         name: '',
         fitnesslevel: null,
+        height: '',
+        weight: '',
         file: ''
       },
       fitnesslevel: [{
@@ -110,6 +111,9 @@ export default {
       this.form.email = ''
       this.form.name = ''
       this.form.fitnesslevel = null
+      this.form.height = ''
+      this.form.weight = ''
+      this.form.file = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {
@@ -134,7 +138,6 @@ export default {
       .catch(function(){
         console.log('fails');
       });
-
       },
       
       handleFileUpload() {
