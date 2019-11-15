@@ -17,7 +17,7 @@
             </b-form-group>
 
             <b-form-group id="input-group-3" label="Change password:" label-for="input-3">
-              <b-form-input id="input-3" v-model="form.password" required placeholder="Change password"></b-form-input>
+              <b-form-input id="input-3" v-model="form.password" type="password" required placeholder="Change password"></b-form-input>
             </b-form-group>
 
             <b-form-group id="input-group-4" label="Fitness level:" label-for="input-4">
@@ -40,7 +40,7 @@
               <b-card>
                 <div v-if="!file">
                   <h4>Select an image</h4>
-                  <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+                  <input type="file" v-on:change="handleFileUpload()"/>
                   <button v-on:click="submitFile()">Upload</button>
                   </div>
                   <div v-else>
@@ -113,7 +113,7 @@ export default {
       this.form.fitnesslevel = null
       this.form.height = ''
       this.form.weight = ''
-      this.form.file = ''
+      // this.form.file = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {
@@ -121,7 +121,19 @@ export default {
       })
     },
 
-    submitFile() {
+    onChange(event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function(e) {
+      // The file's text will be printed here
+      console.log(e.target.result)
+    };
+    reader.readAsText(file);
+    }
+    },
+
+    submitFile(evt) {
+      evt.preventDefault()
       let formData = new FormData();
       formData.append('file', this.file);
 
@@ -140,11 +152,15 @@ export default {
       });
       },
       
-      handleFileUpload() {
+      handleFileUpload(evt) {
+        evt.preventDefault()
       this.file = this.$refs.file.files[0];
-      }
+      },
+      
+      // removeImage: function (e) {
+      // this.file = '';
+      // }
     }
-  }
 </script>
 
 <style scoped>
