@@ -11,30 +11,41 @@ import ExerciseCard from '../components/ExerciseCard'
 import WorkoutCard from '../components/WorkoutCard'
 import SideNavbar from '../components/SideNavbar'
 
-import Profile from '../containers/Profile'
+import Profile from '../views/Profile'
 import EditProfile from '../containers/EditProfile'
 import EditProfilePicture from '../containers/EditProfilePicture'
 import Dashboard from '../containers/Dashboard'
 import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
 import UpdateExercise from '../containers/UpdateExercise'
+import UpdateWorkout from '../containers/UpdateWorkout'
+
 import ShowOneExercise from '../containers/ShowOneExercise'
+import { authGuard } from "../auth";
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
 
 export default new Router({
 	mode:'history',
+	base: process.env.BASE_URL,
 	routes: [
 		{
 			path: "/",
+			name: "home",
+			component: UpdateExercise
+			
+		},
+		{
+			path: "/login",
 			name: "Login",
 			component: Login
 		},
 		{
 			path: "/register",
 			name: "Register",
-			component: Register
+			component: Register,
+			beforeEnter: authGuard			
 		},
 		{
 			path: "/progress",
