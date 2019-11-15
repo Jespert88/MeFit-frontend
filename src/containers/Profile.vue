@@ -40,7 +40,9 @@
               <b-card>
                 <div v-if="!image">
                   <h4>Select an image</h4>
-                  <input type="file" @change="onFileChange">
+                  <!-- <input type="file" @change="onFileChange"> -->
+                  <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+                  <button v-on:click="submitFile()">Upload</button>
                   </div>
                   <div v-else>
                     <img :src="image" />
@@ -51,7 +53,7 @@
           </b-form>
         </div>
       </b-card>
-      
+
       <div id="contentDiv">
         <b-row cols="12" md="4" xl="4" no-gutters>
           <b-col cols="12" md="6" xl="6">
@@ -77,6 +79,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -84,7 +88,7 @@ export default {
         email: '',
         name: '',
         fitnesslevel: null,
-        image: ''
+        file: ''
       },
       fitnesslevel: [{
         text: 'Select your fitnesslevel',
@@ -113,29 +117,31 @@ export default {
       })
     },
 
-        // onFileChange(evt) {
-        //     var files = evt.target.files || evt.dataTransfer.files;
-        //     if (!files.length)
-        //         return;
-        //     this.createImage(files[0]);
-        // },
+    submitFile() {
+      let formData = new FormData();
+      formData.append('file', this.file);
 
-        // createImage(file) {
-        //     this.image = new Image();
-        //     var reader = new FileReader();
-        //     var vm = this;
+      axios.post('/single-file',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(function(){
+        console.log('works!');
+      })
+      .catch(function(){
+        console.log('fails');
+      });
 
-        //     reader.onload = (evt) => {
-        //         vm.image = evt.target.result;
-        //     };
-        //     reader.readAsDataURL(file);
-        // },
-
-        // removeImage: function (evt) {
-        //     this.image = '';
-        // }
+      },
+      
+      handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+      }
     }
-}
+  }
 </script>
 
 <style scoped>
