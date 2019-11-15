@@ -10,6 +10,9 @@
 
     <!-- Workout card for the regular user. -->
     <div v-if="user">
+        <!-- Showing only for admin / contributors -->
+         <b-button to="/updateworkout" variant="warning" v-if="admin"> Update workout </b-button>
+
             <!-- Workout Card -->
         <b-card v-if="loading">
             <h1 style="text-align: center;">{{name}}</h1>
@@ -34,44 +37,7 @@
         </b-card>
     </div>
 
-
-    <!-- Workout card for admin and a contributor. -->
-    <div v-if="admin">
-            <!-- Admin Workout Card -->
-        <b-card v-if="loading">
-             <h1 style="text-align: center;">{{name}}</h1>
-            <h5 style="text-align: center;">{{type}}</h5>
-
-            <input type="text" placeholder="Enter name of workout" v-model="name" required>
-            <input type="text" placeholder="Enter type" v-model="type" required>
-            
-            <!-- Div with all exercisecards -->
-            <div role="tablist">
-                <b-card no-body class="mb-1">
-
-                    <!-- Exercise card 1 -->
-                    <b-card-header header-tag="header" class="p-1" role="tab">
-                        <b-button block href="#" v-b-toggle.accordion-1> Exercise 1 </b-button>
-                    </b-card-header>
-                    <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
-                        <Exercisecard />
-                    </b-collapse>
-
-                    <!-- Exercise card 2 -->
-                    <b-card-header header-tag="header" class="p-1" role="tab">
-                        <b-button block href="#" v-b-toggle.accordion-2> Exercise 2 </b-button>
-                    </b-card-header>
-                    <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-                        <Exercisecard />
-                    </b-collapse>
-                </b-card>
-            </div>
-
-             <b-button to="/updateworkout" variant="warning"> Update workout </b-button>
-        </b-card>
-    </div>
-
-
+   
 </div>
 </template>
 
@@ -94,12 +60,14 @@ export default {
             user: false,
             name: "No name",
             type: "no type",
-            exerciseArray: [],
-            testArray: [],
+            exerciseArray: []
         }
     },
 
     created() {
+
+        this.image = "url"
+
     this.loading = true
     this.user = true
     this.admin = true
@@ -111,7 +79,8 @@ export default {
     .then(response => {
         this.loading= false
       // JSON responses are automatically parsed.
-      this.exerciseArray = response.data
+      this.exerciseArray.push(response.data)
+      console.log(this.exerciseArray)
     })
     .catch(e => {
       this.errors.push(e)
