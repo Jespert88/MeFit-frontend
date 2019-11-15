@@ -3,16 +3,14 @@
 
         <div>
        <Loading v-if="loading"/>
-
         <div v-if="errors">
         <b-alert v-for="error in errors" :key="error" show variant="danger">{{error}}</b-alert>
         </div>
-
         <div  v-if="!loading">
             
         <b-container style="paddin : 10px; margin-bottom:10px">
-                <b-form v-if="!loading" @submit="createWorkout">    
-                        <h1 id="bodyTitle">Create your workout</h1>
+                <b-form v-if="!loading" @submit="updateWorkout">    
+                        <h1 id="bodyTitle">Update your workout</h1>
                         <b-form-group>
                             <b-form-input  type="text" v-model="name" required></b-form-input>
                         </b-form-group>
@@ -32,7 +30,7 @@
         </b-row>
                 </b-container >
 
-           <b-button type="submit" variant="secondary">Create Workout</b-button>
+           <b-button type="submit" variant="secondary">Update Workout</b-button>
              </b-form>
         </b-container >
            
@@ -66,21 +64,34 @@ data() {
         type: "",
         profileId :"",
         loading : false,
+        workoutId :""
     }
   },
 
   created() {
     this.loading= true
-    axios.get('http://localhost:8080/exercises')
-    .then(response => {
+    
+    Promise.all([axios.get('http://localhost:8080/workout/1'), 
+    axios.get('http://localhost:8080/exercises')]).then( response => {
         this.loading= false
-      // JSON responses are automatically parsed.
-      this.exerciseArray = response.data
-      this.toSelectArray = response.data
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+        this.workoutId = response[0].data.workoutId
+          this.name = response[0].data.name
+          this.type=response[0].data.type
+            response[0].data.set.forEach(Element => {   
+            let exercise = Element.exerciseFk
+            exercise.toBeSelected= true
+            exercise.toSelectReps = true
+            exercise.toSelectSets = true
+            exercise.toChooseReps = true
+            exercise.sets = Element.setRepetitions
+            exercise.reps = Element.repetitions
+            this.chosedExerciseArray.push(exercise)  
+            })
+
+          this.exerciseArray = response[1].data
+
+    }).catch()
+
     },
     props: {
         
@@ -99,8 +110,7 @@ data() {
 
             var pos = this.chosedExerciseArray.indexOf(exercise)
             this.chosedExerciseArray.splice(pos , 1)
-            console.log(this.exerciseArray
-              );
+        
           if (event)  event.preventDefault()
 
         },
@@ -131,11 +141,11 @@ data() {
             this.profileId =""
             this.loading = false
         },
-         createWorkout : function(){
+         updateWorkout : function(){
              event.preventDefault()
              this.loading= true
-            console.log(this.chosedExerciseArray)
-            axios.post('http://localhost:8080/addWorkout',{
+            console.log(this.workoutId)
+            axios.patch('http://localhost:8080/workout/'+ this.workoutId,{
                 name : this.name,
                 type : this.type,
                 exercises :this.chosedExerciseArray
@@ -152,12 +162,7 @@ data() {
                 })
                 .catch((e) => {
                     console.log("Exception: ", e)
-                }).finally(  ()=>{
-                    this.chosedExerciseArray.forEach(Element =>{
-                        this.removeFromExercises(Element)
-                    })
-                    this.resetValues()
-                    })
+                }).finally(location ="http://localhost:8080/workout/"+this.workoutId)
         }
     },
     components: {
