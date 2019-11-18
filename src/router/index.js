@@ -19,6 +19,7 @@ import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
 import UpdateExercise from '../containers/UpdateExercise'
 import UpdateWorkout from '../containers/UpdateWorkout'
+import CreateProgram from '../containers/CreateProgram'
 
 import ShowOneExercise from '../containers/ShowOneExercise'
 import { authGuard } from "../auth";
@@ -88,12 +89,12 @@ export default new Router({
 			name: "Dashboard",
 			component: Dashboard,
 			children: [
-				/* https://router.vuejs.org/guide/essentials/nested-routes.html */
+				/* https://router.vuejs.org/guide/essentials/nested-routes.html */	
+				{ path: '/createprogram', component: CreateProgram, props: true },
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },
-				{ path: '/profile', component: Profile, props: true,	beforeEnter:authGuard
-			},
-				{ path:'/showoneexercise', component: ShowOneExercise, props: true}
+				{ path: '/profile', component: Profile, props: true, beforeEnter:authGuard },
+				{ path:'/showoneexercise', component: ShowOneExercise, props: true }
 			]
 		}
 	]
