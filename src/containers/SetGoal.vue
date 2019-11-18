@@ -31,15 +31,18 @@
       <div id="contentDiv">
         <b-row cols="12" md="4" xl="4" no-gutters>
           <b-col cols="12" md="6" xl="6">
-            <h4>Progress</h4>
+            <h4>Program</h4>
             <p>Here should personal goals be displayed</p>
+            <!-- Loop program-->
           </b-col>
           <b-col cols="12" md="6" xl="6">
             <h4>Workout</h4>
             <p>Here should a personal workout program, based on workout cards, be displayed</p>
+            <!-- Loop workout cards -->
           </b-col>
         </b-row>
       </div>
+
     </b-col>
   </b-row>
 </div>
