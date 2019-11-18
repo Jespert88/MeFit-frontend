@@ -1,7 +1,7 @@
 <template>
 
 
-        <div>
+        <div class="content">
        <Loading v-if="loading"/>
         <div v-if="errors">
         <b-alert v-for="error in errors" :key="error" show variant="danger">{{error}}</b-alert>

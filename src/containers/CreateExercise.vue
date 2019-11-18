@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="content">
   <div id="formDiv">
       <h3>Create a new exercise</h3>
       <b-form id="createExercise" @submit="onSubmit">
@@ -29,7 +29,7 @@
 <script>
 import axios from 'axios'
 export default {
-    name: "Create Exercise",
+    name: "CreateExercise",
     data() {
         return {
             name: "",

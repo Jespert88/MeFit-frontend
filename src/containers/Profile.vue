@@ -4,13 +4,15 @@
     <b-col cols="12" md="8" xl="8">
       <b-card>
         <div>
+          <p>{{$auth.user}}</p>
           <h2>Personal information</h2>
           <img src="../assets/logo.png" fluid>
           
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
-              <b-form-input id="input-1" v-model="form.email" type="email" required placeholder="Email"></b-form-input>
+              <b-form-input id="input-1" v-model="form.email" type="email" required ></b-form-input>
             </b-form-group>
+
 
             <b-form-group id="input-group-2" label="Name:" label-for="input-2">
               <b-form-input id="input-2" v-model="form.name" required placeholder="Enter name"></b-form-input>
@@ -79,25 +81,38 @@
 
 <script>
 import axios from 'axios'
-
 export default {
   data() {
     return {
+      userID : this.$auth.user.sub,
       form: {
         email: '',
         name: '',
         fitnesslevel: null,
-        height: '',
-        weight: '',
-        file: ''
+        image: '',
+        weight : '',
+        height : '',
       },
       fitnesslevel: [{
         text: 'Select your fitnesslevel',
         value: null
       }, 'Newbie', 'Average', 'Fit', 'Professional'],
-      show: true
+      show: true,
+     
     }
   },
+ created() {
+  
+   axios.get('https://me-fit.herokuapp.com/profile/user/'+this.userID).then(response =>{
+      console.log(response.data)
+      this.form.email = this.$auth.user.email
+      this.form.name = this.$auth.user.nickname
+      this.form.height = response.data.height
+      this.form.weight = response.data.weight
+      this.form.fitnesslevel.value = response.data.fitnesslevel
+
+   })
+    },
   
   methods: {
     onSubmit(evt) {
