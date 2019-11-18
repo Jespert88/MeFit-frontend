@@ -1,91 +1,24 @@
 <template>
-<div>
+<div class="content">
 
-    <!-- Admin / Contributor Dashboard -->
-    <div v-if="admin">
-        <b-row no-gutters>
-          <!-- Sidenavbar column -->
-            <b-col cols="12" md="1" xl="1">
-                <SideNavbar :parentmessage="parentmessage" />
-            </b-col>
+  <b-row no-gutters>
+    <!-- Sidenavbar column -->
+      <b-col cols="12" md="1" xl="1">
+          <SideNavbar :parentmessage="parentmessage" />
+      </b-col>
 
-            <!-- main view grid for dashboard -->
-            <b-col cols="12" md="10" xl="10">
-                <!-- This is for the sidenavbar routing. -->
-                <h1> Admin dashboard view now showing</h1>
-                <router-view id="routerView" />
-            </b-col>
-        </b-row>
+      <!-- main view grid for dashboard -->
+      <b-col cols="12" md="10" xl="10">
+          <!-- This is for the sidenavbar routing. -->
+          <router-view id="routerView" />
+      </b-col>
+  </b-row>
 
-
-    <!-- User Dashboard -->
-    <div v-if="user">
-        <b-row no-gutters>
-          <!-- Sidenavbar column -->
-            <b-col cols="12" md="1" xl="1">
-                <SideNavbar :parentmessage="parentmessage" />
-            </b-col>
-
-            <!-- main view grid for dashboard -->
-            <b-col cols="12" md="10" xl="10">
-                <!-- This is for the sidenavbar routing. -->
-                <h1> User dashboard view now showing, remove this h1 later..</h1>
-                <router-view id="routerView" />
-
-                <!-- Full gridsystem for user overview in dashboard -->
-                <b-col cols="12" md="12" xl="12">
-
-                    <!-- Showing progress and calender -->
-                    <b-row no-gutters>
-                        <b-col cols="12" md="6" xl="6"><Progress /></b-col>
-                        <b-col cols="12" md="6" xl="6"><Calender /></b-col>
-                    </b-row>
-
-                    <!-- Programs and Workouts will show here -->
-                    <b-row no-gutters>
-                        <b-col cols="12" md="12" xl="12">
-                            <b-row no-gutters>
-
-                                <b-col cols="12" md="6" xl="6">
-                                    <div style="text-align:center;">
-                                        <b-button v-b-toggle="'collapse-1'" class="m-1" variant="success">Show workouts</b-button>
-                                    </div>
-                                    <!-- Workouts -->
-                                    <b-collapse id="collapse-1">
-                                        <WorkoutCard />
-                                    </b-collapse>
-                                </b-col>
-
-                                <b-col cols="12" md="6" xl="6">
-                                    <div style="text-align:center;">
-                                        <b-button v-b-toggle="'collapse-2'" class="m-1" variant="success">Show programs</b-button>
-                                    </div>
-                                    <!-- Programs -->
-                                    <b-collapse id="collapse-2">
-                                        <h1>Showing the current program for the user.</h1>
-                                    </b-collapse>
-                                </b-col>
-
-                            </b-row>
-                        </b-col>
-                    </b-row>
-
-                </b-col>
-            </b-col>
-            <b-col cols="12" md="1" xl="1"></b-col>
-        </b-row>
-    </div>
-  </div>
-
-  
 </div>
 </template>
 
 <script>
 import SideNavbar from '../components/SideNavbar.vue'
-import Calender from '../components/Calender.vue'
-import Progress from '../components/Progress.vue'
-import WorkoutCard from '../components/WorkoutCard.vue'
 
 export default {
 
@@ -97,18 +30,8 @@ export default {
         }
     },
     components: {
-        SideNavbar,
-        Calender,
-        Progress,
-        WorkoutCard
-
+        SideNavbar
     },
-
-    created: function() {
-      this.user = true;
-      this.admin = false;
-    },
-
     methods: {
 
         toggleSidebar() {
