@@ -11,6 +11,9 @@ import ExerciseCard from '../components/ExerciseCard'
 import WorkoutCard from '../components/WorkoutCard'
 import SideNavbar from '../components/SideNavbar'
 
+
+import ProgramCard from '../containers/ViewExercise'
+
 // import EditProfile from '../containers/EditProfile'
 // import EditProfilePicture from '../containers/EditProfilePicture'
 import Profile from '../containers/Profile'
@@ -31,6 +34,11 @@ export default new Router({
 	mode:'history',
 	base: process.env.BASE_URL,
 	routes: [
+		{
+			path: "/programCard",
+			name: "programCard",
+			component: ProgramCard
+		},
 		{
 			path: "/",
 			name: "home",

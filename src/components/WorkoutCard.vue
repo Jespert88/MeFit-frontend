@@ -11,11 +11,11 @@
                 {{workout.type}}
             </b-card-text>
 
-            <div role="exerciseList">
+            <div role="tablist">
                 <div v-for="set in workout.set" v-bind:key="set.setId">
-                    <b-button block v-b-toggle="'accordion-' + set.setId" variant="info">{{set.exerciseFk.name}}</b-button>
+                    <b-button block v-b-toggle="'set-' + set.setId" variant="info">{{set.exerciseFk.name}}</b-button>
 
-                    <b-collapse :id="'accordion-' + set.setId" accordion="my-accordion" role="tabpanel">
+                    <b-collapse :id="'set-' + set.setId" accordion="workout-accordion" role="tab">
                         <ExerciseCard :exercise="set.exerciseFk" :toSelect="false" :setData="set"/>
                     </b-collapse>
                     <br>
