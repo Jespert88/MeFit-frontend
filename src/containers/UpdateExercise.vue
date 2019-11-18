@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="content">
     <Loading v-if="loading"/>
     <b-row no-gutters>
       <b-col cols="10" md="6" xl="4">

@@ -1,7 +1,7 @@
 <template>
 
 
-        <div>
+        <div class="content">
        <Loading v-if="loading"/>
 
         <div v-if="errors">

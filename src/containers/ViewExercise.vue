@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
 
     <h1>View all exercises here in a nice way</h1>
 

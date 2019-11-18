@@ -17,7 +17,6 @@
 .footer {
     text-align: center;
     background: rgba(0, 0, 0, 0.5);
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
