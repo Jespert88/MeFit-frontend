@@ -17,6 +17,7 @@ import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
 import UpdateExercise from '../containers/UpdateExercise'
 import ShowOneExercise from '../containers/ShowOneExercise'
+import SetGoal from '../containers/SetGoal'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -63,6 +64,11 @@ export default new Router({
 			path: "/sidenavbar",
 			name: "SideNavbar",
 			component: SideNavbar
+		},
+		{
+			path: '/setgoal',
+			name: 'SetGoal',
+			component: SetGoal
 		},
 		{
 			path: "/dashboard",
