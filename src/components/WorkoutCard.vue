@@ -1,60 +1,94 @@
 <template>
 <div id="workoutCardContainer">
 
-    <!-- Workout Card -->
-    <b-card>
-        <h3 style="text-align: center;">Workout name here</h3>
-        <h5 style="text-align: center;">Type here</h5><br>
+    <Loading v-if="!loading" />
 
-        <!-- Div with all exercisecards -->
-        <div role="tablist">
-            <b-card no-body class="mb-1">
+    <div v-if="errors">
+        <b-alert v-for="error in errors" :key="error" show variant="danger">{{error}}</b-alert>
+    </div>
 
-                <!-- Exercise card 1 -->
-                <b-card-header header-tag="header" class="p-1" role="tab">
-                    <b-button block href="#" v-b-toggle.accordion-1> Exercise 1 </b-button>
-                </b-card-header>
+    <!-- Workout card for the regular user. -->
+    <div v-if="user">
+        <!-- Showing only for admin / contributors -->
+        <b-button to="/updateworkout" variant="warning" v-if="admin"> Update workout </b-button>
 
-                <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
-                    <Exercisecard />
-                </b-collapse>
+        <!-- Workout Card -->
+        <b-card v-if="loading">
+            <h1 style="text-align: center;">{{name}}</h1>
+            <h5 style="text-align: center;">{{type}}</h5><br>
 
-                <!-- Exercise card 2 -->
-                <b-card-header header-tag="header" class="p-1" role="tab">
-                    <b-button block href="#" v-b-toggle.accordion-2> Exercise 2 </b-button>
-                </b-card-header>
+            <b-button v-b-toggle.collapse-1 variant="primary">Toggle Collapse</b-button>
+            <b-collapse id="collapse-1" class="mt-2" v-for="exercise in exerciseArray" :key="exercise.exerciseID">
+                
+                    <p class="card-text">Collapse contents Here</p>
+                    <!-- This button needs to have a v-for from each exercisecard later.. -->
+                    <b-button v-b-toggle.collapse-1-inner size="sm" >Toggle Inner Collapse</b-button>
+                    <b-collapse id="collapse-1-inner" class="mt-2" >
+                        
+                            <Exercisecard :exercise="exercise" />
+                       
+                    </b-collapse>
+                
+            </b-collapse>
 
-                <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-                   <Exercisecard />
-                </b-collapse>
-            </b-card>
-
-        </div>
-    </b-card>
+        </b-card>
+    </div>
 
 </div>
 </template>
 
 <script>
+import axios from 'axios';
 import Exercisecard from '../components/ExerciseCard'
+import Loading from '../components/Loading.vue'
 export default {
     name: "WorkoutCard",
+
     components: {
+        Loading,
         Exercisecard
     },
+
     data() {
         return {
-
+            errors: "",
+            loading: false,
+            admin: false,
+            user: false,
+            name: "No name",
+            type: "no type",
+            exerciseArray: [],
+            collapseBtnsArray: []
         }
     },
-    methods: {
 
+    created() {
+        this.user = true
+        this.admin = true
+        this.loading = true
+
+        axios.get('https://me-fit.herokuapp.com/exercises')
+            .then(response => {
+                /* this.loading = false */
+                // JSON responses are automatically parsed.
+                this.exerciseArray.push(response.data)
+
+                console.log(this.exerciseArray)
+            })
+            .catch(e => {
+                this.errors.push(e)
+            })
+    },
+
+    methods: {
+        toggleTest() {
+            this.test = !this.test
+        }
     },
 }
 </script>
 
 <style scoped>
-
 /* Desktop CSS */
 #workoutCardContainer {
     margin-top: 5%;
@@ -62,7 +96,10 @@ export default {
     margin-left: 40%;
     margin-bottom: 5%;
 }
-title {text-align: center !important;}
+
+title {
+    text-align: center !important;
+}
 
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
@@ -72,8 +109,8 @@ title {text-align: center !important;}
         margin-left: 10%;
         margin-bottom: 5%;
     }
-} 
-    
+}
+
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
     #workoutCardContainer {
@@ -82,5 +119,5 @@ title {text-align: center !important;}
         margin-left: 20%;
         margin-bottom: 5%;
     }
-} 
+}
 </style>

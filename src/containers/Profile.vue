@@ -4,13 +4,15 @@
     <b-col cols="12" md="8" xl="8">
       <b-card>
         <div>
+          <p>{{$auth.user}}</p>
           <h2>Personal information</h2>
           <img src="../assets/logo.png" fluid>
           
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
-              <b-form-input id="input-1" v-model="form.email" type="email" required placeholder="Email"></b-form-input>
+              <b-form-input id="input-1" v-model="form.email" type="email" required ></b-form-input>
             </b-form-group>
+
 
             <b-form-group id="input-group-2" label="Name:" label-for="input-2">
               <b-form-input id="input-2" v-model="form.name" required placeholder="Enter name"></b-form-input>
@@ -20,6 +22,7 @@
               <b-form-input id="input-3" v-model="form.password" type="password" required placeholder="Change password"></b-form-input>
             </b-form-group>
 
+<<<<<<< HEAD
             <b-form-group id="input-group-4" label="Fitness level:" label-for="input-4">
               <b-form-select id="input-4" v-model="form.fitnesslevel" :options="fitnesslevel" required></b-form-select>
             </b-form-group>
@@ -30,6 +33,18 @@
 
             <b-form-group id="input-group-6" label="Weight:" label-for="input-6">
               <b-form-input id="input-6" v-model="form.weight" required placeholder="Weight in kg"></b-form-input>
+=======
+            <b-form-group id="input-group-4" label="Fitness level:" label-for="input-3">
+              <b-form-select id="input-4" v-model="form.fitnesslevel" :options="fitnesslevel" ></b-form-select>
+            </b-form-group>
+
+            <b-form-group id="input-group-5" label="Height:" label-for="input-2">
+              <b-form-input id="input-5" v-model="form.height" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-6" label="Weight:" label-for="input-2">
+              <b-form-input id="input-6" v-model="form.weight" :options="weight" required></b-form-input>
+>>>>>>> c3682f9fc6e0e532b46f19d0b381809bc756661d
             </b-form-group>
             
             <b-button type="submit" variant="dark" style="margin: 3px;">Save</b-button>
@@ -79,25 +94,48 @@
 
 <script>
 import axios from 'axios'
+<<<<<<< HEAD
 
+=======
+>>>>>>> c3682f9fc6e0e532b46f19d0b381809bc756661d
 export default {
   data() {
     return {
+      userID : this.$auth.user.sub,
       form: {
         email: '',
         name: '',
         fitnesslevel: null,
+<<<<<<< HEAD
         height: '',
         weight: '',
         file: ''
+=======
+        image: '',
+        weight : '',
+        height : '',
+>>>>>>> c3682f9fc6e0e532b46f19d0b381809bc756661d
       },
       fitnesslevel: [{
         text: 'Select your fitnesslevel',
         value: null
       }, 'Newbie', 'Average', 'Fit', 'Professional'],
-      show: true
+      show: true,
+     
     }
   },
+ created() {
+  
+   axios.get('https://me-fit.herokuapp.com/profile/user/'+this.userID).then(response =>{
+      console.log(response.data)
+      this.form.email = this.$auth.user.email
+      this.form.name = this.$auth.user.nickname
+      this.form.height = response.data.height
+      this.form.weight = response.data.weight
+      this.form.fitnesslevel.value = response.data.fitnesslevel
+
+   })
+    },
   
   methods: {
     onSubmit(evt) {
@@ -161,6 +199,12 @@ export default {
       // this.file = '';
       // }
     }
+<<<<<<< HEAD
+=======
+
+    
+}
+>>>>>>> c3682f9fc6e0e532b46f19d0b381809bc756661d
 </script>
 
 <style scoped>
