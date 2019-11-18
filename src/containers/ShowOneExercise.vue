@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="content">
   <div id="exerciseCard">
       <h4>push-ups</h4>
       <h5>This is a push-up and how you do it right</h5>

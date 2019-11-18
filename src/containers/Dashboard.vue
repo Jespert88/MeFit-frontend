@@ -16,7 +16,7 @@
                 <router-view id="routerView" />
             </b-col>
         </b-row>
-    </div>
+
 
     <!-- User Dashboard -->
     <div v-if="user">
@@ -75,7 +75,9 @@
             <b-col cols="12" md="1" xl="1"></b-col>
         </b-row>
     </div>
+  </div>
 
+  
 </div>
 </template>
 
