@@ -22,7 +22,6 @@
               <b-form-input id="input-3" v-model="form.password" type="password" required placeholder="Change password"></b-form-input>
             </b-form-group>
 
-<<<<<<< HEAD
             <b-form-group id="input-group-4" label="Fitness level:" label-for="input-4">
               <b-form-select id="input-4" v-model="form.fitnesslevel" :options="fitnesslevel" required></b-form-select>
             </b-form-group>
@@ -33,18 +32,6 @@
 
             <b-form-group id="input-group-6" label="Weight:" label-for="input-6">
               <b-form-input id="input-6" v-model="form.weight" required placeholder="Weight in kg"></b-form-input>
-=======
-            <b-form-group id="input-group-4" label="Fitness level:" label-for="input-3">
-              <b-form-select id="input-4" v-model="form.fitnesslevel" :options="fitnesslevel" ></b-form-select>
-            </b-form-group>
-
-            <b-form-group id="input-group-5" label="Height:" label-for="input-2">
-              <b-form-input id="input-5" v-model="form.height" required></b-form-input>
-            </b-form-group>
-
-            <b-form-group id="input-group-6" label="Weight:" label-for="input-2">
-              <b-form-input id="input-6" v-model="form.weight" :options="weight" required></b-form-input>
->>>>>>> c3682f9fc6e0e532b46f19d0b381809bc756661d
             </b-form-group>
             
             <b-button type="submit" variant="dark" style="margin: 3px;">Save</b-button>
@@ -94,10 +81,7 @@
 
 <script>
 import axios from 'axios'
-<<<<<<< HEAD
 
-=======
->>>>>>> c3682f9fc6e0e532b46f19d0b381809bc756661d
 export default {
   data() {
     return {
@@ -106,15 +90,9 @@ export default {
         email: '',
         name: '',
         fitnesslevel: null,
-<<<<<<< HEAD
         height: '',
         weight: '',
         file: ''
-=======
-        image: '',
-        weight : '',
-        height : '',
->>>>>>> c3682f9fc6e0e532b46f19d0b381809bc756661d
       },
       fitnesslevel: [{
         text: 'Select your fitnesslevel',
@@ -199,12 +177,6 @@ export default {
       // this.file = '';
       // }
     }
-<<<<<<< HEAD
-=======
-
-    
-}
->>>>>>> c3682f9fc6e0e532b46f19d0b381809bc756661d
 </script>
 
 <style scoped>
