@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="content">
   <b-row no-gutters>
     <b-col cols="12" md="8" xl="8">
       <b-card>
@@ -81,6 +81,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -89,9 +90,9 @@ export default {
         email: '',
         name: '',
         fitnesslevel: null,
-        image: '',
-        weight : '',
-        height : '',
+        height: '',
+        weight: '',
+        file: ''
       },
       fitnesslevel: [{
         text: 'Select your fitnesslevel',
