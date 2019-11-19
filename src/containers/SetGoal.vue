@@ -30,16 +30,15 @@
 
       <div id="contentDiv">
         <b-row cols="12" md="4" xl="4" no-gutters>
-          <b-col cols="12" md="6" xl="6">
-            <h4>Program</h4>
-            <p>Here should personal goals be displayed</p>
-            <!-- Loop program-->
-          </b-col>
-          <b-col cols="12" md="6" xl="6">
-            <h4>Workout</h4>
-            <p>Here should a personal workout program, based on workout cards, be displayed</p>
+          <!-- <b-col cols="12" md="6" xl="6">
+            <h4>Program</h4> -->
+            <!-- Loop program -->
+          <!-- </b-col> -->
+          <h4>Workout</h4>
+            <b-col v-for="workout in workoutArr" :key="workout.workoutId">
             <!-- Loop workout cards -->
-          </b-col>
+            <WorkoutCard :workout="workout"/>
+            </b-col>
         </b-row>
       </div>
 
@@ -49,7 +48,15 @@
 </template>
 
 <script>
+import axios from 'axios'
+import WorkoutCard from '../components/WorkoutCard'
+
 export default {
+    name: "SetGoal",
+    components: {
+        WorkoutCard
+    },
+
     data() {
         return {
             form: {
@@ -58,6 +65,7 @@ export default {
                 startdate: '',
                 enddate: ''
             },
+            workoutArr: [],
             show: true
         }
     },
@@ -70,15 +78,38 @@ export default {
                     event.preventDefault()
                     this.form.name = ''
                     this.form.musclegroup = ''
+                    this.form.startdate = ''
+                    this.form.enddate =''
 
                     // Trick to reset/clear native browser form validation state
                     this.show = false
                     this.$nextTick(() => {
                         this.show = true
                     })
+                },
+            },
+                created: function(){
+                    console.log("inne")
+                    axios.get("https://me-fit.herokuapp.com/workout")
+                    .then(response => {
+                        this.workoutArr = response.data
+                        console.log(this.workoutArr);
+
+                        console.log('The result is ' + response)
+                        if(response.status == 201) {
+                        console.log("Status 201. This works!");
+                        } else if (response.status == 400) {
+                        console.log("Status 400. Too BAD!");
+                        } else if (response.status == 404) {
+                        console.log("Status 404. Whata! ò_ó ");
+                        }
+                        console.log("efter")
+                    })
+                    .catch ((e) => {
+                        console.log("Exception: ",  e)
+                        })
                 }
-            }
-        }
+}
 </script>
 
 <style scoped>
