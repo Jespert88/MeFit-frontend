@@ -1,9 +1,7 @@
-
 import Vue from 'vue'
 import Router from "vue-router"
 import BootstrapVue from 'bootstrap-vue'
 
-import Login from '../components/Login'
 import Register from '../components/Register'
 import Calender from '../components/Calender'
 import ExerciseCard from '../components/ExerciseCard'
@@ -40,12 +38,6 @@ export default new Router({
 			path: "/",
 			name: "home",
 			component: UpdateExercise
-			
-		},
-		{
-			path: "/login",
-			name: "Login",
-			component: Login
 		},
 		{
 			path: "/register",

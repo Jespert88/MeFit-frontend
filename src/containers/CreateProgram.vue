@@ -77,7 +77,7 @@ export default {
         getWorkoutList: function() {
             this.loading = true
             axios
-                .get('http://localhost:8080/workout')
+                .get('https://me-fit.herokuapp.com/workout')
                 .then(response => {
                     this.loading = false
                     this.errorMessage = ""
