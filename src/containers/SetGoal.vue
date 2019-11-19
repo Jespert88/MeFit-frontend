@@ -1,10 +1,10 @@
 <template>
 <div>
+<div id="formGoal">
   <b-row no-gutters>
-    <b-col cols="12" md="8" xl="8">
+    <b-col cols="12" md="12" xl="12">
       <b-card>
           <h2>Goals</h2>
-          <div id="formGoal">
               <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                   <b-form-group id="input-group-1" label-for="input-1">
                       <b-form-input id="input-1" v-model="form.name" required placeholder="Name of goal"></b-form-input>
@@ -25,36 +25,37 @@
                   <b-button type="submit" variant="dark" style="margin: 3px;">Save</b-button>
                   <b-button type="reset" variant="danger" style="margin: 3px;">Reset</b-button>
               </b-form>
-          </div>
-      </b-card>
-
-      <div id="contentDiv">
-        <b-row cols="12" md="4" xl="4" no-gutters>
-          <!-- <b-col cols="12" md="6" xl="6">
-            <h4>Program</h4> -->
-            <!-- Loop program -->
-          <!-- </b-col> -->
-          <h4>Workout</h4>
-            <b-col v-for="workout in workoutArr" :key="workout.workoutId">
-            <!-- Loop workout cards -->
-            <WorkoutCard :workout="workout"/>
-            </b-col>
-        </b-row>
-      </div>
-
-    </b-col>
+          </b-card>
+      </b-col>
   </b-row>
+</div>
+
+<div id="contentDiv">
+    <b-row cols="12" md="12" xl="12" no-gutters>
+        <b-col v-for="program in programArr.slice(0,1)" :key="program.programId">
+            <!-- Loop program cards -->
+        <ProgramCard :program="program"/>
+        </b-col>
+        
+        <b-col v-for="workout in workoutArr.slice(0,1)" :key="workout.workoutId">
+            <!-- Loop workout cards -->
+        <WorkoutCard :workout="workout"/>
+        </b-col>
+    </b-row>
+</div>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
 import WorkoutCard from '../components/WorkoutCard'
+import ProgramCard from '../components/ProgramCard'
 
 export default {
     name: "SetGoal",
     components: {
-        WorkoutCard
+        WorkoutCard,
+        ProgramCard
     },
 
     data() {
@@ -66,6 +67,7 @@ export default {
                 enddate: ''
             },
             workoutArr: [],
+            programArr: [],
             show: true
         }
     },
@@ -93,6 +95,7 @@ export default {
                     axios.get("https://me-fit.herokuapp.com/workout")
                     .then(response => {
                         this.workoutArr = response.data
+                        this.programArr = response.data
                         console.log(this.workoutArr);
 
                         console.log('The result is ' + response)
@@ -125,11 +128,21 @@ h2 {
     text-align: center;
 }
 
-#contentDiv,
 #formGoal {
-    background-color: rgba(0, 0, 0, 0.5);
     color: #3088a0;
-    text-align: center;
+    margin-top: 3%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+}
+
+#contentDiv {
+    color: #3088a0;
+    margin-top: 3%;
+    margin-right: 20%;
+    margin-left: 20%;
+    margin-bottom: 5%; 
+
 }
 
 /* Mobile */

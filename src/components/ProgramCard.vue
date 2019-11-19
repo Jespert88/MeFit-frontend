@@ -13,7 +13,7 @@
 
             <div role="tablist">
                 <div v-for="programWorkoutFk in program.programWorkoutFk" v-bind:key="programWorkoutFk.programWorkoutId">
-                    <b-button block v-b-toggle="'workout-' + programWorkoutFk.programWorkoutId" variant="info">
+                    <b-button block v-b-toggle="'workout-' + programWorkoutFk.programWorkoutId" variant="info"></b-button>
                     <b-button block v-b-toggle="'workout-' + programWorkoutFk.programWorkoutId" variant="info" aria-label="Left Align">
                         {{programWorkoutFk.workoutFk.name}}
                     </b-button>
