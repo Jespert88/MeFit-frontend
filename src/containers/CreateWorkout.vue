@@ -1,5 +1,5 @@
-<template>
 
+<template>
 
         <div class="content">
        <Loading v-if="loading"/>
@@ -73,7 +73,7 @@ export default {
     created() {
         this.loading = true
         axios
-            .get('http://localhost:8080/exercises')
+            .get('https://me-fit.herokuapp.com/exercises')
             .then((response) => {
                 this.loading = false
                 // JSON responses are automatically parsed.
@@ -144,4 +144,3 @@ export default {
     }
 }
 </script>
-

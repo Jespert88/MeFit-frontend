@@ -1,9 +1,7 @@
-
 import Vue from 'vue'
 import Router from "vue-router"
 import BootstrapVue from 'bootstrap-vue'
 
-import Login from '../components/Login'
 import Register from '../components/Register'
 import Calender from '../components/Calender'
 import ExerciseCard from '../components/ExerciseCard'
@@ -44,12 +42,6 @@ export default new Router({
 			path: "/",
 			name: "home",
 			component: UpdateExercise
-			
-		},
-		{
-			path: "/login",
-			name: "Login",
-			component: Login
 		},
 		{
 			path: "/register",
@@ -103,7 +95,8 @@ export default new Router({
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },
 				{ path: '/profile', component: Profile, props: true, beforeEnter:authGuard },
-				{ path:'/showoneexercise', component: ShowOneExercise, props: true }
+				{ path:'/showoneexercise', component: ShowOneExercise, props: true },
+				{ path:'/showoneexercise', component: ShowOneExercise, props: true },
 				{ path: '/profile', component: Profile, props: true,	beforeEnter:authGuard},
 				{ path:'/showoneexercise', component: ShowOneExercise, props: true},
 				{ path: '/useroverview', component: UserOverview, props: true }
