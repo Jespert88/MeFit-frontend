@@ -8,11 +8,7 @@ import ExerciseCard from '../components/ExerciseCard'
 import WorkoutCard from '../components/WorkoutCard'
 import SideNavbar from '../components/SideNavbar'
 
-
 import ProgramCard from '../containers/ViewExercise'
-
-// import EditProfile from '../containers/EditProfile'
-// import EditProfilePicture from '../containers/EditProfilePicture'
 import Profile from '../containers/Profile'
 import Dashboard from '../containers/Dashboard'
 import UserOverview from '../containers/UserOverview'
@@ -21,9 +17,9 @@ import CreateExercise from '../containers/CreateExercise'
 import UpdateExercise from '../containers/UpdateExercise'
 import UpdateWorkout from '../containers/UpdateWorkout'
 import CreateProgram from '../containers/CreateProgram'
-
 import ShowOneExercise from '../containers/ShowOneExercise'
 import SetGoal from '../containers/SetGoal'
+
 import { authGuard } from "../auth";
 
 Vue.use(Router)
@@ -95,12 +91,8 @@ export default new Router({
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },
 				{ path: '/profile', component: Profile, props: true, beforeEnter:authGuard },
-				{ path:'/showoneexercise', component: ShowOneExercise, props: true },
-				{ path:'/showoneexercise', component: ShowOneExercise, props: true },
-				{ path: '/profile', component: Profile, props: true,	beforeEnter:authGuard},
-				{ path:'/showoneexercise', component: ShowOneExercise, props: true},
+				{ path: '/showoneexercise', component: ShowOneExercise, props: true },
 				{ path: '/useroverview', component: UserOverview, props: true }
-
 			]
 		}
 	]
