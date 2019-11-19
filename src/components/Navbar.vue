@@ -1,48 +1,37 @@
 <template>
 <div>
 
-    <b-navbar toggleable="lg" type="dark" variant="dark" id="TopNavbar">
-    <b-navbar-brand href="#" class=".navbar-brand">MeFit</b-navbar-brand>
+     <!-- User not logged in -->
+  <b-navbar toggleable="lg" type="dark" variant="dark" id="navBar" >
 
+    <b-navbar-brand href="#" class=".navbar-brand">MeFit</b-navbar-brand>
     <!-- Top navbar toggle button -->
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <!-- Nav items collapse container -->
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
 
-        <b-nav-item>
+      <b-navbar-nav class="ml-auto" v-if="!$auth.isAuthenticated && !$auth.loading">
+        <!-- User not logged in links -->
             <router-link class="nav-link" to="/"> Home </router-link>
-        </b-nav-item>
-        <b-nav-item> 
-            <router-link class="nav-link" to="/dashboard"> Dashboard </router-link>
-        </b-nav-item>
+            <router-link class="nav-link" to="/about"> About </router-link>
+            <router-link class="nav-link" to="/contactus"> Contact us </router-link>
+            <router-link class="nav-link" to="" @click.native="login"> Login </router-link>
+      </b-navbar-nav>
 
-                <li class="nav-item" >
-                    <router-link class="nav-link" to="/profile">
-                        <button class="navBtns">Profile</button>
-                    </router-link>
-                </li>
-
-                <li class="nav-item">
-                    <router-link class="nav-link" to="/" @click.native="logout">
-                        <button class="navBtns">Logout</button>
-                    </router-link>
-                </li>
-            </ul>
-        </div>
-    </nav>
-        <!-- Dropdown menu -->
-        <b-nav-item-dropdown text="User" right  class="nav-link">
+      <b-navbar-nav class="ml-auto" v-if="$auth.isAuthenticated && !$auth.loading">
+         <!-- User logged in links -->
+        <b-nav-item-dropdown text="User" right  class="nav-link" style="margin: 0 !important; padding: 0 !important;">
             <b-dropdown-item>
-                <router-link class="drop-links" to="/profile">Profile</router-link>
+                <router-link class="drop-link" to="/dashboard"> Dashboard </router-link>
             </b-dropdown-item>
-            <b-dropdown-item>
-                <router-link class="drop-links" to="/" @click.native="logout">Logout</router-link>
+            <b-dropdown-item class="drop-link"> 
+              <router-link class="drop-link" to="" @click.native="logout"> Logout </router-link>
             </b-dropdown-item>
         </b-nav-item-dropdown>
 
       </b-navbar-nav>
+
     </b-collapse>
   </b-navbar>
 
@@ -50,21 +39,19 @@
 </template>
 
 <script>
-    export default {
-        name: 'NavBar',
-
-        data () {
-            return {
-                
-            }
-        },
-
-        methods: {
-            
-        }
+export default {
+  name: "NavBar",
+  methods: {
+    login() {
+      this.$auth.loginWithRedirect();
+    },
+    logout() {
+      this.$auth.logout();
+      this.$router.push({ path: "/" });
     }
+  }
+};
 </script>
-
 <style scoped>
 /* Desktop */
 #TopNavbar {

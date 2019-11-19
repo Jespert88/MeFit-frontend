@@ -23,6 +23,11 @@
                     <button class="sideNavBtns" @click="closeNav()">Create Workout</button>
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/createprogram">
+                    <button class="sideNavBtns" @click="closeNav()">Create Program</button>
+                </router-link>
+            </li>
         </ul>
     </div>
 
@@ -31,7 +36,7 @@
 
 <script>
 export default {
-
+    name: "SideNavbar",
     props: ['parentmessage'],
 
     methods: {

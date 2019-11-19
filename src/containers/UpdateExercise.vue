@@ -1,11 +1,7 @@
 <template>
-<div>
-    <div v-if="loading" class="loading">
-      Loading...
-    </div>
+<div class="content">
+    <Loading v-if="loading"/>
     <b-row no-gutters>
-    <b-col></b-col>
-
       <b-col cols="10" md="6" xl="4">
             <h1 class="updateExerciseTitle">Update exercise</h1>
             <b-form @submit="submitUpdate" id="updateExercise">
@@ -36,6 +32,7 @@
 
 <script>
 import axios from 'axios'
+import Loading from '../components/Loading.vue'
 export default {
     name: "UpdateExercise",
     data() {
@@ -54,6 +51,9 @@ export default {
     },
     props: {
         
+    },
+    components:{
+        Loading
     },
     methods: {
 

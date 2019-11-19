@@ -1,222 +1,147 @@
 <template>
-  <div>
-    <form>
-            <div id="workoutContainer">
-                <h1 id="bodyTitle">Create your workout</h1>
-                <h1 id="workoutTitle">{{name}}</h1>
-                <h1 id="workoutType">{{type}}</h1>
-                <div id="inputContainer">
-                    <input type="text" class="inputStyle" placeholder="Enter name of workout"  
-                        v-model="name"  
-                        required  
-                        onkeypress="return /[a-å,ä,ö]/i.test(event.key)"
-                    >
-                    <input type="text" class="inputStyle" placeholder="Enter type / muscelgroup"  
-                        v-model="type"  
-                        required  
-                        onkeypress="return /[a-å,ä,ö]/i.test(event.key)"
-                    >
-                    <button @click="createWorkout">Create workout</button>
-                </div>
-
-                 <div id="cardGrid">
-                <ExerciseCard v-for="exercise in chosedExerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
-
-            </div>
 
 
-                <div id="exerciseArrayDiv">
-                    <div id="repBtnContainer" v-for="btns in setArray" :key="btns.id">
-                        <!-- Subtraction button -->
-                        <button class="setBtns" v-on:click-exerciseCard="minusRep">-</button>
-                        <!-- Add button -->
-                        <button class="setBtns" v-on:click-exerciseCard="addRep">+</button>
-                    </div>
-                    <!-- Display all of the selected object exercises with buttons for add how many sets -->
-                </div>
-            </div>
-            <div id="cardGrid">
-                <ExerciseCard v-for="exercise in exerciseArray" :key="exercise.id" :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"></ExerciseCard>
-            </div>
-    </form>
+        <div class="content">
+       <Loading v-if="loading"/>
+
+        <div v-if="errors">
+        <b-alert v-for="error in errors" :key="error" show variant="danger">{{error}}</b-alert>
+        </div>
+
+        <div  v-if="!loading">
+            
+        <b-container style="paddin : 10px; margin-bottom:10px">
+                <b-form v-if="!loading" @submit="createWorkout">    
+                        <h1 id="bodyTitle">Create your workout</h1>
+                        <b-form-group>
+                            <b-form-input  type="text" v-model="name" required></b-form-input>
+                        </b-form-group>
+                        <b-form-group>
+                            <b-form-input  type="text" v-model="type" required></b-form-input>
+                        </b-form-group>
+                  
+        
+        <b-container v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
+        <b-row align-h="start">
+            <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-2" style="padding:10px;" >
+                <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
+                <b-button type="submit" variant="secondary" @click="removeFromExercises(exercise)">Remove Exercise</b-button>
+                </b-col>
+        </b-row>
+                </b-container >
+
+           <b-button type="submit" variant="secondary">Create Workout</b-button>
+             </b-form>
+        </b-container >
+           
+            
+        <b-container  >
+        <b-row>
+            <b-col v-for="exercise in exerciseArray" :key="exercise.id" class="col-lg-3" ><ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray" :toSelect="true"/></b-col>
+        </b-row>
+        </b-container >
+        </div>
   </div>
+
+  
 </template>
 
 <script>
 import ExerciseCard from '../components/ExerciseCard.vue'
+import Loading from '../components/Loading.vue'
 import axios from 'axios';
 
 export default {
-  
-data() {
-    return {
-        chosedExerciseArray: [],
-        exerciseArray: [],
-        setArray: [],
-        errors: [],
-        name: "",
-        type: "",
-    }
-  },
-
-  created() {
-    axios.get('http://localhost:8080/exercises')
-    .then(response => {
-      // JSON responses are automatically parsed.
-      this.exerciseArray = response.data
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
-   
-
-    // this.exerciseArray.forEach(exercise => {
-      
-    // })
-    /* async / await version (created() becomes async created())
-    
-    try {
-      const response = await axios.get('https://api.exchangeratesapi.io/latest)
-      this.posts = response.data
-    } catch (e) {
-      this.errors.push(e)
-    } */
+    components: {
+        ExerciseCard,
+        Loading
+    },      
+    data() {
+        return {
+            chosedExerciseArray: [],
+            exerciseArray: [],
+            toSelectArray:[],
+            setArray: [],
+            errors: [],
+            name: "",
+            type: "",
+            profileId: "",
+            loading: false,
+        }
     },
 
-    props: {
-        
+    created() {
+        this.loading = true
+        axios
+            .get('https://me-fit.herokuapp.com/exercises')
+            .then((response) => {
+                this.loading = false
+                // JSON responses are automatically parsed.
+                this.exerciseArray = response.data.slice(0)
+                this.toSelectArray = response.data.slice(0)
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
     },
     methods: {
+        removeFromExercises: function(exercise){
+            exercise.reps = 1
+            exercise.sets = 1
+            this.exerciseArray.push(exercise)
 
-         /* For set */
-        addRep: function(event) {
-            event.preventDefault()
-            this.set += 1;
-        },
-        minusRep: function(event) {
-            if(this.set <= 0) {
-                this.set = 0;
-            }
-            else {
-                this.set -= 1;
-            }
-             event.preventDefault()
+            var pos = this.chosedExerciseArray.indexOf(exercise)
+            this.chosedExerciseArray.splice(pos , 1)
+            
+            if (event) event.preventDefault()
         },
         addToExerciseArray: function(exercise) {
-        exercise.toBeSelected= true
-        exercise.toChooseReps = true
             /* Push every data you want to save to the array. */
-            this.chosedExerciseArray.push(
-                exercise
-            )
+            this.chosedExerciseArray.push(exercise)
+
             var pos = this.exerciseArray.indexOf(exercise)
             this.exerciseArray.splice(pos , 1)
-            console.log(this.chosedExerciseArray[0]);
+            if (event) event.preventDefault()
+        },
+        resetValues: function(){
+            this.chosedExerciseArray = []
+            this.setArray = []
+            this.errors = []
+            this.name = ""
+            this.type = ""
+            this.profileId = ""
+            this.loading = false
+
+            this.chosedExerciseArray = 0
+            this.exerciseArray = this.toSelectArray.slice(0)
+        },
+        createWorkout: function(){
             event.preventDefault()
-
+            this.loading = true
+            axios
+                .post('http://localhost:8080/addWorkout',{
+                    name : this.name,
+                    type : this.type,
+                    exercises :this.chosedExerciseArray
+                })
+                .then((results) => {
+                    this.loading = false;
+                    console.log(results)
+                    if (results.status == 201) {
+                        console.log("Status 201. Created!");
+                    } else if (results.status == 400) {
+                        console.log("Status 400. Bad Request..");
+                    } else if (results.status == 401) {
+                        console.log("Status 404. Not Found..");
+                    }
+                })
+                .catch((e) => {
+                    console.log("Exception: ", e)
+                }).finally(() => {
+                    this.resetValues()
+                })
         }
-        , createWorkout : function(){
-            axios.post('http://localhost:8080/addWorkout',{
-                name : this.name,
-                type : this.type,
-
-
-            })
-
-        }
-    },
-    components: {
-        ExerciseCard
     }
 }
 </script>
 
-<style scoped>
-/* Desktop */
-#createWorkout {
-        margin: 10%;
-        margin-right: 37%;
-        margin-left: 37%;
-        margin-bottom: 5%;
-        padding: 2%;
-        background: rgba(0, 0, 0, 0.3);
-    }
-
-/* Desktop CSS */
-#bodyTitle {
-    text-align: center;
-    
-    padding: 20px;
-}
-
-#workoutContainer {
-    margin: 5%;
-    padding: 3%;
-    background-color: #fff;
-}
-#workoutTitle {
-    text-align: center;
-    padding: 5px;
-}
-#workoutType {
-    text-align: center;
-}
-
-#exerciseArrayDiv {
-    padding: 5px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-}
-
-#cardGrid {
-    background-color: #f2f2f2;
-    margin: 5%;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-}
-
-
-#setBtns {
-    border: 0;
-    margin: 5px;
-    width: 50px;
-    background-color: green;
-}
-
-#repContainer {
-    text-align: center;
-}
-
-#repBtnContainer {
-    text-align: center;
-}
-
-/* Mobile */
-@media (min-width: 360px) and (max-width: 600px) {
-  #cardGrid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-  }
-} 
-    
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1024px) {
-  #cardGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-  }
-} 
-</style>
