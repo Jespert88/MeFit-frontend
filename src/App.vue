@@ -36,12 +36,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.content{
-    flex: 1;
 }
 
 </style>

@@ -1,5 +1,5 @@
-<template>
 
+<template>
 
         <div class="content">
        <Loading v-if="loading"/>
@@ -144,4 +144,3 @@ export default {
     }
 }
 </script>
-

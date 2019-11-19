@@ -1,24 +1,50 @@
 <template>
-  
+<p>{{this.usersId[3]}}</p>
 </template>
 
 <script>
-import Hero from "../components/Hero";
-import HomeContent from "../components/HomeContent";
 
+import axios from 'axios'
 export default {
   name: "home",
+   data() {
+        return{
+          usersId : []
+        }
+    },
+
+  created(){
+    axios.get('https://me-fit.herokuapp.com/profile/'+this.$auth.user.sub.substring(6)).then(response => {
+        if(response.status == '202'){
+
+        }else if (response.status == '403'){
+          axios.post('https://me-fit.herokuapp.com/createProfile/',{
+            userId =  this.$auth.user.sub.substring(6)
+          }).then(response =>{
+            if (response == '201'){
+              window.location('/profile')
+            }
+          })
+        }
+      })
+  },
+
   components: {
-    Hero,
-    HomeContent
-  }
+  },
+  methods :{
+      checkifexist : function () {
+      console.log(this.usersId)
+      }
+      // if(element.userId === this.$auth.user.sub.substring(6) ){
+      //  return true;
+      // }else{
+      //   return false;
+      // }
+      
+      
+    
+  } 
 };
 </script>
 
-<style lang="scss" scoped>
-.next-steps {
-  .fa-link {
-    margin-right: 5px;
-  }
-}
-</style>
+

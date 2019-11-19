@@ -1,4 +1,3 @@
-
 import Vue from 'vue'
 import Router from "vue-router"
 import BootstrapVue from 'bootstrap-vue'
@@ -43,7 +42,6 @@ export default new Router({
 			path: "/",
 			name: "home",
 			component: UpdateExercise
-			
 		},
 		{
 			path: "/register",
@@ -97,6 +95,7 @@ export default new Router({
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },
 				{ path: '/profile', component: Profile, props: true, beforeEnter:authGuard },
+				{ path:'/showoneexercise', component: ShowOneExercise, props: true },
 				{ path:'/showoneexercise', component: ShowOneExercise, props: true },
 				{ path: '/profile', component: Profile, props: true,	beforeEnter:authGuard},
 				{ path:'/showoneexercise', component: ShowOneExercise, props: true},
