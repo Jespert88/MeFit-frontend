@@ -1,6 +1,4 @@
 body {
-    height: 100vh;
-    background: rgb(20,69,79);
-    background: linear-gradient(180deg, rgba(20,69,79,1) 0%, rgba(31,6,56,1) 100%); 
-    background-repeat: no-repeat;
+    height: 100vh; /* will cover the 100% of viewport */
+    background-color: #357383 !important;
 }
