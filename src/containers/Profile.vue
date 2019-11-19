@@ -6,7 +6,7 @@
         <div>
           <p>{{$auth.user}}</p>
           <h2>Personal information</h2>
-          <img src="../assets/logo.png" fluid alt="Responsive image">
+          <img src="../assets/logo.png" fluid>
           
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
@@ -18,20 +18,20 @@
               <b-form-input id="input-2" v-model="form.name" required placeholder="Enter name"></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-3" label="Change password:" label-for="input-2">
-              <b-form-input id="input-3" v-model="form.password" required placeholder="Change password"></b-form-input>
+            <b-form-group id="input-group-3" label="Change password:" label-for="input-3">
+              <b-form-input id="input-3" v-model="form.password" type="password" required placeholder="Change password"></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-4" label="Fitness level:" label-for="input-3">
-              <b-form-select id="input-4" v-model="form.fitnesslevel" :options="fitnesslevel" ></b-form-select>
+            <b-form-group id="input-group-4" label="Fitness level:" label-for="input-4">
+              <b-form-select id="input-4" v-model="form.fitnesslevel" :options="fitnesslevel" required></b-form-select>
             </b-form-group>
 
-            <b-form-group id="input-group-5" label="Height:" label-for="input-2">
-              <b-form-input id="input-5" v-model="form.height" required></b-form-input>
+            <b-form-group id="input-group-5" label="Height:" label-for="input-5">
+              <b-form-input id="input-5" v-model="form.height" required placeholder="Height in cm"></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-6" label="Weight:" label-for="input-2">
-              <b-form-input id="input-6" v-model="form.weight" :options="weight" required></b-form-input>
+            <b-form-group id="input-group-6" label="Weight:" label-for="input-6">
+              <b-form-input id="input-6" v-model="form.weight" required placeholder="Weight in kg"></b-form-input>
             </b-form-group>
             
             <b-button type="submit" variant="dark" style="margin: 3px;">Save</b-button>
@@ -40,12 +40,13 @@
             <b-button v-b-toggle.collapse-1 variant="dark" style="margin: 3px;">Edit profile picture</b-button>
             <b-collapse id="collapse-1" class="mt-2">
               <b-card>
-                <div v-if="!image">
+                <div v-if="!file">
                   <h4>Select an image</h4>
-                  <input type="file" @change="onFileChange">
+                  <input type="file" v-on:change="handleFileUpload()"/>
+                  <button v-on:click="submitFile()">Upload</button>
                   </div>
                   <div v-else>
-                    <img :src="image" />
+                    <img :src="file"/>
                     <button @click="removeImage">Remove image</button>
                   </div>
               </b-card>
@@ -53,7 +54,7 @@
           </b-form>
         </div>
       </b-card>
-      
+
       <div id="contentDiv">
         <b-row cols="12" md="4" xl="4" no-gutters>
           <b-col cols="12" md="6" xl="6">
@@ -80,6 +81,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -88,9 +90,9 @@ export default {
         email: '',
         name: '',
         fitnesslevel: null,
-        image: '',
-        weight : '',
-        height : '',
+        height: '',
+        weight: '',
+        file: ''
       },
       fitnesslevel: [{
         text: 'Select your fitnesslevel',
@@ -125,6 +127,9 @@ export default {
       this.form.email = ''
       this.form.name = ''
       this.form.fitnesslevel = null
+      this.form.height = ''
+      this.form.weight = ''
+      // this.form.file = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {
@@ -132,31 +137,46 @@ export default {
       })
     },
 
-        // onFileChange(evt) {
-        //     var files = evt.target.files || evt.dataTransfer.files;
-        //     if (!files.length)
-        //         return;
-        //     this.createImage(files[0]);
-        // },
-
-        // createImage(file) {
-        //     this.image = new Image();
-        //     var reader = new FileReader();
-        //     var vm = this;
-
-        //     reader.onload = (evt) => {
-        //         vm.image = evt.target.result;
-        //     };
-        //     reader.readAsDataURL(file);
-        // },
-
-        // removeImage: function (evt) {
-        //     this.image = '';
-        // }
+    onChange(event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function(e) {
+      // The file's text will be printed here
+      console.log(e.target.result)
+    };
+    reader.readAsText(file);
     }
+    },
 
-    
-}
+    submitFile(evt) {
+      evt.preventDefault()
+      let formData = new FormData();
+      formData.append('file', this.file);
+
+      axios.post('/single-file',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(function(){
+        console.log('works!');
+      })
+      .catch(function(){
+        console.log('fails');
+      });
+      },
+      
+      handleFileUpload(evt) {
+        evt.preventDefault()
+      this.file = this.$refs.file.files[0];
+      },
+      
+      // removeImage: function (e) {
+      // this.file = '';
+      // }
+    }
 </script>
 
 <style scoped>
