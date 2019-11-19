@@ -1,6 +1,9 @@
 <template>
 <div>
+    <div>
     <Loading v-if="loading"/>
+    </div>
+    <div v-if="!loading">
     <b-row no-gutters>
       <b-col cols="10" md="6" xl="4">
             <h1 class="updateExerciseTitle">Update exercise</h1>
@@ -26,7 +29,7 @@
 
       <b-col></b-col>
     </b-row>
-
+</div>
 </div>
 </template>
 

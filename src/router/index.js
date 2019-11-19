@@ -19,7 +19,7 @@ import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
 import UpdateExercise from '../containers/UpdateExercise'
 import UpdateWorkout from '../containers/UpdateWorkout'
-
+import Home from '../views/Home'
 import ShowOneExercise from '../containers/ShowOneExercise'
 import { authGuard } from "../auth";
 
@@ -33,7 +33,8 @@ export default new Router({
 		{
 			path: "/",
 			name: "home",
-			component: UpdateExercise
+			component: Home,
+			beforeEnter: authGuard
 			
 		},
 		{
@@ -71,7 +72,6 @@ export default new Router({
 			path: "/workoutcard",
 			name: "WorkoutCard",
 			component: WorkoutCard,
-			beforeEnter:authGuard
 		},
 		{
 			path: "/updateworkout",
@@ -91,8 +91,7 @@ export default new Router({
 				/* https://router.vuejs.org/guide/essentials/nested-routes.html */
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },
-				{ path: '/profile', component: Profile, props: true,	beforeEnter:authGuard
-			},
+				{ path: '/profile', component: Profile, props: true},
 				{ path:'/showoneexercise', component: ShowOneExercise, props: true}
 			]
 		}

@@ -21,12 +21,12 @@
 
       <b-navbar-nav class="ml-auto" v-if="$auth.isAuthenticated && !$auth.loading">
          <!-- User logged in links -->
-        <b-nav-item-dropdown text="User" right  class="nav-link" v-if="loggedIn" style="margin: 0 !important; padding: 0 !important;">
+        <b-nav-item-dropdown text="User" right  class="nav-link" style="margin: 0 !important; padding: 0 !important;">
             <b-dropdown-item>
                 <router-link class="drop-link" to="/dashboard"> Dashboard </router-link>
             </b-dropdown-item>
             <b-dropdown-item class="drop-link"> 
-              <router-link class="drop-link" to="#" @click.prevent="logout"> Logout </router-link>
+              <router-link class="drop-link" to="#" @click.native="logout"> Logout </router-link>
             </b-dropdown-item>
         </b-nav-item-dropdown>
 
