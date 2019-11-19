@@ -5,7 +5,6 @@ import BootstrapVue from 'bootstrap-vue'
 
 import Login from '../components/Login'
 import Register from '../components/Register'
-import Progress from '../components/Progress'
 import Calender from '../components/Calender'
 import ExerciseCard from '../components/ExerciseCard'
 import WorkoutCard from '../components/WorkoutCard'
@@ -15,6 +14,7 @@ import SideNavbar from '../components/SideNavbar'
 // import EditProfilePicture from '../containers/EditProfilePicture'
 import Profile from '../containers/Profile'
 import Dashboard from '../containers/Dashboard'
+import UserOverview from '../containers/UserOverview'
 import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
 import UpdateExercise from '../containers/UpdateExercise'
@@ -47,11 +47,6 @@ export default new Router({
 			name: "Register",
 			component: Register,
 			beforeEnter: authGuard			
-		},
-		{
-			path: "/progress",
-			name: "Progress",
-			component: Progress
 		},
 		{
 			path: "/calender",
@@ -97,9 +92,9 @@ export default new Router({
 				/* https://router.vuejs.org/guide/essentials/nested-routes.html */
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },
-				{ path: '/profile', component: Profile, props: true,	beforeEnter:authGuard
-			},
-				{ path:'/showoneexercise', component: ShowOneExercise, props: true}
+				{ path: '/profile', component: Profile, props: true,	beforeEnter:authGuard},
+				{ path:'/showoneexercise', component: ShowOneExercise, props: true},
+				{ path: '/useroverview', component: UserOverview, props: true }
 			]
 		}
 	]
