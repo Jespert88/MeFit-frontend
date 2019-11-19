@@ -4,7 +4,10 @@
      <!-- User not logged in -->
   <b-navbar toggleable="lg" type="dark" variant="dark" id="navBar" >
 
-    <b-navbar-brand href="#" class=".navbar-brand">MeFit</b-navbar-brand>
+    <b-navbar-brand href="/" class=".navbar-brand">
+      <img src= '../assets/rsz_22logo.png' style="max-width:35%"  alt="Kitten">
+    </b-navbar-brand>
+
     <!-- Top navbar toggle button -->
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <!-- Nav items collapse container -->

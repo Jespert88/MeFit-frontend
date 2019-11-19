@@ -102,6 +102,7 @@ export const useAuth0 = ({
         this.isAuthenticated = await this.auth0Client.isAuthenticated();
         this.user = await this.auth0Client.getUser();
         this.loading = false;
+        this.userId = this.user.sub.substring(6)
       }
     }
   });
