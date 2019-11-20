@@ -25,8 +25,8 @@
                   </b-form-group>
                 </b-col>
                 <b-col>
-                  <b-form-group id="input-group-3" label="Change password:" label-for="input-3">
-                    <b-form-input id="input-3" v-model="form.password" required ></b-form-input>
+                  <b-form-group  label="Age" >
+                    <b-form-input  v-model="form.age" type="number"  required ></b-form-input>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -39,12 +39,12 @@
               <b-row>
                 <b-col>
                 <b-form-group id="input-group-6" label="Weight:" label-for="input-5">
-                  <b-form-input id="input-5" v-model="form.weight"  required></b-form-input>
+                  <b-form-input id="input-5" v-model="form.weight" type="number"  required></b-form-input>
                 </b-form-group> 
                 </b-col>
                 <b-col>
                   <b-form-group id="input-group-5" label="Height:" label-for="input-6">
-                    <b-form-input id="input-6" v-model="form.height" required></b-form-input>
+                    <b-form-input id="input-6" v-model="form.height" type="number"  required></b-form-input>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -52,7 +52,7 @@
               <b-row>
                 <b-col>
                   <b-form-group id="input-group-6" label="Street:" label-for="input-7">
-                    <b-form-input id="input-7" v-model="form.stret"  required></b-form-input>
+                    <b-form-input id="input-7" v-model="form.street"  required></b-form-input>
                   </b-form-group> 
                 </b-col>
               </b-row>
@@ -94,11 +94,7 @@
           </b-form>
         </div>
       </b-card>
-      
-     
     </b-col>
-    
-    
   </b-row>
    </b-container>
 </div>
@@ -118,9 +114,9 @@ export default {
             name: '',
             fitnesslevel: null,
             image: '',
-            weight : '',
-            height : '',
-            age : '',
+            weight : 0,
+            height : 0,
+            age : 0,
             street : '',
             city: '',
             country : "",
@@ -139,6 +135,7 @@ export default {
  created() {
    this.loading =true;
    axios.get('https://me-fit.herokuapp.com/profile/user/'+ this.$auth.user.sub.substring(6)).then(response =>{
+     console.log(response.data)
       this.loading = false;
       this.profileId = response.data.profileId
       this.form.email = this.$auth.user.email
@@ -152,17 +149,23 @@ export default {
   
   methods: {
     onSubmit: function() {
+      event.preventDefault()
+      console.log(this.profileId)
+      console.log(this.userID)
+      console.log(this.form)
+  
+
      this.loading = true;
-     axios.patch('https://me-fit.herokuapp.com/profile/'+this.profileId, {
+     axios.patch('http://localhost:8080/profile/1', {
      height : this.form.height,
      weight : this.form.weight,
      age : this.form.age,
-     fitnesslevel : this.form.fitnesslevel,
-     street : '',
-     city: '',
-     country : "",
-     postalCode : 1,
-     userId : this.userID
+     fitnessLevel : this.form.fitnesslevel,
+     street : this.form.street,
+     city: this.form.city,
+     country : this.form.country,
+     postalCode : this.form.postalCode,
+     userId : "213213sad"
     }).then(response => {
       this.loading=false
         console.log(response)

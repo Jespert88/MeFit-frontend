@@ -1,11 +1,15 @@
 
 <template>
-
+    
         <div class="content">
        <Loading v-if="loading"/>
 
         <div v-if="errors">
-        <b-alert v-for="error in errors" :key="error" show variant="danger">{{error}}</b-alert>
+        <b-alert v-for="error in errors" :key="error" show variant="danger" dismissible="">{{error}}</b-alert>
+        </div>
+
+        <div v-if="successes">
+        <b-alert v-for="success in successes" :key="success" show variant="success" dismissible="">{{success}}</b-alert>
         </div>
 
         <div  v-if="!loading">
@@ -29,7 +33,6 @@
                 </b-col>
         </b-row>
                 </b-container >
-
            <b-button type="submit" variant="secondary">Create Workout</b-button>
              </b-form>
         </b-container >
@@ -67,6 +70,8 @@ export default {
             type: "",
             profileId: "",
             loading: false,
+            successes :[],
+            userId : this.$auth.userId
         }
     },
 
@@ -107,11 +112,10 @@ export default {
             this.chosedExerciseArray = []
             this.setArray = []
             this.errors = []
-            this.name = ""
-            this.type = ""
-            this.profileId = ""
+            this.name = " "
+            this.type = " "
+            this.profileId = this.$profileId
             this.loading = false
-
             this.chosedExerciseArray = 0
             this.exerciseArray = this.toSelectArray.slice(0)
         },
@@ -119,15 +123,17 @@ export default {
             event.preventDefault()
             this.loading = true
             axios
-                .post('http://localhost:8080/addWorkout',{
+                .post('https://me-fit.herokuapp.com/addWorkout',{
                     name : this.name,
                     type : this.type,
-                    exercises :this.chosedExerciseArray
+                    exercises :this.chosedExerciseArray,
+                    profileId : this.profileId
                 })
                 .then((results) => {
                     this.loading = false;
                     console.log(results)
                     if (results.status == 201) {
+                        this.successes.push('Workout Created successfully')
                         console.log("Status 201. Created!");
                     } else if (results.status == 400) {
                         console.log("Status 400. Bad Request..");

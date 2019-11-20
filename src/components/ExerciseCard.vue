@@ -10,7 +10,7 @@
     img-alt="Image"
     img-top
     tag="article"
-    style="max-width: 20rem;" 
+    style="text-align:center; max-width: 20rem" 
     class="mb-2"
  >
         <b-card-text> {{ exercise.description }}</b-card-text>
@@ -32,20 +32,28 @@
             
 
             <b-row>
-                <div v-if="!toSelect && setData != null">
-                <label>Sets: {{setData.setRepetitions}}</label>
-                <label>Reps: {{setData.repetitions}}</label>
-            </div>
+                <b-row v-if="!toSelect && setData != null">
+                    <b-col>
+                        <label>Sets: {{setData.setRepetitions}}</label>
+                    </b-col>
+                    <b-col>
+                        <label>Reps: {{setData.repetitions}}</label>
+                    </b-col>
+                </b-row>
             <!-- Show reps / sets for CreateWorkout -->
-            <div v-if="!toSelect && setData == null">
-                <label>Sets: {{this.exercise.sets}}</label>
-                <label>Reps: {{this.exercise.reps}}</label>
-            </div>
+            <b-row v-if="!toSelect && setData == null">
+                    <b-col>
+                        <label>Sets: {{this.exercise.sets}}</label>
+                    </b-col>
+                    <b-col>
+                        <label>Reps: {{this.exercise.reps}}</label>
+                    </b-col>
+            </b-row>
             </b-row>
 
             <b-row style="justify-content : center ; padding-top:10%">
                 <div>
-                 <b-button v-if="toSelect" type="submit" variant="danger" @click="addExerciseObj(exercise)"     >Select Exercise</b-button>
+                 <b-button v-if="toSelect" type="submit" variant="danger" @click="addExerciseObj(exercise)">Select Exercise</b-button>
                 </div>
             </b-row>
             

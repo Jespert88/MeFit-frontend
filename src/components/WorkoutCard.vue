@@ -1,13 +1,11 @@
 
 <template>
         <b-card
-        title="Workout"
+        :title= this.workout.name
         style="max-width: 20rem;"
         class="text-center"
         >
-            <b-card-text>
-                {{workout.name}}
-            </b-card-text>
+         
             <b-card-text>
                 {{workout.type}}
             </b-card-text>
