@@ -10,7 +10,7 @@ export const getInstance = () => instance;
 
 export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  redirectUri = window.location.origin,
+  redirectUri = 'http://localhost:3000/home',
   ...options
 }) => {
   if (instance) return instance;

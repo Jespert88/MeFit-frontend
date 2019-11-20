@@ -36,7 +36,7 @@ export default new Router({
 			component: ProgramCard
 		},
 		{
-			path: "/",
+			path: "/home",
 			name: "home",
 			component: Home,
 			beforeEnter :authGuard

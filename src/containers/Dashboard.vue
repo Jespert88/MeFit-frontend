@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class ="content">
 
   <b-row no-gutters>
     <b-col cols="12" md="1" xl="1">

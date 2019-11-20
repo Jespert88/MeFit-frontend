@@ -15,7 +15,6 @@
 
 <style scoped>
 .footer {
-    position: absolute;
     bottom: 0;
     text-align: center;
     background-color: #123e4b;
@@ -38,7 +37,6 @@ p {
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
 .footer {
-    position: absolute;
     bottom: 0;
     text-align: center;
     background-color: #123e4b;

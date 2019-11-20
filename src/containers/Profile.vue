@@ -1,10 +1,8 @@
 <template>
 
-<div>
-
-  <div>
+<div class="content">
     <Loading v-if="loading"/> 
-  </div>
+   <b-container>
   <b-row no-gutters>
         <!-- <p>{{$auth.user}}</p> -->
 
@@ -102,6 +100,7 @@
     
     
   </b-row>
+   </b-container>
 </div>
 </template>
 
@@ -140,7 +139,6 @@ export default {
  created() {
    this.loading =true;
    axios.get('https://me-fit.herokuapp.com/profile/user/'+ this.$auth.user.sub.substring(6)).then(response =>{
-     console.log('fetching profile with id number ' +this.$auth.user.sub.substring(6) )
       this.loading = false;
       this.profileId = response.data.profileId
       this.form.email = this.$auth.user.email
@@ -153,7 +151,7 @@ export default {
     },
   
   methods: {
-    onSubmit() {
+    onSubmit: function() {
      this.loading = true;
      axios.patch('https://me-fit.herokuapp.com/profile/'+this.profileId, {
      height : this.form.height,

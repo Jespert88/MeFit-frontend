@@ -4,7 +4,7 @@
   <b-navbar toggleable="lg" type="dark" variant="dark" id="navBar">
     <!-- Logo -->
     <b-navbar-brand href="/" class=".navbar-brand">
-      <img src= '../assets/rsz_22logo.png' alt="Kitten" id="logo">
+      <img src= '../assets/rsz_mefitlogo.png' alt="Kitten" id="logo"  >
     </b-navbar-brand>
 
     <!-- Top navbar toggle button -->
@@ -60,10 +60,11 @@ export default {
     margin: 0px !important;
     background-color: #123e4b !important;
 }
-#logo {
+ #logo {
   padding: 5px;
-  max-width: 100px !important;
-}
+  max-height: 45px !important;
+  max-width: 150px !important;
+} 
 .nav-link {
     color: #fff !important;
 }
