@@ -23,7 +23,8 @@ export const useAuth0 = ({
         user: {},
         auth0Client: null,
         popupOpen: false,
-        error: null
+        error: null,
+        userId : ''
       };
     },
     methods: {

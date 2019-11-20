@@ -18,27 +18,15 @@ export default {
   name: "home",
    data() {
         return{
-         userId : '',
+         userId : this.$auth.userId,
          loading :false,
+
          }
     },
 
   created(){
-       this.loading =true;
-      this.fetchAndCreateProfile()
-      
-  },
-  components: {
-    Loading
-  },
-  methods :{
-      async fetchAndCreateProfile(){
-      this.userId = await this.$auth.userId
-      if(this.userId == undefined){
-        console.log('here')
-        this.$router.push('/')
-      }else {
-      axios.get('https://me-fit.herokuapp.com/profile/user/'+this.userId).then(response => {
+      this.loading =true;
+      axios.get('https://me-fit.herokuapp.com/profile/user/'+this.userId + '2323').then(response => {
        this.loading =false;
        console.log(response)
         if(response.status == '202' && response.data !=""){
@@ -60,12 +48,21 @@ export default {
           console.log('400')
         }
       })
-      }
-      // if(element.userId === this.$auth.user.sub.substring(6) ){
-      //  return true;
-      // }else{
-      //   return false;
-      // } 
+  },
+  components: {
+    Loading
+  },
+  methods :{
+      async fetchAndCreateProfile () {
+      // this.userId = this.$auth.userId
+      const user = await this.$auth.user
+      // console.log(this.$auth)
+      // console.log(this.$auth.userId)
+      console.log(user)
+      console.log(user.sub)
+      console.log(user.sub.substring(6))
+      
+
   } 
   }
 };
