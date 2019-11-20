@@ -14,6 +14,11 @@
                 </router-link>
             </li>
             <li class="nav-item">
+                <router-link class="nav-link" to="/useroverview">
+                    <button class="sideNavBtns" @click="closeNav()">User overview</button>
+                </router-link>
+            </li>
+            <li class="nav-item">
                 <router-link class="nav-link" to="/createexercise">
                     <button class="sideNavBtns" @click="closeNav()">Create Exercise</button>
                 </router-link>
@@ -56,35 +61,27 @@ export default {
 .sidenav {
     height: 100%;
     width: 0;
+    background: #326b7c;
+    overflow-x: hidden;
+    padding-top: 50px;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.8);
-    overflow-x: hidden;
-    transition: 0.3s;
-    padding-top: 60px;
+    transition: 0.2s;
 }
 /* Sidenavbar ul container */
-.nav-item {
-    width: 100%;
-    text-decoration: none;
-    color: #fff;
-    display: block;
-    transition: 0.3s;
-}
 .sideNavBtns {
     margin-top: 10px;
     padding: 5px;
     width: 100%;
     border: 0;
-    
+    border-radius: 5px;
 }
-
-.sidenav a:hover {
-    color: #f1f1f1;
+.sideNavBtns:hover {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5)
 }
-
 #openSidenav {
     margin: 5%;
     height: 40px;
@@ -102,9 +99,7 @@ export default {
     margin: 10px;
     background: transparent;
     color: #fff;
-    /* margin-left: 50px; */
 }
-
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
 
