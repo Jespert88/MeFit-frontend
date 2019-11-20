@@ -1,6 +1,6 @@
 import Vue from "vue";
 import createAuth0Client from "@auth0/auth0-spa-js";
-
+import axios from 'axios'
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
@@ -24,10 +24,12 @@ export const useAuth0 = ({
         auth0Client: null,
         popupOpen: false,
         error: null,
-        userId : ''
+        userId : '',
+        profileId: ''
       };
     },
     methods: {
+   
       async loginWithPopup(o) {
         this.popupOpen = true;
 
@@ -78,9 +80,11 @@ export const useAuth0 = ({
       },
       logout(o) {
         return this.auth0Client.logout(o);
-      }
+      },
     },
+     
     async created() {
+    
       this.auth0Client = await createAuth0Client({
         domain: options.domain,
         client_id: options.clientId,
@@ -105,6 +109,11 @@ export const useAuth0 = ({
         this.loading = false;
         this.userId = this.user.sub.substring(6)
       }
+
+      axios.get('https://me-fit.herokuapp.com/profile/user/'+this.user.sub.substring(6)).then(response =>{
+        console.log(response)
+        this.profileId = response.data.profileId
+  })
     }
   });
 

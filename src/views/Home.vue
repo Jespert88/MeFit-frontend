@@ -13,7 +13,6 @@
 
 import axios from 'axios'
 import Loading from '../components/Loading.vue'
-import Vue from 'vue'
 export default {
   name: "home",
    data() {
@@ -31,8 +30,6 @@ export default {
        this.loading =false;
        console.log(response)
         if(response.status == '202' && response.data !=""){
-          console.log(response.data.profileId)
-            Vue.prototype.$profileid= response.data.profileId
             console.log('fetched----')
         }
        else if (response.status == '202' && response.data ==""){
@@ -40,8 +37,6 @@ export default {
             userId :  this.$auth.user.sub.substring(6)
           }).then(response =>{
             if (response.status == '201'){
-              const ProfileID =response.headers.location.substring(37)
-              Vue.prototype.$profileid= ProfileID
               this.$router.push('/profile')
 
             }
@@ -56,17 +51,7 @@ export default {
     Loading
   },
   methods :{
-      async fetchAndCreateProfile () {
-      // this.userId = this.$auth.userId
-      const user = await this.$auth.user
-      // console.log(this.$auth)
-      // console.log(this.$auth.userId)
-      console.log(user)
-      console.log(user.sub)
-      console.log(user.sub.substring(6))
-      
 
-  } 
   }
 };
 </script>
