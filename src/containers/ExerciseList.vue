@@ -1,11 +1,9 @@
 <template>
   <div class="content">
     <Loading v-if="loading"/>
-
-
     <b-container>
       <b-row>
-            <b-col v-for="exercise in exerciseArray" :key="exercise.id" class="col-lg-3" ><ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray" :toSelect="true"/></b-col>
+            <b-col v-for="exercise in exerciseArray" :key="exercise.id" class="col-lg-3" ><ExerciseCard :exercise="exercise" :toShow="true" /></b-col>
         </b-row>
     </b-container>
   </div>

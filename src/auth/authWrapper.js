@@ -25,7 +25,9 @@ export const useAuth0 = ({
         popupOpen: false,
         error: null,
         userId : '',
-        profileId: ''
+        profileId: '',
+        isContributor :false,
+        isAdmin : false 
       };
     },
     methods: {
