@@ -9,10 +9,10 @@ import Calender from '../components/Calender'
 import ExerciseCard from '../components/ExerciseCard'
 import WorkoutCard from '../components/WorkoutCard'
 import SideNavbar from '../components/SideNavbar'
+
 import WorkoutList from '../containers/WorkoutList'
 import ProgramList from '../containers/ProgramList'
 import ExerciseList from '../containers/ExerciseList'
-import ProgramCard from '../containers/ViewExercise'
 import Profile from '../containers/Profile'
 import Dashboard from '../containers/Dashboard'
 import UserOverview from '../containers/UserOverview'
@@ -34,11 +34,6 @@ export default new Router({
 	mode:'history',
 	base: process.env.BASE_URL,
 	routes: [
-		{
-			path: "/programCard",
-			name: "programCard",
-			component: ProgramCard
-		},
 		{
 			path: "/about",
 			name: "About",
