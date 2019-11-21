@@ -17,7 +17,7 @@
         <!-- User not logged in links -->
             <router-link class="nav-link" to="/"> Home </router-link>
             <router-link class="nav-link" to="/about"> About </router-link>
-            <router-link class="nav-link" to="/contactus"> Contact us </router-link>
+            <router-link class="nav-link" to="/contact"> Contact us </router-link>
             <router-link class="nav-link" to="" @click.native="login"> Login </router-link>
       </b-navbar-nav>
 
