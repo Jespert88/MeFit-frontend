@@ -23,7 +23,10 @@
 
       <b-navbar-nav class="ml-auto" v-if="$auth.isAuthenticated && !$auth.loading">
          <!-- User logged in links -->
-        <b-nav-item-dropdown text="User" right  class="nav-link" style="margin: 0 !important; padding: 0 !important;">
+        <b-nav-item-dropdown  text="User" right  class="nav-link" no-caret style="margin: 0 !important; padding: 0 !important;">
+          <template v-slot:button-content>
+            <img :src="$auth.user.picture"  fluid  class="rounded-circle img-fluid profile-picture" id="logo" >
+        </template>
             <b-dropdown-item>
                 <router-link class="drop-link" to="/dashboard"> Dashboard </router-link>
             </b-dropdown-item>
@@ -71,7 +74,6 @@ export default {
 }
 .nav-link:hover {
     color: #79f1f1 !important;
-    text-shadow: 1px 1px 10px #27809b
 }
 /* Dropdown Links */
 .drop-links {

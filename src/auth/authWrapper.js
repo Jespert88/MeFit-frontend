@@ -113,6 +113,19 @@ export const useAuth0 = ({
       axios.get('https://me-fit.herokuapp.com/profile/user/'+this.user.sub.substring(6)).then(response =>{
         console.log(response)
         this.profileId = response.data.profileId
+        if(!response.data.role && response.data.role ==1 ){
+          this.isContributor = false;
+          this.isAdmin = false;
+        }else if (response.data.role == 2){
+          this.isContributor = true;
+          this.isAdmin = false;
+        } else if (response.data.role ==3) {
+          this.isContributor = false;
+          this.isAdmin = true;
+        }else {
+          this.isContributor = false
+          this.isAdmin = false;
+        }
   })
     }
   });
