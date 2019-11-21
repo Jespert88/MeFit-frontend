@@ -58,6 +58,7 @@ export default {
 /* Desktop */
 #navBar {
     margin: 0px !important;
+    z-index: 1;
     background-color: #123e4b !important;
 }
  #logo {

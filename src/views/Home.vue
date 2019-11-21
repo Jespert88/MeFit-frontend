@@ -1,7 +1,7 @@
 <template>
 <!-- <p>{{this.usersId[3]}}</p> -->
  
-  <div>
+  <div class="content">
   <Loading v-if="loading"/> 
    <div>
         <p>this is home page  {{this.userId}}</p>

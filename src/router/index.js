@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from "vue-router"
 import BootstrapVue from 'bootstrap-vue'
+import LandingPage from '../views/LandingPage'
+import About from '../views/About'
 
 import Register from '../components/Register'
 import Calender from '../components/Calender'
@@ -36,6 +38,16 @@ export default new Router({
 			component: ProgramCard
 		},
 		{
+			path: "/about",
+			name: "About",
+			component: About
+		},
+		{
+			path: "/",
+			name: "LandingPage",
+			component: LandingPage
+		},
+		{
 			path: "/home",
 			name: "home",
 			component: Home,
@@ -50,7 +62,8 @@ export default new Router({
 		{
 			path: "/calender",
 			name: "Calender",
-			component: Calender
+			component: Calender,
+			beforeEnter: authGuard
 		},
 		{
 			path: "/exercisecard",

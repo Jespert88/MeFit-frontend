@@ -1,15 +1,16 @@
 <template>
   <div class ="content">
+    <b-container  fluid>
+        <b-row  >
+          <b-col cols="4" xm="3" md="3" xl="3" >
+            <SideNavbar :parentmessage="parentmessage"/>
+          </b-col>
+          <b-col cols="8" xm="9" md="9" xl="9" >
+            <router-view id="routerView"/>
+          </b-col>
+        </b-row>
+    </b-container>
 
-  <b-row no-gutters>
-    <b-col cols="12" md="1" xl="1">
-      <SideNavbar :parentmessage="parentmessage"/>
-    </b-col>
-    <b-col cols="12" md="10" xl="10">
-      <router-view id="routerView"/>
-    </b-col>
-    <b-col cols="12" md="1" xl="1"></b-col>
-  </b-row>
 
 
 
