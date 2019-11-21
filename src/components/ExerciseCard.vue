@@ -1,6 +1,4 @@
 
-
-
  <template>
      
   <b-card  
@@ -8,52 +6,44 @@
     :title= this.exercise.name
     img-src="https://topfitnesshome.com/wp-content/uploads/Women-Biceps-min-600x413.jpg"
     img-alt="Image"
-    img-top
     tag="article"
-    style="text-align:center; max-width: 20rem" 
+    style="text-align:center; max-width: 15rem ;" 
     class="mb-2"
  >
         <b-card-text> {{ exercise.description }}</b-card-text>
         <b-container>
             <b-row v-if="toSelect">
+              <b-input-group>
                 <b-col>
-                <b-input-group>
-                  <b-input   v-b-popover.hover="'Reps'" type="number" min="1" max="100" required v-model="reps" placeholder="Reps">Repetions</b-input>
-                </b-input-group>  
+                  <b-input   v-b-popover.hover="'Reps'" type="number" min="1" max="100" required v-model="reps" placeholder="Reps">Repetions</b-input>   
                 </b-col>
-                
                 <b-col>
-                <b-input-group>
-                    <b-input  v-b-popover.hover="'Sets'" type="number" min="1" max="100" required v-model="sets" placeholder="">Sets</b-input>
-                </b-input-group> 
-                </b-col>
+                  <b-input  v-b-popover.hover="'Sets'" type="number" min="1" max="100" required v-model="sets" placeholder="">Sets</b-input>
+                 </b-col>
+              </b-input-group> 
             </b-row>
             <!-- Show reps / sets for CreateProgram -->
-            
-
-            <b-row>
-                <b-row v-if="!toSelect && setData != null">
-                    <b-col>
-                        <label>Sets: {{setData.setRepetitions}}</label>
-                    </b-col>
-                    <b-col>
-                        <label>Reps: {{setData.repetitions}}</label>
-                    </b-col>
-                </b-row>
+            <b-row v-if="!toSelect && setData != null" >
+                <b-col>
+                    <label>Sets: {{setData.setRepetitions}}</label>
+                </b-col>
+                <b-col>
+                    <label>Reps: {{setData.repetitions}}</label>
+                </b-col>
+            </b-row>
             <!-- Show reps / sets for CreateWorkout -->
             <b-row v-if="!toSelect && setData == null">
-                    <b-col>
-                        <label>Sets: {{this.exercise.sets}}</label>
-                    </b-col>
-                    <b-col>
-                        <label>Reps: {{this.exercise.reps}}</label>
-                    </b-col>
-            </b-row>
+                <b-col>
+                    <label>Sets: {{this.exercise.sets}}</label>
+                </b-col>
+                <b-col>
+                    <label>Reps: {{this.exercise.reps}}</label>
+                </b-col>
             </b-row>
 
-            <b-row style="justify-content : center ; padding-top:10%">
+            <b-row v-if="toSelect"  style="justify-content : center ; padding-top:10%">
                 <div>
-                 <b-button v-if="toSelect" type="submit" variant="danger" @click="addExerciseObj(exercise)">Select Exercise</b-button>
+                 <b-button type="submit" variant="danger" @click="addExerciseObj(exercise)">Select Exercise</b-button>
                 </div>
             </b-row>
             

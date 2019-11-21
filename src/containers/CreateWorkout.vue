@@ -4,37 +4,33 @@
         <div class="content">
        <Loading v-if="loading"/>
 
-        <div v-if="errors">
-        <b-alert v-for="error in errors" :key="error" show variant="danger" dismissible="">{{error}}</b-alert>
-        </div>
+        <b-alert v-if="errorMessage != ''" show variant="danger" dismissible>{{errorMessage}}</b-alert>
+        <b-alert v-if="successMessage != ''" show variant="success" dismissible>{{successMessage}}</b-alert>
 
-        <div v-if="successes">
-        <b-alert v-for="success in successes" :key="success" show variant="success" dismissible="">{{success}}</b-alert>
-        </div>
 
         <div  v-if="!loading">
             
         <b-container style="paddin : 10px; margin-bottom:10px">
-                <b-form v-if="!loading" @submit="createWorkout">    
-                        <h1 id="bodyTitle">Create your workout</h1>
-                        <b-form-group>
-                            <b-form-input  type="text" v-model="name" required></b-form-input>
-                        </b-form-group>
-                        <b-form-group>
-                            <b-form-input  type="text" v-model="type" required></b-form-input>
-                        </b-form-group>
+            <b-form v-if="!loading" @submit="createWorkout">    
+                <h1 id="bodyTitle">Create your workout</h1>
+                <b-form-group>
+                    <b-form-input  type="text" v-model="name" required></b-form-input>
+                </b-form-group>
+                <b-form-group>
+                    <b-form-input  type="text" v-model="type" required></b-form-input>
+                </b-form-group>
                   
         
-        <b-container v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
-        <b-row align-h="start">
-            <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-2" style="padding:10px;" >
-                <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
-                <b-button type="submit" variant="secondary" @click="removeFromExercises(exercise)">Remove Exercise</b-button>
-                </b-col>
-        </b-row>
+                <b-container v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
+                <b-row align-h="start" >
+                    <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-3" style="padding:10px;" >
+                        <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
+                        <b-button type="submit" variant="secondary" @click="removeFromExercises(exercise)">Remove Exercise</b-button>
+                        </b-col>
+                </b-row>
                 </b-container >
-           <b-button type="submit" variant="secondary">Create Workout</b-button>
-             </b-form>
+                <b-button type="submit" variant="secondary">Create Workout</b-button>
+            </b-form>
         </b-container >
            
             
@@ -65,14 +61,26 @@ export default {
             exerciseArray: [],
             toSelectArray:[],
             setArray: [],
-            errors: [],
             name: "",
             type: "",
-            profileId: "",
+            profileId: this.$auth.profileId,
             loading: false,
-            successes :[],
-            userId : this.$auth.userId
+            errorMessage: "",
+            successMessage: "",
+            userId : this.$auth.userId,
+            filter:''
         }
+    },
+    computed: {
+      sortOptions() {
+          console.log('heloo')
+        // Create an options list from our fields
+        return this.fields
+          .filter(f => f.sortable)
+          .map(f => {
+            return { text: f.label, value: f.key }
+          })
+      }
     },
 
     created() {
@@ -81,12 +89,24 @@ export default {
             .get('https://me-fit.herokuapp.com/exercises')
             .then((response) => {
                 this.loading = false
-                // JSON responses are automatically parsed.
-                this.exerciseArray = response.data.slice(0)
-                this.toSelectArray = response.data.slice(0)
+                this.errorMessage=""
+                 if(response.status == 202) {
+                        // success
+                   this.exerciseArray = response.data.slice(0)
+                   this.toSelectArray = response.data.slice(0)
+                    } else if (response.status == 404) {
+                        // not found
+                        this.errorMessage = "Workouts not found"
+                    } else if (response.status == 400) {
+                        // bad request
+                        this.errorMessage = "Bad request, try again"
+                    } else {
+                        // something went wrong
+                        this.errorMessage = "Something went wrong, try again"
+                    }
             })
             .catch(e => {
-              this.errors.push(e)
+            this.errorMessage = e
             })
     },
     methods: {
@@ -103,7 +123,6 @@ export default {
         addToExerciseArray: function(exercise) {
             /* Push every data you want to save to the array. */
             this.chosedExerciseArray.push(exercise)
-
             var pos = this.exerciseArray.indexOf(exercise)
             this.exerciseArray.splice(pos , 1)
             if (event) event.preventDefault()
@@ -114,7 +133,7 @@ export default {
             this.errors = []
             this.name = " "
             this.type = " "
-            this.profileId = this.$profileId
+            this.profileId = this.$auth.profileId
             this.loading = false
             this.chosedExerciseArray = 0
             this.exerciseArray = this.toSelectArray.slice(0)
@@ -133,12 +152,12 @@ export default {
                     this.loading = false;
                     console.log(results)
                     if (results.status == 201) {
-                        this.successes.push('Workout Created successfully')
-                        console.log("Status 201. Created!");
+                        this.successMessage = 'Workout Created successfully'
                     } else if (results.status == 400) {
-                        console.log("Status 400. Bad Request..");
+                         this.errorMessage = "Status 400. Bad Request.."
+                        console.log();
                     } else if (results.status == 401) {
-                        console.log("Status 404. Not Found..");
+                         this.errorMessage = "Status 404. Unauthorized.."
                     }
                 })
                 .catch((e) => {

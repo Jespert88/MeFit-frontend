@@ -2,35 +2,50 @@
 <div>
 
     <!-- Sidebar Toggler button -->
-    <button id="openSidenav" @click="openNav()"> &#9776; </button>
+    <!-- <button id="openSidenav" @click="openNav()"> &#9776; </button> -->
    
    <!-- Sidenavbar -->
     <div id="mySidenav" class="sidenav">
-        <button class="closebtn" @click="closeNav()"> &times; </button>
+        <!-- <button class="closebtn" > &times; </button> -->
         <ul class="list-group">
             <li class="nav-item">
                 <router-link class="nav-link" to="/profile">
-                    <button class="sideNavBtns" @click="closeNav()">Profile</button>
+                    <button class="sideNavBtns" >Profile</button>
                 </router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/useroverview">
-                    <button class="sideNavBtns" @click="closeNav()">User overview</button>
+                    <button class="sideNavBtns" >User overview</button>
                 </router-link>
             </li>
-            <li class="nav-item">
+            <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createexercise">
-                    <button class="sideNavBtns" @click="closeNav()">Create Exercise</button>
+                    <button class="sideNavBtns" >Create Exercise</button>
                 </router-link>
             </li>
-            <li class="nav-item">
+            <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createworkout">
-                    <button class="sideNavBtns" @click="closeNav()">Create Workout</button>
+                    <button class="sideNavBtns" >Create Workout</button>
+                </router-link>
+            </li>
+            <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
+                <router-link class="nav-link" to="/createprogram">
+                    <button class="sideNavBtns" >Create Program</button>
                 </router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="/createprogram">
-                    <button class="sideNavBtns" @click="closeNav()">Create Program</button>
+                <router-link class="nav-link" to="/viewexercises">
+                    <button class="sideNavBtns" >Exercises</button>
+                </router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/viewworkouts">
+                    <button class="sideNavBtns" >Workouts</button>
+                </router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/viewprograms">
+                    <button class="sideNavBtns" >Programs</button>
                 </router-link>
             </li>
         </ul>
@@ -45,13 +60,6 @@ export default {
     props: ['parentmessage'],
 
     methods: {
-        openNav: function () {
-            document.getElementById("mySidenav").style.width = "300px";
-        },
-
-        closeNav: function () {
-            document.getElementById("mySidenav").style.width = "0px";
-        }
     }
 }
 </script>
@@ -60,15 +68,15 @@ export default {
 /* Desktop CSS */
 .sidenav {
     height: 100%;
-    width: 0;
-    background: #326b7c;
-    overflow-x: hidden;
-    padding-top: 50px;
+    background:  #123e4b !important;
+    padding-top: 8%;
     position: fixed;
-    z-index: 1;
+    overflow-x: hidden;
+    /* z-index: -1; */
     top: 0;
     left: 0;
     transition: 0.2s;
+    width: 300px;
 }
 /* Sidenavbar ul container */
 .sideNavBtns {
@@ -82,27 +90,22 @@ export default {
     color: #fff;
     background: rgba(0, 0, 0, 0.5)
 }
-#openSidenav {
-    margin: 5%;
-    height: 40px;
-    width: 40px;
-    border: 0;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.5)
-}
-.closebtn {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    font-size: 30px;
-    border: 0;
-    margin: 10px;
-    background: transparent;
-    color: #fff;
-}
+
+
 /* Mobile */
 @media (min-width: 360px) and (max-width: 600px) {
-
+.sidenav {
+    height: 100%;
+    background:  #123e4b !important;
+    padding-top: 8%;
+    position: fixed;
+    overflow-x: hidden;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transition: 0.2s;
+    width: 130px;
+}
 }
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {

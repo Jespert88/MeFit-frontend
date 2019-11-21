@@ -1,5 +1,8 @@
 <template>
-    <div class="content">
+    <div >
+        <b-container>
+
+        
         <div id="formDiv">
             <h3>Create a new exercise</h3>
             <b-alert v-if="errorMessage != ''" show variant="danger" dismissible>{{errorMessage}}</b-alert>
@@ -23,10 +26,10 @@
                     <b-form-input type="text" placeholder="videoLink" v-model="form.video" id="videoLink" required></b-form-input>
                 </b-form-group>
 
-          <button type="submit" class="submitBtn">Create</button>
+          <b-button type="submit" variant="secondary"> Create Exercise</b-button>
         </b-form>
   </div>
-
+</b-container>
 </div>
 </template>
 
@@ -54,7 +57,7 @@
             onSubmit: function(event) {
                 event.preventDefault();
                 axios
-                    .post("http://localhost:8080/addExercise", {
+                    .post("https://me-fit.herokuapp.com/addExercise", {
                         name: this.form.name,
                         description: this.form.description,
                         targetMuscle: this.form.muscleGroup,
@@ -83,27 +86,6 @@
 
 <style scoped>
 /* Desktop */
-p {
-    color: #fff;
-    font-size: 20px;
-}
-#formDiv {
-    margin: 1%;
-    margin-right: 30%;
-    margin-left: 30%;
-    margin-bottom: 5%;
-    padding: 2%;
-    background: rgba(0, 0, 0, 0.3);
-}
 
-h3, h5 {
-    color: #3088a0;
-    text-align: center;
-}
-.link {
-    text-align: center;
-    background-color: transparent;
-    color: rgb(255, 255, 255);
-}
 
 </style>

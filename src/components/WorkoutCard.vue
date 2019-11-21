@@ -1,8 +1,9 @@
 
 <template>
         <b-card
-        title="Workout"
-        style="max-width: 20rem;"
+
+        :title= this.workout.name
+        style="min-width: 19rem; background-color:#fafbf2"
         class="text-center"
         >
             <b-card-text>
@@ -23,8 +24,10 @@
                 </div>
             </div>
             
+
             <b-button v-if="toSelect" variant="danger" @click="addWorkoutObj(workout)">Select Workout</b-button>
             <b-button v-if="!toUpdate" variant="danger" @click="markWorkoutComplete(goalWorkout)">Mark Complete</b-button>
+
 
         </b-card>
 </template>
