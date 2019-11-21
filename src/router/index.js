@@ -8,7 +8,6 @@ import ExerciseCard from '../components/ExerciseCard'
 import WorkoutCard from '../components/WorkoutCard'
 import SideNavbar from '../components/SideNavbar'
 
-import ProgramCard from '../containers/ViewExercise'
 import Profile from '../containers/Profile'
 import Dashboard from '../containers/Dashboard'
 import UserOverview from '../containers/UserOverview'
@@ -30,11 +29,6 @@ export default new Router({
 	mode:'history',
 	base: process.env.BASE_URL,
 	routes: [
-		{
-			path: "/programCard",
-			name: "programCard",
-			component: ProgramCard
-		},
 		{
 			path: "/home",
 			name: "home",

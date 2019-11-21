@@ -37,7 +37,7 @@
             <b-container>
                 <b-row>
                     <b-col v-for="workout in workoutList" :key="workout.id" class="col-lg-3" >
-                        <WorkoutCard :workout="workout" :toSelect="true" @clicked-workoutCard="addToWorkoutListToSend"/>
+                        <WorkoutCard :workout="workout" :toSelect="true" :toUpdate="true" @clicked-workoutCard="addToWorkoutListToSend"/>
                     </b-col>
                 </b-row>
             </b-container>
