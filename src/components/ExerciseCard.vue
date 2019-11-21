@@ -23,7 +23,7 @@
               </b-input-group> 
             </b-row>
             <!-- Show reps / sets for CreateProgram -->
-            <b-row v-if="!toSelect && setData != null" >
+            <b-row v-if="!toSelect && setData != null  &&!toShow " >
                 <b-col>
                     <label>Sets: {{setData.setRepetitions}}</label>
                 </b-col>
@@ -32,7 +32,7 @@
                 </b-col>
             </b-row>
             <!-- Show reps / sets for CreateWorkout -->
-            <b-row v-if="!toSelect && setData == null">
+            <b-row v-if="!toSelect && setData == null &&!toShow">
                 <b-col>
                     <label>Sets: {{this.exercise.sets}}</label>
                 </b-col>
@@ -66,7 +66,9 @@ export default {
     props: {
         exercise: Object,
         toSelect: Boolean,
-        setData: Object
+        setData: Object,
+        toShow : Boolean
+
     },
     methods: {
         addExerciseObj: function(exercise) {
