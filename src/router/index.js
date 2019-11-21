@@ -12,7 +12,9 @@ import ExerciseCard from '../components/ExerciseCard'
 import WorkoutCard from '../components/WorkoutCard'
 import SideNavbar from '../components/SideNavbar'
 
-import ProgramCard from '../containers/ViewExercise'
+import WorkoutList from '../containers/WorkoutList'
+import ProgramList from '../containers/ProgramList'
+import ExerciseList from '../containers/ExerciseList'
 import Profile from '../containers/Profile'
 import Dashboard from '../containers/Dashboard'
 import UserOverview from '../containers/UserOverview'
@@ -33,11 +35,6 @@ export default new Router({
 	mode:'history',
 	base: process.env.BASE_URL,
 	routes: [
-		{
-			path: "/programCard",
-			name: "programCard",
-			component: ProgramCard
-		},
 		{
 			path: "/about",
 			name: "About",
@@ -113,7 +110,10 @@ export default new Router({
 				{ path: '/createworkout', component: CreateWorkout, props: true },
 				{ path: '/profile', component: Profile, props: true, beforeEnter:authGuard },
 				{ path: '/showoneexercise', component: ShowOneExercise, props: true },
-				{ path: '/useroverview', component: UserOverview, props: true }
+				{ path: '/useroverview', component: UserOverview, props: true },
+				{ path: '/viewexercises', component: ExerciseList, props: true },
+				{ path: '/viewworkouts', component: WorkoutList, props: true },
+				{ path: '/viewprograms', component: ProgramList, props: true },
 			]
 		}
 	]

@@ -1,6 +1,4 @@
 
-
-
  <template>
      
   <b-card  
@@ -9,7 +7,7 @@
     img-src="https://topfitnesshome.com/wp-content/uploads/Women-Biceps-min-600x413.jpg"
     img-alt="Image"
     tag="article"
-    style="text-align:center; max-width: 20rem" 
+    style="text-align:center; max-width: 15rem ;" 
     class="mb-2"
  >
         <b-card-text> {{ exercise.description }}</b-card-text>
