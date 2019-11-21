@@ -2,7 +2,7 @@
 <template>
         <b-card
         :title= this.workout.name
-        style="max-width: 20rem;"
+        style="min-width: 19rem; background-color:#fafbf2"
         class="text-center"
         >
          
@@ -21,7 +21,7 @@
                 </div>
             </div>
             
-            <b-button v-if="toSelect" variant="danger" @click="addWorkoutObj(workout)">Select Workout</b-button>
+            <b-button v-if="toSelect" variant="secondary" @click="addWorkoutObj(workout)">Select Workout</b-button>
 
         </b-card>
 </template>

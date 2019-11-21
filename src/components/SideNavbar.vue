@@ -18,17 +18,17 @@
                     <button class="sideNavBtns" >User overview</button>
                 </router-link>
             </li>
-            <li v-if="$auth.isAuthenticated && !$auth.loading && !$auth.isContributor"  class="nav-item">
+            <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createexercise">
                     <button class="sideNavBtns" >Create Exercise</button>
                 </router-link>
             </li>
-            <li v-if="$auth.isAuthenticated && !$auth.loading && !$auth.isContributor"  class="nav-item">
+            <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createworkout">
                     <button class="sideNavBtns" >Create Workout</button>
                 </router-link>
             </li>
-            <li v-if="$auth.isAuthenticated && !$auth.loading && !$auth.isContributor"  class="nav-item">
+            <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createprogram">
                     <button class="sideNavBtns" >Create Program</button>
                 </router-link>

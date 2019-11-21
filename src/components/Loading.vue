@@ -13,7 +13,7 @@
                           
 
     <div class="loading-screen">
-        <b-containe center>
+        <b-container center>
             <b-col>
                 <b-row>
                     <p class="loading-text">Loading</p>
@@ -22,7 +22,7 @@
                     <div class="loading-circle"></div>
                 </b-row>
             </b-col>
-        </b-containe>
+        </b-container>
         </div>
 </template>    
 

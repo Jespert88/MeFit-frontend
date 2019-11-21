@@ -5,7 +5,6 @@
   <b-container style="paddin : 10px; margin-bottom:10px">
         <!-- <p>{{$auth.user}}</p> -->
 
-    <b-card>
           <h2>Personal information</h2>
           <img :src="$auth.user.picture" fluid  class="rounded-circle img-fluid profile-picture" >
           
@@ -88,7 +87,6 @@
               </b-card>
             </b-collapse> -->
       </b-form>
-    </b-card>
   </b-container>
 </div>
 </template>
@@ -101,7 +99,7 @@ export default {
   data() {
     return {
       profileId:'',
-        userID : '',
+        userID : this.$auth.userId,
         form: {
             email: '',
             name: '',
@@ -144,12 +142,10 @@ export default {
     onSubmit: function() {
       event.preventDefault()
       console.log(this.profileId)
-      console.log(this.userID)
-      console.log(this.form)
-  
+      console.log(this.userID)  
 
      this.loading = true;
-     axios.patch('http://localhost:8080/profile/1', {
+     axios.patch('https://me-fit.herokuapp.com/profile/'+this.profileId, {
      height : this.form.height,
      weight : this.form.weight,
      age : this.form.age,
@@ -158,7 +154,7 @@ export default {
      city: this.form.city,
      country : this.form.country,
      postalCode : this.form.postalCode,
-     userId : "213213sad"
+     userId : this.userID
     }).then(response => {
       this.loading=false
         console.log(response)

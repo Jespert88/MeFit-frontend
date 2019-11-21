@@ -23,7 +23,7 @@
         
                 <b-container v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
                 <b-row align-h="start" >
-                    <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-4" style="padding:10px;" >
+                    <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-3" style="padding:10px;" >
                         <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
                         <b-button type="submit" variant="secondary" @click="removeFromExercises(exercise)">Remove Exercise</b-button>
                         </b-col>
@@ -63,7 +63,7 @@ export default {
             setArray: [],
             name: "",
             type: "",
-            profileId: "",
+            profileId: this.$auth.profileId,
             loading: false,
             errorMessage: "",
             successMessage: "",
@@ -123,7 +123,6 @@ export default {
         addToExerciseArray: function(exercise) {
             /* Push every data you want to save to the array. */
             this.chosedExerciseArray.push(exercise)
-
             var pos = this.exerciseArray.indexOf(exercise)
             this.exerciseArray.splice(pos , 1)
             if (event) event.preventDefault()
@@ -134,7 +133,7 @@ export default {
             this.errors = []
             this.name = " "
             this.type = " "
-            this.profileId = this.$profileId
+            this.profileId = this.$auth.profileId
             this.loading = false
             this.chosedExerciseArray = 0
             this.exerciseArray = this.toSelectArray.slice(0)

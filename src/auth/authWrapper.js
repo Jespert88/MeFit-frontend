@@ -111,7 +111,6 @@ export const useAuth0 = ({
       }
 
       axios.get('https://me-fit.herokuapp.com/profile/user/'+this.user.sub.substring(6)).then(response =>{
-        console.log(response)
         this.profileId = response.data.profileId
         if(!response.data.role && response.data.role ==1 ){
           this.isContributor = false;
