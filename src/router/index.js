@@ -3,6 +3,8 @@ import Router from "vue-router"
 import BootstrapVue from 'bootstrap-vue'
 import LandingPage from '../views/LandingPage'
 import About from '../views/About'
+import Home from '../views/Home'
+import Contact from '../views/Contact'
 
 import Register from '../components/Register'
 import Calender from '../components/Calender'
@@ -21,7 +23,6 @@ import CreateExercise from '../containers/CreateExercise'
 import UpdateExercise from '../containers/UpdateExercise'
 import UpdateWorkout from '../containers/UpdateWorkout'
 import CreateProgram from '../containers/CreateProgram'
-import Home from '../views/Home'
 import ShowOneExercise from '../containers/ShowOneExercise'
 import SetGoal from '../containers/SetGoal'
 
@@ -38,6 +39,11 @@ export default new Router({
 			path: "/about",
 			name: "About",
 			component: About
+		},
+		{
+			path: "/contact",
+			name: "Contact",
+			component: Contact
 		},
 		{
 			path: "/",
