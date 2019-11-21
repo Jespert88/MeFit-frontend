@@ -15,12 +15,6 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto" >
         <!-- User not logged in links -->
-<<<<<<< HEAD
-            <router-link class="nav-link" to="/"> Home </router-link>
-            <router-link class="nav-link" to="/about"> About </router-link>
-            <router-link class="nav-link" to="/contact"> Contact us </router-link>
-            <router-link class="nav-link" to="" @click.native="login"> Login </router-link>
-=======
        
         <router-link class="nav-link" to="/"> Home </router-link>
           <router-link class="nav-link" to="/about"> About </router-link>
@@ -37,7 +31,6 @@
                     </b-dropdown-item>
               </b-nav-item-dropdown>
             <router-link  v-if="!$auth.isAuthenticated && !$auth.loading" class="nav-link" to="" @click.native="login"> Login </router-link>
->>>>>>> 9cda0fbd92308696c52ac8dec86d50b1e1f49849
       </b-navbar-nav>
 
 
