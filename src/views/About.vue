@@ -24,7 +24,7 @@
               the best shape of their lives anytime, anywhere.*
               <br><br><br>
               (* SHAMELESSLY STOLEN FROM https://sworkit.com/about-us )</p><br><br>
-              <hr id="hrTwo">
+              <hr id="hrOne">
       </div>
   </div>
 </template>
