@@ -2,12 +2,10 @@
   <div class="content">
       <div id="imgContainer">
           <h4>ABOUT US AND OUR MISSION</h4>
-          <b-row>
       <img src="../assets/gollum.jpg" style="width: 200px; height: 135px;">
       <img src="../assets/gandalf.jpg" style="width: 200px; height: 135px;">
       <img src="../assets/leia.jpg" style="width: 200px; height: 135px;">
       <img src="../assets/yoda.jpg" style="width: 200px; height: 135px;">
-          </b-row>
       </div>
       <div id="textContainer">
           <p>We’re on a mission to make the world a significantly healthier place<br>
@@ -26,7 +24,7 @@
               the best shape of their lives anytime, anywhere.*
               <br><br><br>
               (* SHAMELESSLY STOLEN FROM https://sworkit.com/about-us )</p><br><br>
-              <hr id="hrTwo">
+              <hr id="hrThree">
       </div>
   </div>
 </template>
@@ -41,26 +39,21 @@ export default {
 img {
     padding: 2px;
 }
-
 #imgContainer {
     padding: 2px;
-    margin-right: 23%;
-    margin-left: 23%;
+    margin: auto;
     text-align: center;
 }
-
 #imgContainer > p {
     color: black;
     text-align: center;
     font-weight: bold;
 }
-
 #textContainer, #projectInfo {
     text-align: center;
     font-size: 15px;
     margin-top: 5px;
-    margin-left: 80px;
-    margin-right: 80px;
+    margin: auto;
     padding: 30px;
 }
 #contactInfo {
