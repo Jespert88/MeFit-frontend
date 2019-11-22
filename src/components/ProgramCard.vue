@@ -1,5 +1,6 @@
 <template>
-        <b-card
+    <div>
+        <b-card v-if="goal"
         title="Program"
         style="max-width: 20rem;"
         class="text-center content"
@@ -27,6 +28,26 @@
                 </div>
             </div>
         </b-card>
+
+        <b-card v-if="!goal"
+        title="Program"
+        style="max-width: 20rem;"
+        class="text-center content"
+        >
+        <div role="tablist">
+                <div v-for="programWorkout in program.programWorkoutFk" :key="programWorkout.workoutFk.workoutId">
+                     <b-button  block v-b-toggle="'workout-' + programWorkout.workoutFk.workoutId + '-' + GUID" variant="success">
+                        {{programWorkout.workoutFk.name}}
+                    </b-button>
+                 
+                    <b-collapse :id="'workout-' + programWorkout.workoutFk.workoutId + '-' + GUID" role="tab">
+                        <WorkoutCard :workout="programWorkout.workoutFk" :toSelect="false"  />
+                    </b-collapse>
+                    <br>
+                </div>
+            </div>
+        </b-card>
+    </div>
 </template>
 
 <script>
@@ -39,7 +60,9 @@ export default {
     props: {
         programGoal: Object,
         toSelect: Boolean,
-        reloadKey: Function
+        reloadKey: Function,
+        program : Object,
+        goal : Boolean
     },
     data() {
         return {
