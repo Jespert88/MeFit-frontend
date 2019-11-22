@@ -25,15 +25,17 @@ export default {
 
   created(){
       this.loading =true;
+      console.log('here')
       axios.get('https://me-fit.herokuapp.com/profile/user/'+this.userId).then(response => {
-        
        this.loading =false;
        console.log(response)
         if(response.status == '202' && response.data !=""){
             console.log('fetched----')
         }
-       else if (response.status == '202' && response.data ==""){
-          axios.post('https://me-fit.herokuapp.com/createProfile/',{
+
+      }).catch(e =>{
+        if(e == "Error: Request failed with status code 404"){
+         axios.post('https://me-fit.herokuapp.com/createProfile/',{
             userId :  this.$auth.user.sub.substring(6)
           }).then(response =>{
             if (response.status == '201'){
@@ -41,9 +43,9 @@ export default {
 
             }
           })
-        }
-        else if (response.status=='400'){
-          console.log('400')
+        }else {
+        console.log('erros is : ' +e)
+
         }
       })
   },

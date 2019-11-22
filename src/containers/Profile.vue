@@ -1,11 +1,10 @@
 <template>
 
 <div class="content">
-    <Loading v-if="loading"/> 
-  <b-container style="paddin : 10px; margin-bottom:10px">
-        <!-- <p>{{$auth.user}}</p> -->
+ <Loading v-if="loading"/> 
+   
+  <b-container  v-if="!loading" style="paddin : 10px; margin-bottom:10px">
 
-    <b-card>
           <h2>Personal information</h2>
           <img :src="$auth.user.picture" fluid  class="rounded-circle img-fluid profile-picture" >
           
@@ -22,7 +21,7 @@
                 </b-col>
                 <b-col>
                   <b-form-group  label="Age" >
-                    <b-form-input  v-model="form.age" type="number"  required ></b-form-input>
+                    <b-form-input  v-model="form.age"  min="1" max="100" type="number"  required ></b-form-input>
                   </b-form-group>
                 </b-col>
             </b-row>
@@ -35,12 +34,12 @@
             <b-row>
               <b-col>
                 <b-form-group id="input-group-6" label="Weight:" label-for="input-5">
-                  <b-form-input id="input-5" v-model="form.weight" type="number"  required></b-form-input>
+                  <b-form-input id="input-5" v-model="form.weight" min="25" max="400" type="number"  required></b-form-input>
                 </b-form-group> 
               </b-col>
               <b-col>
                 <b-form-group id="input-group-5" label="Height:" label-for="input-6">
-                  <b-form-input id="input-6" v-model="form.height" type="number"  required></b-form-input>
+                  <b-form-input id="input-6" v-model="form.height" min="18" max="100" type="number"  required></b-form-input>
                 </b-form-group>
               </b-col>
             </b-row>
@@ -88,7 +87,6 @@
               </b-card>
             </b-collapse> -->
       </b-form>
-    </b-card>
   </b-container>
 </div>
 </template>
@@ -101,7 +99,7 @@ export default {
   data() {
     return {
       profileId:'',
-        userID : '',
+        userID : this.$auth.userId,
         form: {
             email: '',
             name: '',
@@ -144,12 +142,10 @@ export default {
     onSubmit: function() {
       event.preventDefault()
       console.log(this.profileId)
-      console.log(this.userID)
-      console.log(this.form)
-  
+      console.log(this.userID)  
 
      this.loading = true;
-     axios.patch('http://localhost:8080/profile/1', {
+     axios.patch('https://me-fit.herokuapp.com/profile/'+this.profileId, {
      height : this.form.height,
      weight : this.form.weight,
      age : this.form.age,
@@ -158,7 +154,7 @@ export default {
      city: this.form.city,
      country : this.form.country,
      postalCode : this.form.postalCode,
-     userId : "213213sad"
+     userId : this.userID
     }).then(response => {
       this.loading=false
         console.log(response)

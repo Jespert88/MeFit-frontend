@@ -1,6 +1,4 @@
 
-
-
  <template>
      
   <b-card  
@@ -9,7 +7,7 @@
     img-src="https://topfitnesshome.com/wp-content/uploads/Women-Biceps-min-600x413.jpg"
     img-alt="Image"
     tag="article"
-    style="text-align:center; max-width: 20rem" 
+    style="text-align:center; max-width: 15rem ;" 
     class="mb-2"
  >
         <b-card-text> {{ exercise.description }}</b-card-text>
@@ -25,7 +23,7 @@
               </b-input-group> 
             </b-row>
             <!-- Show reps / sets for CreateProgram -->
-            <b-row v-if="!toSelect && setData != null" >
+            <b-row v-if="!toSelect && setData != null  &&!toShow " >
                 <b-col>
                     <label>Sets: {{setData.setRepetitions}}</label>
                 </b-col>
@@ -34,7 +32,7 @@
                 </b-col>
             </b-row>
             <!-- Show reps / sets for CreateWorkout -->
-            <b-row v-if="!toSelect && setData == null">
+            <b-row v-if="!toSelect && setData == null &&!toShow">
                 <b-col>
                     <label>Sets: {{this.exercise.sets}}</label>
                 </b-col>
@@ -68,7 +66,9 @@ export default {
     props: {
         exercise: Object,
         toSelect: Boolean,
-        setData: Object
+        setData: Object,
+        toShow : Boolean
+
     },
     methods: {
         addExerciseObj: function(exercise) {
