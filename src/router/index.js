@@ -3,7 +3,6 @@ import Router from "vue-router"
 import BootstrapVue from 'bootstrap-vue'
 import LandingPage from '../views/LandingPage'
 import About from '../views/About'
-import Home from '../views/Home'
 import Contact from '../views/Contact'
 
 import Calender from '../components/Calender'
@@ -50,12 +49,6 @@ export default new Router({
 			path: "/",
 			name: "LandingPage",
 			component: LandingPage
-		},
-		{
-			path: "/home",
-			name: "home",
-			component: Home,
-			beforeEnter :authGuard
 		},
 		{
 			path: "/calender",
