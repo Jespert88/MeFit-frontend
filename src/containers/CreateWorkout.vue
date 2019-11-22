@@ -112,7 +112,7 @@ export default {
             this.errorMessage = e
             })
         }else{
-            this.$router.push('/dashboard')
+            this.$router.push('/unauthorized')
         }
      
     },

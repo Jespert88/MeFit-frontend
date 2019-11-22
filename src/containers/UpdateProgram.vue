@@ -8,8 +8,8 @@
         <div v-if="!loading">
             
             <b-container style="paddin : 10px; margin-bottom:10px">
-                <b-form v-if="!loading" @submit="createProgram">    
-                    <h1 id="bodyTitle">Create your Program</h1>
+                <b-form v-if="!loading" @submit="updateProgram">    
+                    <h1 id="bodyTitle">Update your Program</h1>
 
                     <b-form-group label="Program name">
                         <b-form-input type="text" v-model="form.name" required></b-form-input>
@@ -21,7 +21,7 @@
         
                     <b-container v-if="workoutListToSend.length > 0" id="selectedContainer" style="border: 1px solid; margin-bottom:10px" required>
                         <b-row align-h="start">
-                            <b-col v-for="workout in workoutListToSend" :key="workout.id" cols="3" style="padding:10px;" >
+                            <b-col v-for="workout in workoutListToSend" :key="workout.id" cols="4" style="padding:10px;" >
                                 <WorkoutCard :workout="workout" @clicked-workoutCard="addToWorkoutListToSend" :toUpdate="true"/>
                 
                                 <b-button type="submit" variant="secondary" @click="removeFromWorkoutList(workout)">Remove Workout</b-button>
@@ -29,7 +29,7 @@
                         </b-row>
                     </b-container>
 
-                    <b-button type="submit" variant="secondary">Create Program</b-button>
+                    <b-button type="submit" variant="secondary">Update Program</b-button>
                 </b-form>
             </b-container>
            
@@ -56,59 +56,62 @@ export default {
         WorkoutCard,
         Loading
     },
+    props: {
+        sentId:Number
+    },
     data() {
         return {
             form: {
                 name: "",
                 category: ""
             },
+            programId : '',
             loading: false,
             workoutList: [],
             workoutListToSend: [],
-            originalWorkoutList: [],
             errorMessage: "",
             successMessage: "",
-            profileId: 1
+            profileId: this.$auth.profileId
         }
     },
     created() {
         if(!this.$auth.isContributor){
-             this.$router.push('/401')
+             this.$router.push('/unauthorized')
         }
         this.getWorkoutList()
     },
     methods: {
         getWorkoutList: function() {
-            this.loading = true
-            axios
-                .get('https://me-fit.herokuapp.com/workout')
-                .then(response => {
-                    this.loading = false
-                    this.errorMessage = ""
-                    if(response.status == 202) {
-                        // success
-                        this.workoutList = response.data.slice(0)
-                        this.originalWorkoutList = response.data.slice(0)
-                    } else if (response.status == 404) {
-                        // not found
-                        this.errorMessage = "Workouts not found"
-                    } else if (response.status == 400) {
-                        // bad request
-                        this.errorMessage = "Bad request, try again"
-                    } else {
-                        // something went wrong
-                        this.errorMessage = "Something went wrong, try again"
-                    }
-                })
-                .catch(e => {
-                  this.errorMessage = "Something went wrong, try again: " + e
-                })
+            if(this.sentId == undefined){
+            this.$router.push('/viewprograms')
+            } else {
+                this.loading= true
+                Promise.all([axios.get('https://me-fit.herokuapp.com/program/'+this.sentId), 
+                    axios.get('https://me-fit.herokuapp.com/workout')]).then( response => {
+                    console.log(response)
+                    this.loading= false
+                    this.workoutList = response[1].data.slice(0)
+
+                    this.programId = response[0].data.programId
+                    this.form.name = response[0].data.name
+                    this.form.category=response[0].data.category
+                    response[0].data.programWorkoutFk.forEach(Element =>{
+                        this.workoutListToSend.push(Element.workoutFk)
+                        let pos = this.workoutList.indexOf(Element.workoutFk)
+                        this.workoutList.splice(pos-1,1)
+                    })
+
+                    }).catch()
+                }
+              
+
         },
         removeFromWorkoutList: function(workout){
             // remove from workout list to send
             if (event) {
                 event.preventDefault()
             }
+
             let pos = this.workoutListToSend.indexOf(workout)
             this.workoutListToSend.splice(pos , 1)
 
@@ -123,18 +126,11 @@ export default {
             let pos = this.workoutList.indexOf(workout)
             this.workoutList.splice(pos , 1)
         },
-        resetValues: function(){
-            this.form = {}
-            this.profileId = this.$auth.profileId
-            this.loading = false
-            this.workoutListToSend.length = 0
-            this.workoutList = this.originalWorkoutList.splice(0)
-        },
-        createProgram: function(){
+        updateProgram: function(){
             event.preventDefault()
             this.loading = true
             axios
-                .post('https://me-fit.herokuapp.com/addProgram',{
+                .patch('https://me-fit.herokuapp.com/program'+this.programId,{
                     name: this.form.name,
                     category: this.form.category,
                     profileId: this.profileId,
@@ -142,7 +138,7 @@ export default {
                 })
                 .then((results) => {
                     this.loading = false;
-                    if (results.status == 201) {
+                    if (results.status == 204) {
                         // success
                         this.successMessage = "Program has been succesfully created"
                     } else if (results.status == 400) {
@@ -156,10 +152,7 @@ export default {
                 .catch((e) => {
                     this.errorMessage = "Something went wrong, try again. " + e
                 })
-                .finally(() => { 
-                    // set values to default
-                    this.resetValues()
-                })
+            
         }
     }
 }

@@ -52,7 +52,7 @@
         },
         created(){
             if(!this.$auth.isContributor){
-                this.$router.push('/dashboard')
+                this.$router.push('/401')
             }
         },
         props: {

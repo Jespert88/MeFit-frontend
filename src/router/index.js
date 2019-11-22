@@ -7,8 +7,8 @@ import Home from '../views/Home'
 import Contact from '../views/Contact'
 
 import Calender from '../components/Calender'
-// import ExerciseCard from '../components/ExerciseCard'
-// import WorkoutCard from '../components/WorkoutCard'
+import NotFound from '../views/NotFound'
+import Unauthorized from '../views/Unauthorized'
 import SideNavbar from '../components/SideNavbar'
 
 import WorkoutList from '../containers/WorkoutList'
@@ -21,6 +21,8 @@ import CreateWorkout from '../containers/CreateWorkout'
 import CreateExercise from '../containers/CreateExercise'
 // import UpdateExercise from '../containers/UpdateExercise'
 import UpdateWorkout from '../containers/UpdateWorkout'
+import UpdateProgram from '../containers/UpdateProgram'
+
 import CreateProgram from '../containers/CreateProgram'
 import ShowOneExercise from '../containers/ShowOneExercise'
 import SetGoal from '../containers/SetGoal'
@@ -83,7 +85,19 @@ export default new Router({
 				{ path: '/viewprograms', component: ProgramList, props: true },
 				{ path: '/setgoal', component: SetGoal, name :'SetGoal', props: true },
 				{ path: '/updateworkout', component: UpdateWorkout,name: "UpdateWorkout", props: true },
+				{ path: '/updateprogram', component: UpdateProgram,name: "UpdateProgram", props: true },
+
 			]
+		},
+		{
+			path: "/unauthorized",
+			name: "Unauthorized",
+			component: Unauthorized
+		},
+		{
+			path: "/*",
+			name: "Notfound",
+			component: NotFound
 		}
 	]
 })

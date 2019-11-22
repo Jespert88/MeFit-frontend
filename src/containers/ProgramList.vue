@@ -11,7 +11,7 @@
               <b-button v-if="$auth.isContributor" @click="showOnlyMyPrograms">Show my programs</b-button>
                 <b-row>
                     <b-col v-for="program in programList" :key="program.id" class="col-lg-3" >
-                        <ProgramCard :program="program" :goal="false"/>
+                        <ProgramCard :program="program" :goal="false" :toViewAndUpdate="false"/>
                     </b-col>
                 </b-row>
             </b-container>
@@ -19,8 +19,8 @@
             <b-container fluid v-if="this.Myown">
               <b-button v-if="$auth.isContributor" @click="showAllprograms">Show All programs</b-button>
                 <b-row>
-                    <b-col v-for="program in minprogramList" :key="program.id" class="col-lg-3" >
-                        <ProgramCard :program="program" @clickedToUpdate="redirectToUpdateprogram" :toViewAndUpdate="true" :toUpdate="true"/>
+                    <b-col v-for="program in minProgramList" :key="program.id" class="col-lg-3" >
+                        <ProgramCard :program="program"  @clickedToUpdate="redirectToUpdateProgram" :goal="false" :toViewAndUpdate="true"/>
                     </b-col>
                 </b-row>
             </b-container>
@@ -44,7 +44,7 @@ export default {
       programList : [],
       loading : false,
       profileId : this.$auth.profileId,
-      minprogramList : [],
+      minProgramList : [],
       Myown : false
     }
   },
@@ -59,21 +59,6 @@ export default {
       this.loading= false
       this.errorMessage = ""
       this.programList = response.data.slice(0)
-      console.log(this.programList)
-      console.log(response)
-    //   if(response.status == "202"){
-    //     this.programlist = response.data.slice(0)
-    //     console.log(this.programList)
-    //   } else if (response.status == 404) {
-    //       // not found
-    //       this.errorMessage = "programs not found"
-    //   } else if (response.status == 400) {
-    //       // bad request
-    //       this.errorMessage = "Bad request, try again"
-    //   } else {
-    //       // something went wrong
-    //       this.errorMessage = "Something went wrong, try again"
-    //   }
     }).catch(e => {
       this.errorMessage = "Something went wrong, try again: " + e
     })
@@ -84,28 +69,29 @@ export default {
       this.$router.push({name:'UpdateProgram' , params :{sentId :id} })
     },
     showOnlyMyPrograms () {
+
       this.profileId = this.$auth.profileId
        if (event) {
         event.preventDefault()
        }
       this.loading=true;
-      console.log(this.profileId)
       //get users programss
       axios.get('https://me-fit.herokuapp.com/program/user/'+this.profileId).then(response => {
       this.loading= false
       this.errorMessage = ""
-      if(response.status == "202"){
-        this.minprogramlist = response.data.slice(0)
-      } else if (response.status == 404) {
-          // not found
-          this.errorMessage = "Programs not found"
-      } else if (response.status == 400) {
-          // bad request
-          this.errorMessage = "Bad request, try again"
-      } else {
-          // something went wrong
-          this.errorMessage = "Something went wrong, try again"
-      }
+      this.minProgramList = response.data.slice(0)
+    //   if(response.status == "202"){
+    //     
+    //   } else if (response.status == 404) {
+    //       // not found
+    //       this.errorMessage = "Programs not found"
+    //   } else if (response.status == 400) {
+    //       // bad request
+    //       this.errorMessage = "Bad request, try again"
+    //   } else {
+    //       // something went wrong
+    //       this.errorMessage = "Something went wrong, try again"
+    //   }
     }).catch(e => {
       this.errorMessage = "Something went wrong, try again: " + e
     })
