@@ -16,7 +16,7 @@
             </b-form-textarea>
             <!-- <pre class="mt-3 mb-0">{{ text }}</pre> -->
             <br>
-            <b-button type="submit" variant="dark" style="margin: 3px;">Send</b-button>
+            <b-button type="submit" variant="dark" style="margin: 3px;">Send email</b-button>
         </div>
     </div>
 </template>

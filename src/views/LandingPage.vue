@@ -14,8 +14,8 @@
         Join us today!
           </div>
       </div>
-      <hr id="hrTwo">
-      <hr id="hrOne">
+      <hr id="hrThree">
+      <hr id="hrFour">
   </div>
 </template>
 
@@ -30,7 +30,7 @@ export default {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 #textareaTwo {
@@ -48,7 +48,21 @@ export default {
 #hrTwo {
     width: 60%;
     border: 0;
-    height: 0.5px;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+#hrThree {
+    width: 60%;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+#hrFour {
+    width: 80%;
+    border: 0;
+    height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
