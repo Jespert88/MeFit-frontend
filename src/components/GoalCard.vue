@@ -1,17 +1,17 @@
 <template>
     <div>
         <b-card v-if="goal"
-        title="Program"
+        title="Goal"
         style="min-width: 23rem;"
         class="text-center content"
         >
-          <!--   <b-card-text>
-                {{programGoal.programFk.name}}
+            <b-card-text>
+                Name {{goal.name}}
             </b-card-text>
             <b-card-text>
-                {{programGoal.programFk.category}}
-            </b-card-text> -->
-
+                Achieved {{goal.achieved}}
+            </b-card-text>
+<!-- 
             <div role="tablist">
                 <div v-for="workout in programGoal.goalWorkoutFk" :key="workout.workoutFk.workoutId">
                     <br>
@@ -26,43 +26,16 @@
                         <WorkoutCard :workout="workout.workoutFk" :toSelect="false" :toUpdate="workout.complete" :goalWorkout="workout" :reload="reloadKey"/>
                     </b-collapse>
                 </div>
-            </div>
-        </b-card>
-
-        <b-card v-if="!goal"
-        title="Program"
-        style="max-width: 20rem;"
-        class="text-center content"
-        >
-        <div role="tablist">
-                <div v-for="programWorkout in program.programWorkoutFk" :key="programWorkout.workoutFk.workoutId">
-                     <b-button  block v-b-toggle="'workout-' + programWorkout.workoutFk.workoutId + '-' + GUID" variant="success">
-                        {{programWorkout.workoutFk.name}}
-                    </b-button>
-                 
-                    <b-collapse :id="'workout-' + programWorkout.workoutFk.workoutId + '-' + GUID" role="tab">
-                        <WorkoutCard :workout="programWorkout.workoutFk" :toSelect="false"  />
-                    </b-collapse>
-                    <br>
-                </div>
-            </div>
+            </div> -->
         </b-card>
     </div>
 </template>
 
 <script>
-import WorkoutCard from '../components/WorkoutCard.vue'
 export default {
-    name: "ProgramCard",
-    components: {
-        WorkoutCard
-    },
+    name: "GoalCard",
     props: {
-        programGoal: Object,
-        toSelect: Boolean,
-        reloadKey: Function,
-        program : Object,
-        goal : Boolean
+        goal: Object
     },
     data() {
         return {
