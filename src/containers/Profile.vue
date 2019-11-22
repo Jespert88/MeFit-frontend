@@ -1,8 +1,13 @@
 <template>
 
 <div class="content">
+    <b-alert v-if="errorMessage != ''" show variant="danger" dismissible>{{errorMessage}}</b-alert>
+    <b-alert v-if="successfulMessage != ''" show variant="success" dismissible> {{successfulMessage}}</b-alert>
+
+
  <Loading v-if="loading"/> 
    
+
   <b-container  v-if="!loading" style="paddin : 10px; margin-bottom:10px">
 
           <h2>Personal information</h2>
@@ -74,6 +79,7 @@
             <b-button type="reset" variant="danger" style="margin: 3px;">Reset</b-button>
 
             <b-button v-b-toggle.collapse-1 variant="dark" style="margin: 3px;">Edit profile picture</b-button>
+            <b-button @click="submitContRequest" v-if="!$auth.isContributor && !$auth.isAdmin" variant="dark"> Submit a contributor request</b-button>
             <!-- <b-collapse id="collapse-1" class="mt-2">
               <b-card>
                 <div v-if="!image">
@@ -100,6 +106,8 @@ export default {
     return {
       profileId:'',
         userID : this.$auth.userId,
+           errorMessage: "",
+            successfulMessage: "",
         form: {
             email: '',
             name: '',
@@ -123,27 +131,43 @@ export default {
     }
   },
 
- created() {
+ mounted() {
    this.loading =true;
    axios.get('https://me-fit.herokuapp.com/profile/user/'+ this.$auth.user.sub.substring(6)).then(response =>{
-     console.log(response.data)
       this.loading = false;
+      if (response.status =="202"){
+      this.errorMessage = ""
       this.profileId = response.data.profileId
       this.form.email = this.$auth.user.email
       this.form.name = this.$auth.user.nickname
       this.form.height = response.data.height
       this.form.weight = response.data.weight
-      this.form.fitnesslevel = response.data.fitnesslevel
+      this.form.street = response.data.addressFk.street
+      this.form.city = response.data.addressFk.city
+      this.form.country = response.data.addressFk.country
+      this.form.postalCode = response.data.addressFk.postalCode
+      this.form.fitnesslevel = response.data.fitnessLevel
       this.form.age = response.data.age
+      } else if(response.status =="400"){
+          this.errorMessage = "Bad request"
+      } else if(response.status == "404"){
+          this.errorMessage = "404 Not found"
+      } else if(response.status == "401"){
+          this.errorMessage = "You are unauthorized to be here"
+      }
+   }).catch(error =>{
+      this.errorMessage= "Something went wrong :" + error
    })
     },
   
   methods: {
-    onSubmit: function() {
-      event.preventDefault()
-      console.log(this.profileId)
-      console.log(this.userID)  
+    submitContRequest(){
+      if(event)  event.preventDefault()
+      this.successfulMessage = "Your request has been sent"
 
+    },
+    onSubmit: function() {
+     event.preventDefault()
      this.loading = true;
      axios.patch('https://me-fit.herokuapp.com/profile/'+this.profileId, {
      height : this.form.height,
@@ -155,16 +179,17 @@ export default {
      country : this.form.country,
      postalCode : this.form.postalCode,
      userId : this.userID
-    }).then(response => {
+    }).then( ()=> {
       this.loading=false
-        console.log(response)
+      this.errorMessage = "Your profile details has been succesfully updated"
+      console.log(this.errorMessage)
+
     })
     },
     
     onReset(evt) {
       evt.preventDefault()
       // Reset form values
-      this.form.email = 
       this.form.name = ''
       this.form.fitnesslevel = null
       // Trick to reset/clear native browser form validation state

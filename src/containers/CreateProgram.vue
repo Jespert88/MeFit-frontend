@@ -72,6 +72,9 @@ export default {
         }
     },
     created() {
+        if(!this.$auth.isContributor){
+             this.$router.push('/dashboard')
+        }
         this.getWorkoutList()
     },
     methods: {
@@ -131,7 +134,7 @@ export default {
             event.preventDefault()
             this.loading = true
             axios
-                .post('http://localhost:8080/addProgram',{
+                .post('https://me-fit.herokuapp.com/addProgram',{
                     name: this.form.name,
                     category: this.form.category,
                     profileId: this.profileId,

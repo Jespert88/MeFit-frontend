@@ -50,6 +50,11 @@
                 successMessage: ""
             }
         },
+        created(){
+            if(!this.$auth.isContributor){
+                this.$router.push('/dashboard')
+            }
+        },
         props: {
             exerciseCreated: {}
         },
@@ -78,7 +83,7 @@
                     })
                     .finally (() => {
                         this.form = {}
-                    })
+                     })
             }
         }
     }

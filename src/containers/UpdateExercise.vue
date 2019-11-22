@@ -47,10 +47,14 @@ export default {
         }
     },
     created(){
-       this.fetchingData()
+        if(this.$auth.isContributor){
+            this.fetchingData()
+        }else {
+            this.$router.push('/dashboard')
+        }
     },
     props: {
-        
+        sentId : Number
     },
     components:{
         Loading
@@ -61,7 +65,7 @@ export default {
         fetchingData: function() {
             this.error = this.post = null
             this.loading = true
-             axios.get("http://localhost:8080/exercises/1")
+             axios.get("http://localhost:8080/exercises/"+this.sentId)
                 .then((results) => {
                     this.loading = false
                     this.name= results.data.name

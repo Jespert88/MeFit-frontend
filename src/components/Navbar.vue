@@ -61,6 +61,7 @@ export default {
     margin: 0px !important;
     z-index: 1;
     background-color: #123e4b !important;
+    max-height: 80%;
 }
  #logo {
   padding: 5px;

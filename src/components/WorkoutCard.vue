@@ -27,7 +27,7 @@
 
             <b-button v-if="toSelect" variant="danger" @click="addWorkoutObj(workout)">Select Workout</b-button>
             <b-button v-if="!toUpdate" variant="danger" @click="markWorkoutComplete(goalWorkout)">Mark Complete</b-button>
-
+            <b-button v-if="toViewAndUpdate" variant="danger" @click="goToUpdatePage(workout)" >Update</b-button>
 
         </b-card>
 </template>
@@ -45,7 +45,8 @@ export default {
         toSelect: Boolean,
         toUpdate: Boolean,
         goalWorkout: Object,
-        reload: Function
+        reload: Function,
+        toViewAndUpdate :Boolean
     },
     data() {
         return {
@@ -53,6 +54,9 @@ export default {
         }
     },
     methods: {
+        goToUpdatePage: function(workout){
+          this.$emit("clickedToUpdate", workout) 
+        },
         addWorkoutObj: function(workout) {
             this.$emit("clicked-workoutCard", workout)    
         },

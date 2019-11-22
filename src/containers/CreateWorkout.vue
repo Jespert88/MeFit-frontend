@@ -83,7 +83,10 @@ export default {
       }
     },
 
-    created() {
+    mounted() {
+        console.log(this.$auth)
+        if(this.$auth.isContributor){
+            console.log('he is conttrrributor')
         this.loading = true
         axios
             .get('https://me-fit.herokuapp.com/exercises')
@@ -108,6 +111,10 @@ export default {
             .catch(e => {
             this.errorMessage = e
             })
+        }else{
+            this.$router.push('/dashboard')
+        }
+     
     },
     methods: {
         removeFromExercises: function(exercise){

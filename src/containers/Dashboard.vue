@@ -2,30 +2,14 @@
   <div class ="content">
     <b-container  fluid>
         <b-row  >
-          <b-col cols="4" xm="3" md="3" xl="3" >
+          <b-col cols="2" xm="2" md="2" xl="2" >
             <SideNavbar :parentmessage="parentmessage"/>
           </b-col>
-          <b-col cols="8" xm="9" md="9" xl="9" >
+          <b-col cols="10" xm="10" md="10" xl="10" >
             <router-view id="routerView"/>
           </b-col>
         </b-row>
     </b-container>
-
-
-
-
- <!--  <div class="row no-gutters">
-    <div class="col-sm-12 col-md-4 col-xl-2"> -->
-
-     <!--  <button @click="toggleSidebar()" class="btn btn-info">Send Child A Message</button> -->
-     <!--  <SideNavbar :parentmessage="parentmessage"/> -->
-
-   <!--  
-    </div>
-    <div class="col-sm-12 col-md-8 col-xl-9">
-      <router-view />
-    </div>
-  </div> -->
 
 
   </div>
@@ -44,12 +28,6 @@ export default {
         SideNavbar
     },
     methods: {
-
-      toggleSidebar() {
-        console.log("Hi from Dashboard")
-        this.parentmessage = !this.parentmessage
-      }
- 
 
     }
 
