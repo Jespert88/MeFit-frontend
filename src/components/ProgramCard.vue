@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card v-if="goal"
-        title="Program"
+        :title= this.program.name
         style="min-width: 23rem;"
         class="text-center content"
         >
@@ -30,10 +30,13 @@
         </b-card>
 
         <b-card v-if="!goal"
-        title="Program"
-        style="max-width: 20rem;"
+        :title= this.program.name
+        style="min-width: 23rem;"
         class="text-center content"
         >
+           <b-card-text>
+                {{this.program.category}}
+            </b-card-text> 
         <div role="tablist">
                 <div v-for="programWorkout in program.programWorkoutFk" :key="programWorkout.workoutFk.workoutId">
                      <b-button  block v-b-toggle="'workout-' + programWorkout.workoutFk.workoutId + '-' + GUID" variant="success">
@@ -41,11 +44,12 @@
                     </b-button>
                  
                     <b-collapse :id="'workout-' + programWorkout.workoutFk.workoutId + '-' + GUID" role="tab">
-                        <WorkoutCard :workout="programWorkout.workoutFk" :toSelect="false"  />
+                        <WorkoutCard :workout="programWorkout.workoutFk" :toSelect="false" :toUpdate="true"  />
                     </b-collapse>
                     <br>
                 </div>
             </div>
+            <b-button v-if="toViewAndUpdate" variant="danger" @click="goToUpdatePage(program)" >Update</b-button>
         </b-card>
     </div>
 </template>
@@ -62,7 +66,8 @@ export default {
         toSelect: Boolean,
         reloadKey: Function,
         program : Object,
-        goal : Boolean
+        goal : Boolean,
+        toViewAndUpdate :Boolean
     },
     data() {
         return {
@@ -70,6 +75,9 @@ export default {
         }
     },
     methods: {
+          goToUpdatePage: function(program){
+          this.$emit("clickedToUpdate", program) 
+        },
         // generate UUID
         generateUUID: function() {
             let d = new Date().getTime();

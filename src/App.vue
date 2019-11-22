@@ -36,6 +36,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
      min-height: 100vh;
+     min-width: 100vh;
      display: flex;
      flex-direction: column;
 }

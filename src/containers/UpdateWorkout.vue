@@ -69,7 +69,7 @@ data() {
   },
   created() {
     if(!this.$auth.isContributor){
-        this.$router.push('/dashboard')
+        this.$router.push('/unauthorized')
     } else{  
 
     if(this.sentId == undefined){

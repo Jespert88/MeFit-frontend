@@ -111,7 +111,7 @@ export default {
         form: {
             email: '',
             name: '',
-            fitnesslevel: null,
+            fitnesslevel: 'Fit',
             image: '',
             weight : 0,
             height : 0,
@@ -179,7 +179,9 @@ export default {
      country : this.form.country,
      postalCode : this.form.postalCode,
      userId : this.userID
-    }).then( ()=> {
+    }).then(response => {
+              console.log(response.data)
+
       this.loading=false
       this.errorMessage = "Your profile details has been succesfully updated"
       console.log(this.errorMessage)
