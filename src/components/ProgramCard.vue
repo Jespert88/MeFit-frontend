@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card v-if="goal"
-        :title= this.program.name
+        title= "Program"
         style="min-width: 23rem;"
         class="text-center content"
         >

@@ -1,10 +1,17 @@
 <template>
-    <div class="content">
+<div class="content">
      <Loading v-if="loading"/>
-     <div  v-if="!loading">
 
-        <GoalCard/>
+     <b-alert v-if="errorMessage != ''" align="center" variant="danger" show dismissible>{{errorMessage}}asdsad</b-alert>
 
+     <div v-if="!loading">
+        <b-card no-body class="full-width">
+            <b-tabs pills card vertical> 
+                <b-tab :title="goal.endDate" v-for="goal in goalList" :key="goal.goalId">
+                    <GoalCard :goal="goal"/>
+                </b-tab>
+            </b-tabs>
+        </b-card>
     </div>
 </div>
 </template>
@@ -23,28 +30,36 @@
         data() {
             return {
                 goalList: [],
+                loading: false,
+                errorMessage: "",
                 profileId: this.$auth.profileId
             }
         },
         mounted() {
-
+            this.retrieveGoals()
         },
         methods: {
             retrieveGoals: function() {
+                this.loading = true
                 axios
                     .get('http://localhost:8080/goal/history/user/1')
                     .then((response) => {
                         this.loading = false
-                        this.errorMessage=""
                         if(response.status == 202) {
                             // success
                             this.goalList = response.data
                         } 
                     })
-                    .catch(e => {
-                    this.errorMessage = e
+                    .catch((e) => {
+                        this.loading = false
+                        this.errorMessage = e
                     })
             }
         }
     }
 </script>
+<style scoped>
+.full-width {
+    width: inherit;
+}
+</style>
