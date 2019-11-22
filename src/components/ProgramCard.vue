@@ -1,7 +1,7 @@
 <template>
         <b-card
         title="Program"
-        style="max-width: 20rem;"
+        style="max-width: 23rem;"
         class="text-center content"
         >
           <!--   <b-card-text>
@@ -13,7 +13,8 @@
 
             <div role="tablist">
                 <div v-for="workout in programGoal.goalWorkoutFk" :key="workout.workoutFk.workoutId">
-                     <b-button v-if="workout.complete" block v-b-toggle="'workout-' + workout.workoutFk.workoutId + '-' + GUID" variant="success">
+                    <br>
+                    <b-button v-if="workout.complete" block v-b-toggle="'workout-' + workout.workoutFk.workoutId + '-' + GUID" variant="success">
                         {{workout.workoutFk.name}}
                     </b-button>
                     <b-button v-else block v-b-toggle="'workout-' + workout.workoutFk.workoutId + '-' + GUID" variant="dark">
@@ -23,7 +24,6 @@
                     <b-collapse :id="'workout-' + workout.workoutFk.workoutId + '-' + GUID" role="tab">
                         <WorkoutCard :workout="workout.workoutFk" :toSelect="false" :toUpdate="workout.complete" :goalWorkout="workout" :reload="reloadKey"/>
                     </b-collapse>
-                    <br>
                 </div>
             </div>
         </b-card>
