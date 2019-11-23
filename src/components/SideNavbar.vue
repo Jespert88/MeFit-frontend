@@ -16,6 +16,11 @@
                     <button class="sideNavBtns" >Set Goal</button>
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/goalHistory">
+                    <button class="sideNavBtns" >Goal Archive</button>
+                </router-link>
+            </li>
             <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createexercise">
                     <button class="sideNavBtns" >Create Exercise</button>

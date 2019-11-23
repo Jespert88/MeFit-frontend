@@ -58,7 +58,7 @@
                     </div>
                     <b-collapse id="collapse-2">
                         <div class="d-flex justify-content-center" v-for="programGoal in userGoal.programGoalFk" :key="programGoal.programGoalId">
-                            <ProgramCard :programGoal="programGoal" :toSelect="false" :reloadKey="retrieveGoal"/>
+                            <ProgramCard :programGoal="programGoal" :toSelect="false" :reloadKey="retrieveGoal" :goal="true"/>
                         </div>
                     </b-collapse>
                 </b-col>

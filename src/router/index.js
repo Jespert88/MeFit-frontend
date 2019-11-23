@@ -25,6 +25,7 @@ import UpdateProgram from '../containers/UpdateProgram'
 import CreateProgram from '../containers/CreateProgram'
 import ShowOneExercise from '../containers/ShowOneExercise'
 import SetGoal from '../containers/SetGoal'
+import GoalHistory from '../containers/GoalHistory'
 
 import { authGuard } from "../auth";
 
@@ -67,6 +68,7 @@ export default new Router({
 			component: Dashboard,
 			beforeEnter : authGuard,
 			children: [
+				{ path: '/dashboard', component: UserOverview, props: true },
 				{ path: '/createprogram', component: CreateProgram, props: true },
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },
@@ -77,6 +79,7 @@ export default new Router({
 				{ path: '/viewworkouts', component: WorkoutList, props: true },
 				{ path: '/viewprograms', component: ProgramList, props: true },
 				{ path: '/setgoal', component: SetGoal, name :'SetGoal', props: true },
+				{ path: '/goalHistory', component: GoalHistory, props: true },
 				{ path: '/updateworkout', component: UpdateWorkout,name: "UpdateWorkout", props: true },
 				{ path: '/updateprogram', component: UpdateProgram,name: "UpdateProgram", props: true },
 
