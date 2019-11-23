@@ -10,7 +10,7 @@
             <b-container fluid v-if="!this.Myown">
               <b-button v-if="$auth.isContributor" @click="showOnlyMyPrograms">Show my programs</b-button>
                 <b-row>
-                    <b-col v-for="program in programList" :key="program.id" class="col-lg-3" >
+                    <b-col cols="10" xl="5" sm="10" md="5" v-for="program in programList" :key="program.id"  >
                         <ProgramCard :program="program" :goal="false" :toViewAndUpdate="false"/>
                     </b-col>
                 </b-row>
@@ -19,7 +19,7 @@
             <b-container fluid v-if="this.Myown">
               <b-button v-if="$auth.isContributor" @click="showAllprograms">Show All programs</b-button>
                 <b-row>
-                    <b-col v-for="program in minProgramList" :key="program.id" class="col-lg-3" >
+                    <b-col  cols="10" xl="5" sm="10" md="5" v-for="program in minProgramList" :key="program.id"  >
                         <ProgramCard :program="program"  @clickedToUpdate="redirectToUpdateProgram" :goal="false" :toViewAndUpdate="true"/>
                     </b-col>
                 </b-row>

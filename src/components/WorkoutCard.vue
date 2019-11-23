@@ -3,7 +3,7 @@
         <b-card
 
         :title= this.workout.name
-        style="min-width: 19rem; background-color:#fafbf2"
+        style="min-width: 19rem;  background-color:#fafbf2;"
         class="text-center"
         >
             <b-card-text>

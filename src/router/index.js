@@ -8,7 +8,6 @@ import Contact from '../views/Contact'
 import Calender from '../components/Calender'
 import NotFound from '../views/NotFound'
 import Unauthorized from '../views/Unauthorized'
-import SideNavbar from '../components/SideNavbar'
 
 import WorkoutList from '../containers/WorkoutList'
 import ProgramList from '../containers/ProgramList'
@@ -57,16 +56,12 @@ export default new Router({
 			beforeEnter: authGuard
 		},
 		{
-			path: "/sidenavbar",
-			name: "SideNavbar",
-			component: SideNavbar
-		},
-		{
 			path: "/dashboard",
 			name: "Dashboard",
 			component: Dashboard,
 			beforeEnter : authGuard,
 			children: [
+				{ path: '/dashboard', component: UserOverview, props: true },
 				{ path: '/createprogram', component: CreateProgram, props: true },
 				{ path: '/createexercise', component: CreateExercise, props: true },
 				{ path: '/createworkout', component: CreateWorkout, props: true },

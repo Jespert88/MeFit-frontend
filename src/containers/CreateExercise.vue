@@ -52,7 +52,7 @@
         },
         created(){
             if(!this.$auth.isContributor){
-                this.$router.push('/401')
+                this.$router.push('/unauthorized')
             }
         },
         props: {
