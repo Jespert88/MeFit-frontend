@@ -69,7 +69,6 @@ export default {
       this.$router.push({name:'UpdateProgram' , params :{sentId :id} })
     },
     showOnlyMyPrograms () {
-
       this.profileId = this.$auth.profileId
        if (event) {
         event.preventDefault()
@@ -77,25 +76,20 @@ export default {
       this.loading=true;
       //get users programss
       axios.get('https://me-fit.herokuapp.com/program/user/'+this.profileId).then(response => {
-      this.loading= false
-      this.errorMessage = ""
-      this.minProgramList = response.data.slice(0)
-    //   if(response.status == "202"){
-    //     
-    //   } else if (response.status == 404) {
-    //       // not found
-    //       this.errorMessage = "Programs not found"
-    //   } else if (response.status == 400) {
-    //       // bad request
-    //       this.errorMessage = "Bad request, try again"
-    //   } else {
-    //       // something went wrong
-    //       this.errorMessage = "Something went wrong, try again"
-    //   }
+      if(response.status == "202"){
+           this.loading= false
+            this.errorMessage = ""
+            this.minProgramList = response.data.slice(0)  
+      } else if (response.status == 404) {
+          this.errorMessage = "Programs not found"
+      } else if (response.status == 400) {
+          this.errorMessage = "Bad request, try again"
+      } else {
+          this.errorMessage = "Something went wrong, try again"
+      }
     }).catch(e => {
       this.errorMessage = "Something went wrong, try again: " + e
     })
-
     //hide old list and show new one with update button on them as this user can update them
     this.Myown =true;
     } 
