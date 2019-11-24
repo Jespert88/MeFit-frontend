@@ -2,7 +2,7 @@
 <div class="content">
      <Loading v-if="loading"/>
 
-     <b-alert v-if="errorMessage != ''" align="center" variant="danger" show dismissible>{{errorMessage}}asdsad</b-alert>
+     <b-alert v-if="errorMessage != ''" align="center" variant="danger" show dismissible>{{errorMessage}}</b-alert>
 
      <div v-if="!loading">
         <b-card no-body class="full-width">

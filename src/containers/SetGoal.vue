@@ -1,153 +1,191 @@
 <template>
 <div>
-<div id="formGoal">
-  <b-row no-gutters>
-    <b-col cols="12" md="12" xl="12">
-      <b-card>
-          <h2>Goals</h2>
-              <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                  <b-form-group id="input-group-1" label-for="input-1">
-                      <b-form-input id="input-1" v-model="form.name" required placeholder="Name of goal"></b-form-input>
-                  </b-form-group>
-                  
-                  <b-form-group id="input-group-2" label-for="input-2">
-                      <b-form-input id="input-2" v-model="form.musclegroup" required placeholder="Muscle Group"></b-form-input>
-                  </b-form-group>
+    <Loading v-if="loading"/>
 
-                  <b-form-group id="input-group-3" label-for="input-3">
-                      <b-form-input id="input-3" v-model="form.startdate" required placeholder="Start date"></b-form-input>
-                  </b-form-group>
+    <b-alert v-if="errorMessage != ''" show variant="danger" dismissible>{{errorMessage}}</b-alert>
+    <b-alert v-if="successMessage != ''" show variant="success" dismissible>{{successMessage}}</b-alert>
 
-                  <b-form-group id="input-group-4" label-for="input-4">
-                      <b-form-input id="input-4" v-model="form.enddate" required placeholder="End date"></b-form-input>
-                  </b-form-group>
-                  
-                  <b-button type="submit" variant="dark" style="margin: 3px;">Save</b-button>
-                  <b-button type="reset" variant="danger" style="margin: 3px;">Reset</b-button>
-              </b-form>
-          </b-card>
-      </b-col>
-  </b-row>
-</div>
+    <div v-if="!loading">
 
-<div id="contentDiv">
-    <b-row cols="12" md="12" xl="12" no-gutters>
-        <b-col v-for="program in programArr.slice(0,1)" :key="program.programId">
-            <!-- Loop program cards -->
-        <ProgramCard :program="program"/>
-        </b-col>
-        
-        <b-col v-for="workout in workoutArr.slice(0,1)" :key="workout.workoutId">
-            <!-- Loop workout cards -->
-        <WorkoutCard :workout="workout"/>
-        </b-col>
-    </b-row>
-</div>
+        <h2 class="text-center">Set Goal</h2>
+        <b-container class="d-flex justify-content-center">
+            <b-form @submit="formSubmit">
+                <b-form-group label="Goal name:">
+                    <b-form-input v-model="form.name" required placeholder="Goal Name"></b-form-input>
+                </b-form-group>
+                <b-form-group label="Select Start Date:">
+                    <Datepicker v-on:selected="highlightFrom" :disabled-dates="disabledDates"></Datepicker>
+                </b-form-group>
+
+                <Datepicker :inline="true" :highlighted="highlighted"></Datepicker>
+
+                <b-button type="submit" variant="dark" style="margin: 3px;">Save</b-button>
+            </b-form>
+        </b-container>
+
+
+
+        <b-card no-body class="full-width">
+            <b-tabs pills card fill> 
+                <b-tab title="Programs">
+                    <b-form @submit="searchProgram">
+                        <div class="d-flex justify-content-center">
+                            <b-form-group label="Search for program">
+                                <b-input v-model="search.program"></b-input>
+                            </b-form-group>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <b-button type="submit" variant="dark" style="margin: 3px;">Search</b-button>
+                        </div>
+                    </b-form>
+                    <b-row no-gutters>
+                        <b-col xl="6" class="d-flex justify-content-center" v-for="program in programList" :key="program.programId">
+                            <ProgramCard :program="program" :toSelect="false" :goal="false"/>
+                        </b-col>
+                        <!-- Goal does not have programs -->
+                        <div v-if="programList.length == 0">
+                            <h2>There is no programs for this goal</h2>
+                        </div>
+                    </b-row>
+                </b-tab>
+                <b-tab title="Workouts">
+                    <b-form @submit="searchWorkout">
+                        <div class="d-flex justify-content-center">
+                            <b-form-group label="Search for program">
+                                <b-input v-model="search.workout"></b-input>
+                            </b-form-group>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <b-button type="submit" variant="dark" style="margin: 3px;">Search</b-button>
+                        </div>
+                    </b-form>
+                    <b-row no-gutters>
+                        <b-col xl="6" class="d-flex justify-content-center" v-for="workout in workoutList" :key="workout.workoutId">
+                            <WorkoutCard :workout="workout" :toSelect="true" :toUpdate="true"/>
+                        </b-col>
+                        <!-- Goal does not have workouts -->
+                        <div v-if="workoutList.length == 0">
+                            <h2>There is no workouts for this goal</h2>
+                        </div>
+                    </b-row>
+                </b-tab>
+            </b-tabs>
+        </b-card>
+
+    </div>
 </div>
 </template>
 
 <script>
-import axios from 'axios'
-import WorkoutCard from '../components/WorkoutCard'
-import ProgramCard from '../components/ProgramCard'
+    import axios from 'axios'
+    import WorkoutCard from '../components/WorkoutCard'
+    import ProgramCard from '../components/ProgramCard'
+    import Datepicker from 'vuejs-datepicker'
 
-export default {
-    name: "SetGoal",
-    components: {
-        WorkoutCard,
-        ProgramCard
-    },
-
-    data() {
-        return {
-            form: {
-                name: '',
-                musclegroup: '',
-                startdate: '',
-                enddate: ''
-            },
-            workoutArr: [],
-            programArr: [],
-            show: true
-        }
-    },
-            methods: {
-                onSubmit(event) {
-                    event.preventDefault()
-                    alert(JSON.stringify(this.form))
+    export default {
+        name: "SetGoal",
+        components: {
+            Datepicker,
+            WorkoutCard,
+            ProgramCard
+        },
+        data() {
+            return {
+                form: {
+                    name: "",
+                    startDate: "",
+                    endDate: ""
                 },
-                onReset(event) {
-                    event.preventDefault()
-                    this.form.name = ''
-                    this.form.musclegroup = ''
-                    this.form.startdate = ''
-                    this.form.enddate =''
-
-                    // Trick to reset/clear native browser form validation state
-                    this.show = false
-                    this.$nextTick(() => {
-                        this.show = true
-                    })
+                search: {
+                    program: "",
+                    workout: ""
                 },
+                highlighted: {
+                    from: "",
+                    to: ""
+                },
+                disabledDates: {
+                    to: new Date()
+                },
+                workoutList: [],
+                originalWorkoutList: [],
+                programList: [],
+                originalProgramList: [],
+                loading: "",
+                errorMessage: "",
+                successMessage: ""
+            }
+        },
+        mounted() {
+            this.retrieveWorkouts()
+            this.retrievePrograms()
+        },
+        methods: {
+            // submit form and send to api
+            formSubmit: function(event) {
+                event.preventDefault()
             },
-                created: function(){
-                    console.log("inne")
-                    axios.get("https://me-fit.herokuapp.com/workout")
+            // highlight calendar dates
+            highlightFrom: function(val) {
+                this.highlighted.from = new Date(val);
+                // automatically adds 6 days (7 in total)
+                this.highlighted.to = new Date(new Date(val).getTime() + 8640*60000)
+
+                this.form.startDate = this.highlighted.from
+                this.form.endDate = this.highlighted.to
+            },
+            // retrieve initial workout list
+            retrieveWorkouts: function() {
+                this.loading = true
+                axios
+                    .get('https://me-fit.herokuapp.com/workout')
                     .then(response => {
-                        this.workoutArr = response.data
-                        this.programArr = response.data
-                        console.log(this.workoutArr);
-
-                        console.log('The result is ' + response)
-                        if(response.status == 201) {
-                        console.log("Status 201. This works!");
-                        } else if (response.status == 400) {
-                        console.log("Status 400. Too BAD!");
-                        } else if (response.status == 404) {
-                        console.log("Status 404. Whata! ò_ó ");
-                        }
-                        console.log("efter")
+                        this.loading = false
+                        this.errorMessage = ""
+                        if(response.status == 202) {
+                            // success
+                            this.workoutList = response.data.slice(0)
+                            this.originalWorkoutList = response.data.slice(0)
+                        } 
                     })
-                    .catch ((e) => {
-                        console.log("Exception: ",  e)
-                        })
-                }
-}
+                    .catch(e => {
+                        this.loading = false
+                        this.errorMessage = "Something went wrong, try again: " + e
+                    })
+            },
+            // retrieve initial program list
+            retrievePrograms: function() {
+                this.loading = true
+                axios
+                    .get('https://me-fit.herokuapp.com/program')
+                    .then(response => {
+                        this.loading = false
+                        this.errorMessage = ""
+                        if(response.status == 202) {
+                            // success
+                            this.programList = response.data.slice(0)
+                            this.originalProgramList = response.data.slice(0)
+                        } 
+                    })
+                    .catch(e => {
+                        this.loading = false
+                        this.errorMessage = "Something went wrong, try again: " + e
+                    })
+            },
+            // handle search workout
+            searchWorkout: function() {
+
+            },
+            // handle search program
+            searchProgram: function() {
+
+            }
+        }
+    }
 </script>
 
 <style scoped>
-/* Desktop */
-
-p {
-    font-size: 16px;
-    color: aliceblue;
+.full-width {
+    width: inherit;
 }
-
-h2 {
-    color: #3088a0;
-    text-align: center;
-}
-
-#formGoal {
-    color: #3088a0;
-    margin-top: 3%;
-    margin-right: 10%;
-    margin-left: 10%;
-    margin-bottom: 5%;
-}
-
-#contentDiv {
-    color: #3088a0;
-    margin-top: 3%;
-    margin-right: 20%;
-    margin-left: 20%;
-    margin-bottom: 5%; 
-
-}
-
-/* Mobile */
-@media (min-width: 360px) and (max-width: 600px) {}
-
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1024px) {}
 </style>

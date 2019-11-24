@@ -23,7 +23,7 @@
                     </b-button>
 
                     <b-collapse :id="'workout-' + workout.workoutFk.workoutId + '-' + GUID" role="tab">
-                        <WorkoutCard :workout="workout.workoutFk" :toSelect="false" :toUpdate="workout.complete" :goalWorkout="workout" :reload="reloadKey"/>
+                        <WorkoutCard :workout="workout.workoutFk" :toSelect="toSelect" :toUpdate="workout.complete" :goalWorkout="workout" :reload="reloadKey"/>
                     </b-collapse>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     </b-button>
                  
                     <b-collapse :id="'workout-' + programWorkout.workoutFk.workoutId + '-' + GUID" role="tab">
-                        <WorkoutCard :workout="programWorkout.workoutFk" :toSelect="false" :toUpdate="true"  />
+                        <WorkoutCard :workout="programWorkout.workoutFk" :toSelect="toSelect" :toUpdate="true"  />
                     </b-collapse>
                     <br>
                 </div>
