@@ -10,7 +10,7 @@
             <b-container fluid v-if="!this.Myown">
               <b-button v-if="$auth.isContributor" @click="showOnlyMyWorkouts">Show my workouts</b-button>
                 <b-row>
-                    <b-col v-for="workout in workoutList" :key="workout.id" cols="3" xm="3" md="3" xl="3" >
+                    <b-col v-for="workout in workoutList" :key="workout.id" cols="12" xm="10" md="7" xl="4" >
                       <div >
                         <WorkoutCard :workout="workout"  :toViewAndUpdate="false" :toUpdate="true"/>
                         </div>
@@ -21,7 +21,7 @@
             <b-container fluid v-if="this.Myown">
               <b-button v-if="$auth.isContributor" @click="showAllworkouts">Show All workouts</b-button>
                 <b-row>
-                    <b-col v-for="workout in minWorkoutList" :key="workout.id" cols="2" >
+                    <b-col v-for="workout in minWorkoutList" :key="workout.id" cols="12" xm="10" md="7" xl="4">
                         <WorkoutCard :workout="workout" @clickedToUpdate="redirectToUpdateWorkout" :toViewAndUpdate="true" :toUpdate="true"/>
                     </b-col>
                 </b-row>

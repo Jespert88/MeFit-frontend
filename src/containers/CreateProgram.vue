@@ -19,17 +19,16 @@
                     </b-form-group>
                   
         
-                    <b-container v-if="workoutListToSend.length > 0" id="selectedContainer" style="border: 1px solid; margin-bottom:10px" required>
+                    <b-jumbotron v-if="workoutListToSend.length > 0" id="selectedContainer" style="border: 1px solid; margin-bottom:10px" required>
                         <b-row align-h="start">
-                            <b-col v-for="workout in workoutListToSend" :key="workout.id" cols="3" style="padding:10px;" >
-                                <WorkoutCard :workout="workout" @clicked-workoutCard="addToWorkoutListToSend" :toUpdate="true"/>
-                
-                                <b-button type="submit" variant="secondary" @click="removeFromWorkoutList(workout)">Remove Workout</b-button>
+                            <b-col v-for="workout in workoutListToSend" :key="workout.id" cols="4" style="padding:10px;" >
+                                <WorkoutCard :workout="workout" :toRemove="true" @clicked-workoutCard="addToWorkoutListToSend" @clicked-RemoveWorkoutCard="removeFromChosed" :toUpdate="true"/>
                             </b-col>
                         </b-row>
-                    </b-container>
-
-                    <b-button type="submit" variant="secondary">Create Program</b-button>
+                        <b-row >
+                            <b-button class="mx-auto bg-info" type="submit" variant="secondary">Create Workout</b-button>
+                        </b-row>
+                    </b-jumbotron>
                 </b-form>
             </b-container>
            
@@ -38,7 +37,6 @@
                 <b-row>
                     <b-col v-for="workout in workoutList" :key="workout.id" class="col-lg-4" >
                         <WorkoutCard :workout="workout" :toSelect="true" :toUpdate="true" @clicked-workoutCard="addToWorkoutListToSend"/>
-
                     </b-col>
                 </b-row>
             </b-container>
@@ -104,7 +102,7 @@ export default {
                   this.errorMessage = "Something went wrong, try again: " + e
                 })
         },
-        removeFromWorkoutList: function(workout){
+        removeFromChosed: function(workout){
             // remove from workout list to send
             if (event) {
                 event.preventDefault()

@@ -2,21 +2,20 @@
 <template>
         <b-card
 
-        :title= this.workout.name
         style="min-width: 19rem;  background-color:#fafbf2;"
         class="text-center"
         >
-            <b-card-text>
-                {{workout.name}}
-            </b-card-text>
-            <b-card-text>
+
+            <template v-slot:header>
+                <b-card-text > {{ workout.name }}</b-card-text>
+             </template>
+            <b-card-text >
                 {{workout.type}}
             </b-card-text>
 
-            <div role="tablist">
+            <div role="tablist" v-if="!toRemove">
                 <div v-for="set in workout.set" v-bind:key="set.setId">
                     <b-button block v-b-toggle="'set-' + set.setId + '-' + GUID" variant="info">{{set.exerciseFk.name}}</b-button>
-
                     <b-collapse :id="'set-' + set.setId + '-' + GUID" accordion="workout-accordion" role="tab">
                         <ExerciseCard :exercise="set.exerciseFk" :toSelect="false" :setData="set"/>
                     </b-collapse>
@@ -28,7 +27,9 @@
             <b-button v-if="toSelect" variant="danger" @click="addWorkoutObj(workout)">Select Workout</b-button>
             <b-button v-if="!toUpdate" variant="danger" @click="markWorkoutComplete(goalWorkout)">Mark Complete</b-button>
             <b-button v-if="toViewAndUpdate" variant="danger" @click="goToUpdatePage(workout)" >Update</b-button>
-
+             <b-row v-if="toRemove"  style="justify-content : center ; padding-top:10%">
+                 <b-button type="submit" variant="danger" @click="removeFromWorkouts(workout)">X</b-button>  
+            </b-row>
         </b-card>
 </template>
 
@@ -46,7 +47,8 @@ export default {
         toUpdate: Boolean,
         goalWorkout: Object,
         reload: Function,
-        toViewAndUpdate :Boolean
+        toViewAndUpdate :Boolean,
+        toRemove :Boolean
     },
     data() {
         return {
@@ -56,6 +58,9 @@ export default {
     methods: {
         goToUpdatePage: function(workout){
           this.$emit("clickedToUpdate", workout) 
+        },
+        removeFromWorkouts :function(workout){
+            this.$emit("clicked-RemoveWorkoutCard", workout)    
         },
         addWorkoutObj: function(workout) {
             this.$emit("clicked-workoutCard", workout)    

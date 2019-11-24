@@ -21,22 +21,23 @@
                 </b-form-group>
                   
         
-                <b-container v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
-                <b-row align-h="start" >
-                    <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-3" style="padding:10px;" >
-                        <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
-                        <b-button type="submit" variant="secondary" @click="removeFromExercises(exercise)">Remove Exercise</b-button>
+                <b-jumbotron v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
+                    <b-row  >
+                        <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-4" style="padding:10px;" >
+                            <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray" @clicked-exerciseCardRemove="removeFromExerciseArray" :toRemove="true"/>
                         </b-col>
-                </b-row>
-                </b-container >
-                <b-button type="submit" variant="secondary">Create Workout</b-button>
+                    </b-row>
+                    <b-row >
+                        <b-button class="mx-auto bg-info" type="submit" variant="secondary">Create Workout</b-button>
+                    </b-row>
+                </b-jumbotron >
             </b-form>
         </b-container >
            
             
         <b-container  >
         <b-row>
-            <b-col v-for="exercise in exerciseArray" :key="exercise.id" class="col-lg-3" ><ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray" :toSelect="true"/></b-col>
+            <b-col v-for="exercise in exerciseArray" :key="exercise.id" class="col-lg-3" ><ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"  :toSelect="true"/></b-col>
         </b-row>
         </b-container >
         </div>
@@ -117,9 +118,7 @@ export default {
      
     },
     methods: {
-        removeFromExercises: function(exercise){
-            exercise.reps = 1
-            exercise.sets = 1
+        removeFromExerciseArray: function(exercise){
             this.exerciseArray.push(exercise)
 
             var pos = this.chosedExerciseArray.indexOf(exercise)
@@ -148,6 +147,7 @@ export default {
         createWorkout: function(){
             event.preventDefault()
             this.loading = true
+            console.log(this.chosedExerciseArray)
             axios
                 .post('https://me-fit.herokuapp.com/addWorkout',{
                     name : this.name,

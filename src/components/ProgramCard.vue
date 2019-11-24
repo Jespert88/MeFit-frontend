@@ -12,7 +12,7 @@
                 {{programGoal.programFk.category}}
             </b-card-text> -->
 
-            <div role="tablist">
+            <div role="tablist" v-if="toRemove">
                 <div v-for="workout in programGoal.goalWorkoutFk" :key="workout.workoutFk.workoutId">
                     <br>
                     <b-button v-if="workout.complete" block v-b-toggle="'workout-' + workout.workoutFk.workoutId + '-' + GUID" variant="success">
@@ -37,7 +37,7 @@
            <b-card-text>
                 {{this.program.category}}
             </b-card-text> 
-        <div role="tablist">
+        <div role="tablist" v-if="!toRemove">
                 <div v-for="programWorkout in program.programWorkoutFk" :key="programWorkout.workoutFk.workoutId">
                      <b-button  block v-b-toggle="'workout-' + programWorkout.workoutFk.workoutId + '-' + GUID" variant="success">
                         {{programWorkout.workoutFk.name}}
@@ -50,6 +50,14 @@
                 </div>
             </div>
             <b-button v-if="toViewAndUpdate" variant="danger" @click="goToUpdatePage(program)" >Update</b-button>
+            <b-row v-if="toSelectProgram"  style="justify-content : center ; padding-top:10%">
+                <div >
+                 <b-button type="submit" variant="danger" @click="addExerciseObj(program)">Select Program</b-button>
+                </div>
+            </b-row>
+             <b-row v-if="toRemove"  style="justify-content : center ; padding-top:10%">
+                 <b-button type="submit" variant="danger" @click="removeFromPrograms(program)">X</b-button>  
+            </b-row>
         </b-card>
     </div>
 </template>
@@ -67,7 +75,9 @@ export default {
         reloadKey: Function,
         program : Object,
         goal : Boolean,
-        toViewAndUpdate :Boolean
+        toViewAndUpdate :Boolean,
+        toSelectProgram: Boolean,
+        toRemove: Boolean
     },
     data() {
         return {
@@ -77,6 +87,12 @@ export default {
     methods: {
           goToUpdatePage: function(program){
           this.$emit("clickedToUpdate", program) 
+        },
+        removeFromPrograms :function(program){
+            this.$emit("clickedToRemove", program)    
+        },
+         addExerciseObj: function(program) {
+            this.$emit("clicked-exerciseCard", program)    
         },
         // generate UUID
         generateUUID: function() {

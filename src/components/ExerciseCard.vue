@@ -3,19 +3,21 @@
      
   <b-card  
     bg-variant=""
-    :title= this.exercise.name
     img-src="https://topfitnesshome.com/wp-content/uploads/Women-Biceps-min-600x413.jpg"
     img-alt="Image"
     tag="article"
     style="text-align:center; max-width: 15rem ;" 
     class="mb-2"
  >
-        <b-card-text> {{ exercise.description }}</b-card-text>
+      <template v-slot:header>
+         <b-card-text > {{ exercise.name }}</b-card-text>
+      </template>
+        <b-card-text v-if="!toRemove"> {{ exercise.description }}</b-card-text>
         <b-container>
             <b-row v-if="toSelect">
               <b-input-group>
                 <b-col>
-                  <b-input   v-b-popover.hover="'Reps'" type="number" min="1" max="100" required v-model="reps" placeholder="Reps">Repetions</b-input>   
+                  <b-input  v-b-popover.hover="'Reps'" type="number" min="1" max="100" required v-model="reps" placeholder="Reps">Repetions</b-input>   
                 </b-col>
                 <b-col>
                   <b-input  v-b-popover.hover="'Sets'" type="number" min="1" max="100" required v-model="sets" placeholder="">Sets</b-input>
@@ -47,6 +49,11 @@
                 </div>
             </b-row>
             
+            <b-row v-if="toRemove"  style="justify-content : center ; padding-top:10%">
+                 <b-button type="submit" variant="danger" @click="removeFromExercises(exercise)">X</b-button>  
+            </b-row>
+
+            
         </b-container>
             
        
@@ -67,7 +74,8 @@ export default {
         exercise: Object,
         toSelect: Boolean,
         setData: Object,
-        toShow : Boolean
+        toShow : Boolean,
+        toRemove :Boolean
 
     },
     methods: {
@@ -75,6 +83,11 @@ export default {
             exercise.sets =this.sets
             exercise.reps= this.reps
             this.$emit("clicked-exerciseCard", exercise)    
+        },
+        removeFromExercises: function(exercise){
+        exercise.sets=1
+        exercise.reps=1
+        this.$emit("clicked-exerciseCardRemove", exercise)    
         },
     }
 }

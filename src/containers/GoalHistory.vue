@@ -42,7 +42,7 @@
             retrieveGoals: function() {
                 this.loading = true
                 axios
-                    .get('http://localhost:8080/goal/history/user/1')
+                    .get('https://me-fit.herokuapp.com/goal/history/user/'+this.profileId)
                     .then((response) => {
                         this.loading = false
                         if(response.status == 202) {
