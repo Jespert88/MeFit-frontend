@@ -17,19 +17,16 @@
                     <b-form-group label="Program category">
                         <b-form-input type="text" v-model="form.category" required></b-form-input>
                     </b-form-group>
-                  
-        
-                    <b-container v-if="workoutListToSend.length > 0" id="selectedContainer" style="border: 1px solid; margin-bottom:10px" required>
+                  <b-jumbotron v-if="workoutListToSend.length > 0" id="selectedContainer" style="border: 1px solid; margin-bottom:10px" required>
                         <b-row align-h="start">
                             <b-col v-for="workout in workoutListToSend" :key="workout.id" cols="4" style="padding:10px;" >
-                                <WorkoutCard :workout="workout" @clicked-workoutCard="addToWorkoutListToSend" :toUpdate="true"/>
-                
-                                <b-button type="submit" variant="secondary" @click="removeFromWorkoutList(workout)">Remove Workout</b-button>
+                                <WorkoutCard :workout="workout" :toRemove="true" @clicked-workoutCard="addToWorkoutListToSend" @clicked-RemoveWorkoutCard="removeFromChosed" :toUpdate="true"/>
                             </b-col>
                         </b-row>
-                    </b-container>
-
-                    <b-button type="submit" variant="secondary">Update Program</b-button>
+                        <b-row >
+                            <b-button class="mx-auto bg-info" type="submit" variant="secondary">Update Workout</b-button>
+                        </b-row>
+                    </b-jumbotron>
                 </b-form>
             </b-container>
            
@@ -106,7 +103,7 @@ export default {
               
 
         },
-        removeFromWorkoutList: function(workout){
+        removeFromChosed: function(workout){
             // remove from workout list to send
             if (event) {
                 event.preventDefault()

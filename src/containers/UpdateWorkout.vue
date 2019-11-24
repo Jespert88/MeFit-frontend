@@ -17,19 +17,17 @@
                         <b-form-group>
                             <b-form-input  type="text" v-model="type" required></b-form-input>
                         </b-form-group>
-                  
-        
-        <b-container v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
-        <b-row >
-            <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-3" style="padding:10px;" >
-                <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"/>
-                
-                <b-button type="submit" variant="secondary" @click="removeFromExercises(exercise)">Remove Exercise</b-button>
-            </b-col>
-        </b-row>
-                </b-container >
-
-           <b-button type="submit" variant="secondary">Update Workout</b-button>
+           <b-jumbotron v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
+                    <b-row  >
+                        <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-4" style="padding:10px;" >
+                            <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray" @clicked-exerciseCardRemove="removeFromExercises" :toRemove="true"/>
+                        </b-col>
+                    </b-row>
+                    <b-row >
+                        <b-button class="mx-auto bg-info" type="submit" variant="secondary">Update Workout</b-button>
+                    </b-row>
+                </b-jumbotron >         
+    
              </b-form>
         </b-container >
         
@@ -104,19 +102,13 @@ data() {
     methods: {
         removeFromExercises :function(exercise){
         exercise.toBeSelected= false
-        exercise.toSelectReps = false
-        exercise.toSelectSets = false
-        exercise.toChooseReps = false
-        exercise.reps =1
-        exercise.sets= 1
-          this.exerciseArray.push(
-                exercise
-            )
+
+          this.exerciseArray.push(exercise)
 
             var pos = this.chosedExerciseArray.indexOf(exercise)
             this.chosedExerciseArray.splice(pos , 1)
-        
-          if (event)  event.preventDefault()
+            
+            if (event) event.preventDefault()
 
         },
         addToExerciseArray: function(exercise) {
@@ -149,7 +141,6 @@ data() {
          updateWorkout : function(){
              event.preventDefault()
              this.loading= true
-            console.log(this.workoutId)
             axios.patch('https://me-fit.herokuapp.com/workout/'+ this.workoutId,{
                 name : this.name,
                 type : this.type,

@@ -14,7 +14,7 @@
             </b-alert>
         </div>
 
-        <b-container v-else fluid class="mainContainer">
+        <b-container v-if="hasGoal" fluid class="mainContainer">
             <b-row no-gutters>
                 <!-- Left Top Corner -->
                 <b-col cols="5">
@@ -103,9 +103,9 @@ export default {
         retrieveGoal: function() {
             this.loading = true
             axios
-                .get('http://localhost:8080/goal/status/user/1')
+                .get('https://me-fit.herokuapp.com/goal/status/user/'+this.$auth.profileId)
                 .then((response) => {
-                    if (response.status == 202) {
+                    if (response.status == '202') {
                         this.hasGoal = true
                         this.userGoal = response.data
                         this.counterComplete()
@@ -157,7 +157,7 @@ export default {
         // mark goal achieved
         patchGoal: function(isAchieved) {
            axios
-                .patch('http://localhost:8080/goal/' + this.userGoal.goalId, {
+                .patch('https://me-fit.herokuapp.com/goal/' + this.userGoal.goalId, {
                     achieved: isAchieved,
                     profileId: 1
                 })
@@ -173,7 +173,7 @@ export default {
         // mark program achieved
         patchGoalProgram: function(programId) {
            axios
-                .patch('http://localhost:8080/goal/program/' + programId)
+                .patch('https://me-fit.herokuapp.com/goal/program/' + programId)
                 .then((response) => {
                     if (response.status == 202) {
                         // success
