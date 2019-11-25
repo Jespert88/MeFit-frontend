@@ -67,20 +67,12 @@ export default {
         },
         markWorkoutComplete: function(goalWorkout) {
             axios
-                .patch('http://localhost:8080/goal/workout/' + goalWorkout.goalWorkoutId)
+                .patch('https://me-fit.herokuapp.com/goal/workout/' + goalWorkout.goalWorkoutId)
                 .then((response) => {
                     if (response.status == 202) {
                         // success
                         this.reload()
-                    } else if (response.status == 404) {
-                        // not found
-                        console.log("status: " + 404)
-                    } else if (response.status == 400) {
-                        // bad request
-                        console.log("status: " + 400)
-                    } else {
-                        // something went wrong
-                    }
+                    } 
                 })
                 .catch(() => {
                 })
