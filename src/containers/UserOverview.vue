@@ -22,7 +22,6 @@
                         <b-progress class="mb-3" height="30px">
                             <b-progress-bar :value="goalProgress" :label="`${goalProgress.toFixed(0)}%`" variant="success"></b-progress-bar>
                         </b-progress>
-                        <h3 id="daysTitle">Days remaning: 3</h3>
                     </div>
                 </b-col>
 
@@ -31,7 +30,7 @@
                 <!-- Right Top Corner -->
                 <b-col cols="5">
                     <div class="d-flex justify-content-center">
-                        <Calender/>
+                        <Datepicker :inline="true" :highlighted="highlightedDates"></Datepicker>
                     </div>
                 </b-col>
             </b-row>
@@ -69,7 +68,7 @@
 </template>
 
 <script>
-import Calender from '../components/Calender'
+import Datepicker from 'vuejs-datepicker'
 import WorkoutCard from '../components/WorkoutCard'
 import Loading from '../components/Loading'
 import ProgramCard from '../components/ProgramCard'
@@ -78,13 +77,17 @@ import axios from 'axios'
 export default {
     name: "UserOverview",
     components: {
-        Calender,
+        Datepicker,
         WorkoutCard,
         Loading,
         ProgramCard 
     },
     data() {
         return {
+            highlightedDates: {
+                from: "",
+                to: ""
+            },
             userGoal: {},
             loading: false,
             hasGoal: false,
@@ -92,7 +95,6 @@ export default {
             completedWorkouts: 0,
             totalWorkouts: 0,
             goalProgress: 0,
-            profileId: this.$auth.profileId,
             errorMessage: "There is no goal set. Set the goal first."
         }
     },
@@ -103,11 +105,13 @@ export default {
         retrieveGoal: function() {
             this.loading = true
             axios
-                .get('https://me-fit.herokuapp.com/goal/status/user/'+this.$auth.profileId)
+                .get('https://me-fit.herokuapp.com/goal/status/user/' + this.$auth.profileId)
                 .then((response) => {
                     if (response.status == '202') {
                         this.hasGoal = true
                         this.userGoal = response.data
+                        this.highlightedDates.from = new Date(response.data[0].startDate)
+                        this.highlightedDates.to = new Date(response.data[0].endDate)
                         this.counterComplete()
                         this.loading = false
                     }
@@ -121,30 +125,34 @@ export default {
         counterComplete: function() {      
             this.totalWorkouts = 0
             this.completedWorkouts = 0
-            this.userGoal.programGoalFk.forEach((programGoal) => {
-                let totalProgramWorkouts = 0
+            if(this.userGoal.programGoalFk != null) {
+                this.userGoal.programGoalFk.forEach((programGoal) => {
+                    let totalProgramWorkouts = 0
 
-                programGoal.goalWorkoutFk.forEach((workout) => {
-                    totalProgramWorkouts += 1
+                    programGoal.goalWorkoutFk.forEach((workout) => {
+                        totalProgramWorkouts += 1
+                        this.totalWorkouts += 1
+                        if(workout.complete) {
+                            this.completedWorkouts += 1
+                        }
+                    })
+
+                    if(totalProgramWorkouts == this.completedWorkouts && !programGoal.complete) {
+                        // mark program complete
+                        this.patchGoalProgram(programGoal.programGoalId)
+                        totalProgramWorkouts = 0
+                    }
+
+                })
+            }
+            if(this.userGoal.goalWorkoutFk != null) {
+                this.userGoal.goalWorkoutFk.forEach((goalWorkout) => {
                     this.totalWorkouts += 1
-                    if(workout.complete) {
-                        this.completedWorkouts += 1
+                    if(goalWorkout.complete) {
+                        this.completedWorkouts++
                     }
                 })
-
-                if(totalProgramWorkouts == this.completedWorkouts && !programGoal.complete) {
-                    // mark program complete
-                    this.patchGoalProgram(programGoal.programGoalId)
-                    totalProgramWorkouts = 0
-                }
-
-            })
-            this.userGoal.goalWorkoutFk.forEach((goalWorkout) => {
-                this.totalWorkouts += 1
-                if(goalWorkout.complete) {
-                    this.completedWorkouts++
-                }
-            })
+            }
             this.goalProgress = this.completedWorkouts * 100 / this.totalWorkouts
 
             if(this.goalProgress == 100) {
@@ -190,9 +198,5 @@ export default {
 /* Desktop */
 .mainContainer {
     margin-top: 5%;
-}
-
-#daysTitle {
-    font-size: 30px;
 }
 </style>
