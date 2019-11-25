@@ -85,7 +85,6 @@ export default {
                 this.loading= true
                 Promise.all([axios.get('https://me-fit.herokuapp.com/program/'+this.sentId), 
                     axios.get('https://me-fit.herokuapp.com/workout')]).then( response => {
-                    console.log(response)
                     this.loading= false
                     this.workoutList = response[1].data.slice(0)
 
@@ -126,18 +125,20 @@ export default {
         updateProgram: function(){
             event.preventDefault()
             this.loading = true
+           
             axios
-                .patch('https://me-fit.herokuapp.com/program'+this.programId,{
+                .patch('https://me-fit.herokuapp.com/program/'+this.programId,{
                     name: this.form.name,
                     category: this.form.category,
                     profileId: this.profileId,
                     workoutList: this.workoutListToSend
                 })
                 .then((results) => {
+                    console.log(results)
                     this.loading = false;
                     if (results.status == 204) {
                         // success
-                        this.successMessage = "Program has been succesfully created"
+                        this.successMessage = "Program has been succesfully updated"
                     } else if (results.status == 400) {
                         // bad request
                         this.errorMessage = "Bad request, try again"

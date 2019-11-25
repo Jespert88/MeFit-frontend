@@ -1,11 +1,12 @@
 <template>
 <div>
     <Loading v-if="loading"/>
+    
 
     <b-alert v-if="errorMessage != ''" show variant="danger" dismissible>{{errorMessage}}</b-alert>
     <b-alert v-if="successMessage != ''" show variant="success" dismissible>{{successMessage}}</b-alert>
 
-    <div v-if="!loading">
+    <div v-if="!loading && !hasGoal">
 
         <h2 class="text-center">Set Goal</h2>
         <b-container >
@@ -131,10 +132,12 @@
                 errorMessage: "",
                 successMessage: "",
                 profileId : this.$auth.profileId,
-                fitnessLevel :''
+                fitnessLevel :'',
+                hasGoal : ''
             }
         },
         mounted() {
+            this.checkIfUserHasGoal()
             this.getFitnessLevel()
             this.retrieveWorkouts()
             this.retrievePrograms()
@@ -142,13 +145,11 @@
         methods: {
             // submit form and send to api
             formSubmit: function(event) {
-            event.preventDefault()
-            console.log(this.form.startDate)
             this.errorMessage = ''
             this.successMessage = ''
-            if(this.fitnessLevel =='Newbie' && (this.workoutListToSend.length>3 || this.chosedProgrmas.length >1)){
+            if(this.fitnessLevel =='Newbie' && (this.workoutListToSend.length> 3 || this.chosedProgrmas.length >1)){
                 this.errorMessage=  'Too many workouts.. Remeber you still a Newbie'
-            }else if (this.fitnessLevel =='Average' && (this.workoutListToSend.length>6 || this.chosedProgrmas.length >1)){
+            }else if (this.fitnessLevel =='Average' && (this.workoutListToSend.length> 6 || this.chosedProgrmas.length >1)){
                 this.errorMessage= 'Too many workouts.. Remeber you still a Average '
             }else if (this.fitnessLevel =='Fit' && (this.workoutListToSend.length>9 || this.chosedProgrmas.length >1)){
                 this.errorMessage = 'Too many workouts.. Remeber you are not profiessional yet'
@@ -164,11 +165,16 @@
                     programList : this.chosedProgrmas
                 }).then(respose => {
                     if(respose.status == "201"){
+                        console.log('Created successfully')
                         this.successMessage = "succesfully created"
                     }
                 }).catch(e =>{
                     this.errorMessage = "Something went wrong" + e
-                }).finally(this.resetValues())    
+                }).then(()=>{
+                    console.log('Reseting values')
+                    this.resetValues()}
+                )
+                event.preventDefault()
             }
             },
             addToWorkoutListToSend: function(workout) {
@@ -221,6 +227,7 @@
                     this.fitnessLevel = respose.data.fitnessLevel
                 })
             },
+
             // retrieve initial workout list
             retrieveWorkouts: function() {
                 this.loading = true
@@ -259,6 +266,21 @@
                         this.errorMessage = "Something went wrong, try again: " + e
                     })
             },
+            checkIfUserHasGoal : function(){
+                axios
+                .get('https://me-fit.herokuapp.com/goal/status/user/'+this.profileId)
+                .then((response) => {
+                    if (response.status == '202') {
+                        if(response.data.length > 0 ){
+                            this.hasGoal = true 
+                            this.errorMessage = 'You already have a goal.. Try again after you completed it'
+                        }
+                    }
+                })
+                .catch(() => {
+                
+                })
+            },
             // handle search workout
             searchWorkout: function() {
 
@@ -275,7 +297,6 @@
             this.chosedProgrmas.length = 0
             this.workoutArr = this.originalWorkoutList.splice(0)
             this.programArr = this.originalProgramList.slice(0)
-            console.log(this.workoutListToSend.length)
             }
         }
     }

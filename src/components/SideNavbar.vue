@@ -3,52 +3,52 @@
         <ul class="list-group">
             <li class="nav-item">
                 <router-link class="nav-link" to="/profile">
-                    <button class="sideNavBtns" >Profile</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Profile</b-button>
                 </router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/dashboard">
-                    <button class="sideNavBtns" >User overview</button>
+                     <b-button class="sideNavBtns" variant="outline-light" >Dashboard</b-button>
                 </router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/setgoal">
-                    <button class="sideNavBtns" >Set Goal</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Set Goal</b-button>
                 </router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/goalHistory">
-                    <button class="sideNavBtns" >Goal Archive</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Goal Archive</b-button>
                 </router-link>
             </li>
             <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createexercise">
-                    <button class="sideNavBtns" >Create Exercise</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Create Exercise</b-button>
                 </router-link>
             </li>
             <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createworkout">
-                    <button class="sideNavBtns" >Create Workout</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Create Workout</b-button>
                 </router-link>
             </li>
             <li v-if="$auth.isAuthenticated && !$auth.loading && $auth.isContributor"  class="nav-item">
                 <router-link class="nav-link" to="/createprogram">
-                    <button class="sideNavBtns" >Create Program</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Create Program</b-button>
                 </router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/viewexercises">
-                    <button class="sideNavBtns" >Exercises</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Exercises</b-button>
                 </router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/viewworkouts">
-                    <button class="sideNavBtns" >Workouts</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Workouts</b-button>
                 </router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/viewprograms">
-                    <button class="sideNavBtns" >Programs</button>
+                    <b-button class="sideNavBtns" variant="outline-light" >Programs</b-button>
                 </router-link>
             </li>
         </ul>
