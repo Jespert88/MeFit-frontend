@@ -8,8 +8,8 @@
                 <b-tabs pills card fill> 
                     <b-tab title="Programs">
                         <b-row no-gutters>
-                            <b-col xl="6" class="d-flex justify-content-center" v-for="programGoal in goal.programGoalFk" :key="programGoal.programGoalId">
-                                <ProgramCard :programGoal="programGoal" :toSelect="false" :goal="true"/>
+                            <b-col xl="10" class="d-flex justify-content-center" v-for="programGoal in goal.programGoalFk" :key="programGoal.programGoalId">
+                                <ProgramCard :programGoal="programGoal" :toSelect="false" :goal="true" :toRemove="true"/>
                             </b-col>
                             <!-- Goal does not have programs -->
                             <div v-if="goal.programGoalFk.length == 0">

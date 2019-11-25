@@ -124,12 +124,10 @@ data() {
 
             var pos = this.exerciseArray.indexOf(exercise)
             this.exerciseArray.splice(pos , 1)
-            console.log(this.chosedExerciseArray);
            if (event)  event.preventDefault()
 
         },
         resetValues : function(){
-            console.log(this.toSelectArray)
             this.chosedExerciseArray= []
             this.setArray= []
             this.errors= []
@@ -148,7 +146,6 @@ data() {
                 profileId : this.profileId
             }).then((results) => {
                     this.loading=false;
-                    console.log(results)
                     if (results.status == 204) {
                         this.successMessage ="Wokrout has been successfully updated"
                     } else if (results.status == 400) {
@@ -158,7 +155,12 @@ data() {
                     }
                 })
                 .catch((e) => {
+                    this.loading = false;
+                    if(e.response.status== 409){
+                    this.errorMessage = 'This workout is used. You cannot edit it'
+                    }else{
                     this.errorMessage = "Something went wroing: "+ e
+                    }
                 }).finally()
         }
     },

@@ -6,11 +6,11 @@
         <b-alert v-if="successMessage != ''" show variant="success" dismissible>{{successMessage}}</b-alert>
 
         <div v-if="!loading">
-
+            <h2 class="text-center" style="font-weight:bold">Workouts</h2>
             <b-container fluid v-if="!this.Myown">
               <b-button v-if="$auth.isContributor" @click="showOnlyMyWorkouts">Show my workouts</b-button>
                 <b-row>
-                    <b-col v-for="workout in workoutList" :key="workout.id" cols="12" xm="10" md="7" xl="4" >
+                    <b-col v-for="workout in workoutList" :key="workout.id" cols="12" sm="10" md="6" xl="3" >
                       <div >
                         <WorkoutCard :workout="workout"  :toViewAndUpdate="false" :toUpdate="true"/>
                         </div>
@@ -21,7 +21,7 @@
             <b-container fluid v-if="this.Myown">
               <b-button v-if="$auth.isContributor" @click="showAllworkouts">Show All workouts</b-button>
                 <b-row>
-                    <b-col v-for="workout in minWorkoutList" :key="workout.id" cols="12" xm="10" md="7" xl="4">
+                    <b-col v-for="workout in minWorkoutList" :key="workout.id" cols="12" sm="10" md="6" xl="3">
                         <WorkoutCard :workout="workout" @clickedToUpdate="redirectToUpdateWorkout" :toViewAndUpdate="true" :toUpdate="true"/>
                     </b-col>
                 </b-row>

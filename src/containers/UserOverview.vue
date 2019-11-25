@@ -57,7 +57,7 @@
                     </div>
                     <b-collapse id="collapse-2">
                         <div class="d-flex justify-content-center" v-for="programGoal in userGoal.programGoalFk" :key="programGoal.programGoalId">
-                            <ProgramCard :programGoal="programGoal" :toSelect="false" :reloadKey="retrieveGoal" :goal="true"/>
+                            <ProgramCard :programGoal="programGoal" :toSelect="false" :reloadKey="retrieveGoal" :goal="true" :toRemove="true"/>
                         </div>
                     </b-collapse>
                 </b-col>
@@ -95,11 +95,13 @@ export default {
             completedWorkouts: 0,
             totalWorkouts: 0,
             goalProgress: 0,
-            errorMessage: "There is no goal set. Set the goal first."
+            errorMessage: "There is no goal set. Set the goal first.",
+            profileId : '',
         }
     },
-    created: function () {
+    mounted: function () {
         this.retrieveGoal()
+ 
     },
     methods: {
         retrieveGoal: function() {
@@ -107,9 +109,10 @@ export default {
             axios
                 .get('https://me-fit.herokuapp.com/goal/status/user/' + this.$auth.profileId)
                 .then((response) => {
+                    console.log(response.data)
                     if (response.status == '202') {
                         this.hasGoal = true
-                        this.userGoal = response.data
+                        this.userGoal = response.data[0]
                         this.highlightedDates.from = new Date(response.data[0].startDate)
                         this.highlightedDates.to = new Date(response.data[0].endDate)
                         this.counterComplete()

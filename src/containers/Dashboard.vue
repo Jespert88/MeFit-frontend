@@ -2,11 +2,11 @@
   <div class  ="content">
     <b-container fluid>
         <b-row >
-          <b-col cols="2" xm="1" md="2" xl="2">
+          <b-col cols="3" md="3" xl="2" sm="3">
             <SideNavbar/>
           </b-col>
-          <b-col cols="10" xm="10" md="10" xl="10">
-            <router-view id="routerView"/>
+          <b-col  cols="3" md="9" xl="10" sm="9">
+            <router-view id="routerView" :stuff="stuff"/>
           </b-col>
         </b-row>
     </b-container>
@@ -21,7 +21,8 @@ import axios from 'axios'
 export default {
     data () {
       return {
-        userId  :this.$auth.userId
+        userId  :this.$auth.userId,
+        stuff: ""
       }
     },
     components: {
@@ -39,6 +40,7 @@ export default {
        console.log(response)
         if(response.status == '202' && response.data !=""){
             console.log('fetched----')
+            this.stuff = response.data.profileId
         }
           }).catch(e =>{
         if(e == "Error: Request failed with status code 404"){

@@ -8,7 +8,7 @@
         <b-card no-body class="full-width">
             <b-tabs pills card vertical> 
                 <b-tab :title="goal.endDate" v-for="goal in goalList" :key="goal.goalId">
-                    <GoalCard :goal="goal"/>
+                    <GoalCard :goal="goal" :toRemove="true"/>
                 </b-tab>
             </b-tabs>
         </b-card>

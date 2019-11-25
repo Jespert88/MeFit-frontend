@@ -134,7 +134,6 @@ export default {
                     workoutList: this.workoutListToSend
                 })
                 .then((results) => {
-                    console.log(results)
                     this.loading = false;
                     if (results.status == 204) {
                         // success
@@ -148,9 +147,13 @@ export default {
                     }
                 })
                 .catch((e) => {
-                    this.errorMessage = "Something went wrong, try again. " + e
+                    this.loading = false;
+                     if(e.response.status== 409){
+                        this.errorMessage = 'This workout is used. You cannot edit it'
+                        }else{    
+                        this.errorMessage = "Something went wroing: "+ e
+                    }                
                 })
-            
         }
     }
 }

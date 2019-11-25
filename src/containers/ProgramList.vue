@@ -6,11 +6,12 @@
         <b-alert v-if="successMessage != ''" show variant="success" dismissible>{{successMessage}}</b-alert>
 
         <div v-if="!loading">
+                          <h2 class="text-center" style="font-weight:bold">Programs</h2>
 
             <b-container fluid v-if="!this.Myown">
               <b-button v-if="$auth.isContributor" @click="showOnlyMyPrograms">Show my programs</b-button>
                 <b-row>
-                    <b-col cols="10" xl="5" sm="10" md="5" v-for="program in programList" :key="program.id"  >
+                    <b-col cols="12" xl="6" sm="10" md="10" v-for="program in programList" :key="program.id"  >
                         <ProgramCard :program="program" :goal="false" :toViewAndUpdate="false"/>
                     </b-col>
                 </b-row>
@@ -19,7 +20,7 @@
             <b-container fluid v-if="this.Myown">
               <b-button v-if="$auth.isContributor" @click="showAllprograms">Show All programs</b-button>
                 <b-row>
-                    <b-col  cols="10" xl="5" sm="10" md="5" v-for="program in minProgramList" :key="program.id"  >
+                    <b-col  cols="12" xl="6" sm="12" md="12" v-for="program in minProgramList" :key="program.id"  >
                         <ProgramCard :program="program"  @clickedToUpdate="redirectToUpdateProgram" :goal="false" :toViewAndUpdate="true"/>
                     </b-col>
                 </b-row>

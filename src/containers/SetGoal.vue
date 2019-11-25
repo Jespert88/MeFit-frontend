@@ -38,7 +38,7 @@
 
 
 
-        <b-card no-body class="full-width">
+        <b-card no-body class="full-width" style="min-width:25rem">
             <b-tabs pills card fill> 
                 <b-tab title="Programs">
                     <!-- <b-form @submit="searchProgram">
@@ -52,7 +52,7 @@
                         </div>
                     </b-form> -->
                     <b-row no-gutters>
-                        <b-col cols="10" xm="10" md="10" xl="6" class="d-flex justify-content-center" v-for="program in programArr" :key="program.programId">
+                        <b-col cols="12" sm="12" md="12" xl="6" class="d-flex justify-content-center" v-for="program in programArr" :key="program.programId">
                             <ProgramCard :program="program" :goal="false" @clicked-exerciseCard="addToExerciseArray" :toSelectProgram="true" :toViewAndUpdate="false" />
                         </b-col>
                         <!-- Goal does not have programs -->
@@ -62,7 +62,7 @@
                     </b-row>
                 </b-tab>
                 <b-tab title="Workouts">
-                    <b-form @submit="searchWorkout">
+                    <!-- <b-form @submit="searchWorkout">
                         <div class="d-flex justify-content-center">
                             <b-form-group label="Search for program">
                                 <b-input v-model="search.workout"></b-input>
@@ -71,9 +71,9 @@
                         <div class="d-flex justify-content-center">
                             <b-button type="submit" variant="dark" style="margin: 3px;">Search</b-button>
                         </div>
-                    </b-form>
+                    </b-form> -->
                     <b-row no-gutters>
-                        <b-col cols="10" xm="10" md="7" xl="4" class="d-flex justify-content-center" v-for="workout in workoutArr" :key="workout.workoutId">
+                        <b-col cols="12" sm="12" md="6" xl="4" class="d-flex justify-content-center" v-for="workout in workoutArr" :key="workout.workoutId">
                             <WorkoutCard :workout="workout"  @clicked-workoutCard="addToWorkoutListToSend" :toSelect="true" :toUpdate="true"/>
                         </b-col>
                         <!-- Goal does not have workouts -->
@@ -138,9 +138,12 @@
         },
         mounted() {
             this.checkIfUserHasGoal()
-            this.getFitnessLevel()
-            this.retrieveWorkouts()
-            this.retrievePrograms()
+            if(!this.hasGoal){
+                this.getFitnessLevel()
+                this.retrieveWorkouts()
+                this.retrievePrograms()
+            }
+            
         },
         methods: {
             // submit form and send to api
@@ -165,14 +168,15 @@
                     programList : this.chosedProgrmas
                 }).then(respose => {
                     if(respose.status == "201"){
-                        console.log('Created successfully')
                         this.successMessage = "succesfully created"
                     }
                 }).catch(e =>{
                     this.errorMessage = "Something went wrong" + e
                 }).then(()=>{
-                    console.log('Reseting values')
-                    this.resetValues()}
+                    this.resetValues()
+                    this.hasGoal =true 
+                    this.errorMessage = 'You already have a goal.. Try again after you completed it'
+                    }
                 )
                 event.preventDefault()
             }
@@ -216,14 +220,13 @@
             highlightFrom: function(val) {
                 this.highlighted.from = new Date(val);
                 // automatically adds 6 days (7 in total)
-                this.highlighted.to = new Date(new Date(val).getTime() + 8640*60000)
+                this.highlighted.to = new Date(new Date(val).getTime() + 10080*60000)
                 this.form.startDate = this.highlighted.from.toISOString().split('T')[0].split('-').reverse()
                 this.form.endDate = this.highlighted.to.toISOString().split('T')[0].split('-').reverse()
             },
             getFitnessLevel : function(){
                 axios.get('https://me-fit.herokuapp.com/profile/'+ this.profileId)
                 .then(respose =>{
-                    console.log(respose.data.fitnessLevel)
                     this.fitnessLevel = respose.data.fitnessLevel
                 })
             },

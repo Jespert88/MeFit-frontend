@@ -74,7 +74,6 @@ export default {
     overflow-x: hidden;
     top: 0;
     left: 0;
-    width: 200px;
     transition: 0.2s;
 }
 /* Sidenavbar ul container */
