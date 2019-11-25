@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card v-if="goal" title="Goal" style="background-color:#fafbf2; width: 100%;" align="center">
+        <b-card v-if="goal" :title="goal.name" style="background-color:#fafbf2; width: 100%;" align="center">
             <b-card-text>Start Date: {{startDate}}</b-card-text>
             <b-card-text>End Date: {{endDate}}</b-card-text>
             <b-card-text>Achieved: {{goal.achieved}}</b-card-text>
@@ -10,7 +10,7 @@
                     <b-tab title="Programs">
                         <b-row no-gutters>
                             <b-col xl="6" class="d-flex justify-content-center" v-for="programGoal in goal.programGoalFk" :key="programGoal.programGoalId">
-                                <ProgramCard :programGoal="programGoal" :toSelect="false" :goal="true" :toRemove="true"/>
+                                <ProgramCard :programGoal="programGoal" :toSelect="false" :goal="true" :toRemove="true" :toUpdate="true"/>
                             </b-col>
                             <!-- Goal does not have programs -->
                             <div v-if="goal.programGoalFk.length == 0">

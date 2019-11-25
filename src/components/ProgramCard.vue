@@ -23,7 +23,7 @@
                     </b-button>
 
                     <b-collapse :id="'workout-' + workout.workoutFk.workoutId + '-' + GUID" role="tab">
-                        <WorkoutCard :workout="workout.workoutFk" :toSelect="toSelect" :toUpdate="workout.complete" :goalWorkout="workout" :reload="reloadKey"/>
+                        <WorkoutCard :workout="workout.workoutFk" :toSelect="toSelect" :toUpdate="workout.complete || toUpdate" :goalWorkout="workout" :reload="reloadKey"/>
                     </b-collapse>
                 </div>
             </div>
@@ -77,7 +77,8 @@ export default {
         goal : Boolean,
         toViewAndUpdate :Boolean,
         toSelectProgram: Boolean,
-        toRemove: Boolean
+        toRemove: Boolean,
+        toUpdate: Boolean
     },
     data() {
         return {

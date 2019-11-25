@@ -104,6 +104,12 @@ export default {
                         this.highlightedDates.to = new Date(response.data[0].endDate)
                         this.counterComplete()
                         this.loading = false
+
+                        if(this.highlightedDates.to < new Date()) {
+                            this.patchGoal(true)
+                            this.hasGoal = false
+                            this.errorMessage = "You have completed your Goal. Set a new Goal"                        
+                        }
                     }
                 })
                 .catch(() => {
