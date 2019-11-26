@@ -7,8 +7,8 @@
      <div v-if="!loading">
         <b-card no-body class="full-width">
             <b-tabs pills card vertical> 
-                <b-tab :title="goal.endDate" v-for="goal in goalList" :key="goal.goalId">
-                    <GoalCard :goal="goal" :toRemove="true"/>
+                <b-tab :title="goal.name" v-for="goal in goalList" :key="goal.goalId">
+                    <GoalCard :goal="goal"/>
                 </b-tab>
             </b-tabs>
         </b-card>

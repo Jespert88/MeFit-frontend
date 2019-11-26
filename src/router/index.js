@@ -5,7 +5,6 @@ import LandingPage from '../views/LandingPage'
 import About from '../views/About'
 import Contact from '../views/Contact'
 
-import Calender from '../components/Calender'
 import NotFound from '../views/NotFound'
 import Unauthorized from '../views/Unauthorized'
 
@@ -49,12 +48,6 @@ export default new Router({
 			path: "/",
 			name: "LandingPage",
 			component: LandingPage
-		},
-		{
-			path: "/calender",
-			name: "Calender",
-			component: Calender,
-			beforeEnter: authGuard
 		},
 		{
 			path: "/dashboard",

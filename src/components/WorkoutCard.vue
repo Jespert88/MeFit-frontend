@@ -71,15 +71,7 @@ export default {
                     if (response.status == 202) {
                         // success
                         this.reload()
-                    } else if (response.status == 404) {
-                        // not found
-                        console.log("status: " + 404)
-                    } else if (response.status == 400) {
-                        // bad request
-                        console.log("status: " + 400)
-                    } else {
-                        // something went wrong
-                    }
+                    } 
                 })
                 .catch(() => {
                 })

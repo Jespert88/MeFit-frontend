@@ -4,8 +4,8 @@
     <!-- not implemented right now  -->
     <Loading v-if="loading"/>
 
-    <div v-if="!loading">
-        <div v-if="!hasGoal" class="mainContainer" align="center">
+    <div v-if="!loading" class="mainContainer">
+        <div v-if="!hasGoal" align="center">
             <b-alert show variant="danger" dismissible>
                 <h2>{{errorMessage}}</h2>
                 <div>
@@ -14,54 +14,43 @@
             </b-alert>
         </div>
 
-        <b-container v-if="hasGoal" fluid class="mainContainer">
-            <b-row no-gutters>
-                <!-- Left Top Corner -->
-                <b-col cols="5">
-                    <div class="text-center">
-                        <b-progress class="mb-3" height="30px">
-                            <b-progress-bar :value="goalProgress" :label="`${goalProgress.toFixed(0)}%`" variant="success"></b-progress-bar>
-                        </b-progress>
-                    </div>
-                </b-col>
-
-                <b-col cols="1"></b-col>
-
-                <!-- Right Top Corner -->
-                <b-col cols="5">
-                    <div class="d-flex justify-content-center">
-                        <Datepicker :inline="true" :highlighted="highlightedDates"></Datepicker>
-                    </div>
-                </b-col>
-            </b-row>
-
-            <b-row no-gutters>
-                <!-- Left Bottom Corner -->
-                <b-col cols="5">
-                    <div class="d-flex justify-content-center">
-                        <b-button v-b-toggle="'collapse-1'" class="m-1" variant="success">Show workouts</b-button>
-                    </div>
-                    <b-collapse id="collapse-1">
-                        <div class="d-flex justify-content-center" v-for="goalWorkout in userGoal.goalWorkoutFk" :key="goalWorkout.workoutId">
-                            <WorkoutCard :workout="goalWorkout.workoutFk" :toUpdate="goalWorkout.complete" :goalWorkout="goalWorkout" :reload="retrieveGoal"/>
-                        </div>
-                    </b-collapse>
-                </b-col>
-
-                <b-col cols="1"></b-col>
-
-                <!-- Right Bottom Corner -->
-                <b-col cols="5">
-                    <div class="d-flex justify-content-center">
-                        <b-button v-b-toggle="'collapse-2'" class="m-1" variant="success">Show programs</b-button>
-                    </div>
-                    <b-collapse id="collapse-2">
-                        <div class="d-flex justify-content-center" v-for="programGoal in userGoal.programGoalFk" :key="programGoal.programGoalId">
-                            <ProgramCard :programGoal="programGoal" :toSelect="false" :reloadKey="retrieveGoal" :goal="true" :toRemove="true"/>
-                        </div>
-                    </b-collapse>
-                </b-col>
-            </b-row>
+        <b-container v-if="hasGoal" fluid id="stuff">
+            <div class="text-center" id="progressBar">
+                <h1>Status</h1>
+                <b-progress class="mb-3" height="30px">
+                    <b-progress-bar :value="goalProgress" :label="`${goalProgress.toFixed(0)}%`" variant="success"></b-progress-bar>
+                </b-progress>
+            </div>
+            <div class="d-flex justify-content-center">
+                <Datepicker :inline="true" :highlighted="highlightedDates"></Datepicker>
+            </div>
+    
+            <b-card no-body class="full-width">
+                <b-tabs pills card fill> 
+                    <b-tab title="Programs">
+                        <b-row no-gutters>
+                            <b-col xl="6" class="d-flex justify-content-center" v-for="programGoal in userGoal.programGoalFk" :key="programGoal.programGoalId">
+                                <ProgramCard :programGoal="programGoal" :toSelect="false" :goal="true" :toRemove="true" :reloadKey="retrieveGoal"/>
+                            </b-col>
+                            <!-- Goal does not have programs -->
+                            <div v-if="userGoal.programGoalFk.length == 0">
+                                <h2>There is no programs for this goal</h2>
+                            </div>
+                        </b-row>
+                    </b-tab>
+                    <b-tab title="Workouts">
+                        <b-row no-gutters>
+                            <b-col xl="6" class="d-flex justify-content-center" v-for="goalWorkout in userGoal.goalWorkoutFk" :key="goalWorkout.workoutId">
+                                <WorkoutCard :workout="goalWorkout.workoutFk" :toUpdate="goalWorkout.complete" :goalWorkout="goalWorkout" :reload="retrieveGoal"/>
+                            </b-col>
+                            <!-- Goal does not have workouts -->
+                            <div v-if="userGoal.goalWorkoutFk.length == 0">
+                                <h2>There is no workouts for this goal</h2>
+                            </div>
+                        </b-row>
+                    </b-tab>
+                </b-tabs>
+            </b-card>
         </b-container>
     </div>
 </div>
@@ -118,6 +107,12 @@ export default {
                         this.highlightedDates.to = new Date(response.data[0].endDate)
                         this.counterComplete()
                         this.loading = false
+
+                        if(this.highlightedDates.to < new Date()) {
+                            this.patchGoal(true)
+                            this.hasGoal = false
+                            this.errorMessage = "You have completed your Goal. Set a new Goal"                        
+                        }
                     }
                 })
                 .catch(() => {
@@ -171,7 +166,7 @@ export default {
            axios
                 .patch('https://me-fit.herokuapp.com/goal/' + this.userGoal.goalId, {
                     achieved: isAchieved,
-                    profileId: 1
+                    profileId: this.$auth.profileId
                 })
                 .then((response) => {
                     if (response.status == 202) {
@@ -202,5 +197,12 @@ export default {
 /* Desktop */
 .mainContainer {
     margin-top: 5%;
+}
+#progressBar {
+    padding-right: 100px;
+    padding-left: 100px;
+}
+.full-width {
+    width: inherit;
 }
 </style>
