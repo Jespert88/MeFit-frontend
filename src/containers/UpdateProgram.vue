@@ -68,16 +68,31 @@ export default {
             workoutListToSend: [],
             errorMessage: "",
             successMessage: "",
-            profileId: this.$auth.profileId
+            profileId: localStorage.profileId,
+            isContributor : false,
         }
     },
-    created() {
-        if(!this.$auth.isContributor){
-             this.$router.push('/unauthorized')
-        }
-        this.getWorkoutList()
+    mounted() {
+        this.checkIfContributor()
+        // console.log(this.isContributor)
+        // if(!this.isContributor){
+        // }
+       
+
     },
     methods: {
+        checkIfContributor: function(){
+        axios.get('https://me-fit.herokuapp.com/profile/'+this.profileId).then(response =>{
+            if(response.data.role == 2){
+                this.getWorkoutList()
+            }
+            else if(response.data.role !=2 ){
+            this.$router.push('/unauthorized')
+            }
+        }).catch(()=>{
+            this.$router.push('/unauthorized')
+        })
+        },
         getWorkoutList: function() {
             if(this.sentId == undefined){
             this.$router.push('/viewprograms')

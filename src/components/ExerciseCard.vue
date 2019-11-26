@@ -6,7 +6,7 @@
     img-src="https://topfitnesshome.com/wp-content/uploads/Women-Biceps-min-600x413.jpg"
     img-alt="Image"
     tag="article"
-    style="max-width: 15rem ;" 
+    style="max-width: 15rem ; box-shadow: 1px 1px 5px #000;" 
     class="mb-2"
  >
       <template v-slot:header>

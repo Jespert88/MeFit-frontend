@@ -1,7 +1,7 @@
 
 <template>
         <b-card
-        style="min-width: 19rem;  background-color:#fafbf2;"
+        style="min-width: 19rem;  background-color:#fafbf2; box-shadow: 1px 1px 5px #000;"
         >
 
             <template v-slot:header>

@@ -107,8 +107,9 @@ export default {
         retrieveGoal: function() {
             this.loading = true
             axios
-                .get('https://me-fit.herokuapp.com/goal/status/user/' + this.$auth.profileId)
+                .get('https://me-fit.herokuapp.com/goal/status/user/' + localStorage.profileId)
                 .then((response) => {
+                    
                     console.log(response.data)
                     if (response.status == '202') {
                         this.hasGoal = true

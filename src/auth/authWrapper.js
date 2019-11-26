@@ -48,7 +48,6 @@ export const useAuth0 = ({
         }
       },
       async handleRedirectCallback() {
-        console.log('here0')
         this.loading = true;
         try {
           await this.auth0Client.handleRedirectCallback();
@@ -71,8 +70,6 @@ export const useAuth0 = ({
         return this.auth0Client.getIdTokenClaims(o);
       },
       getTokenSilently(o) {
-        console.log('here3')
-
         return this.auth0Client.getTokenSilently(o);
       },
       getTokenWithPopup(o) {
@@ -81,6 +78,7 @@ export const useAuth0 = ({
         return this.auth0Client.getTokenWithPopup(o);
       },
       logout(o) {
+        localStorage.clear()
         return this.auth0Client.logout(o);
       },
     },
@@ -110,10 +108,13 @@ export const useAuth0 = ({
         this.user = await this.auth0Client.getUser();
         this.loading = false;
         this.userId = this.user.sub.substring(6)
+        localStorage.token = await this.auth0Client.getTokenSilently(this.user)
+
       }
 
       axios.get('https://me-fit.herokuapp.com/profile/user/'+this.user.sub.substring(6)).then(response =>{
         this.profileId = response.data.profileId
+        localStorage.profileId = response.data.profileId
         if(!response.data.role && response.data.role ==1 ){
           this.isContributor = false;
           this.isAdmin = false;

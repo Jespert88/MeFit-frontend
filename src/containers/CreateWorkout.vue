@@ -64,17 +64,15 @@ export default {
             setArray: [],
             name: "",
             type: "",
-            profileId: this.$auth.profileId,
+            profileId: localStorage.profileId,
             loading: false,
             errorMessage: "",
             successMessage: "",
-            userId : this.$auth.userId,
             filter:''
         }
     },
     computed: {
       sortOptions() {
-          console.log('heloo')
         // Create an options list from our fields
         return this.fields
           .filter(f => f.sortable)
@@ -85,9 +83,22 @@ export default {
     },
 
     mounted() {
-        console.log(this.$auth)
-        if(this.$auth.isContributor){
-            console.log('he is conttrrributor')
+       this.checkIfContributor()
+    },
+    methods: {
+        checkIfContributor: function(){
+        axios.get('https://me-fit.herokuapp.com/profile/'+this.profileId).then(response =>{
+            if(response.data.role == 2){
+                 this.getExercisesList()  
+            }
+            else if(response.data.role !=2 ){
+            this.$router.push('/unauthorized')
+            }
+        }).catch(()=>{
+            this.$router.push('/unauthorized')
+        })
+        },
+        getExercisesList : function(){
         this.loading = true
         axios
             .get('https://me-fit.herokuapp.com/exercises')
@@ -112,12 +123,7 @@ export default {
             .catch(e => {
             this.errorMessage = e
             })
-        }else{
-            this.$router.push('/unauthorized')
-        }
-     
-    },
-    methods: {
+        },
         removeFromExerciseArray: function(exercise){
             this.exerciseArray.push(exercise)
 
@@ -147,7 +153,6 @@ export default {
         createWorkout: function(){
             event.preventDefault()
             this.loading = true
-            console.log(this.chosedExerciseArray)
             axios
                 .post('https://me-fit.herokuapp.com/addWorkout',{
                     name : this.name,
@@ -157,18 +162,16 @@ export default {
                 })
                 .then((results) => {
                     this.loading = false;
-                    console.log(results)
                     if (results.status == 201) {
                         this.successMessage = 'Workout Created successfully'
                     } else if (results.status == 400) {
                          this.errorMessage = "Status 400. Bad Request.."
-                        console.log();
                     } else if (results.status == 401) {
                          this.errorMessage = "Status 404. Unauthorized.."
                     }
                 })
                 .catch((e) => {
-                    console.log("Exception: ", e)
+                    this.errorMessage = 'Something went wrong ' + e
                 }).finally(() => {
                     this.resetValues()
                 })
