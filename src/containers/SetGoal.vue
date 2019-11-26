@@ -71,6 +71,7 @@
                         <div class="d-flex justify-content-center">
                             <b-button type="submit" variant="dark" style="margin: 3px;">Search</b-button>
                         </div>
+                        New Date()
                     </b-form> -->
                     <b-row no-gutters>
                         <b-col cols="12" sm="12" md="6" xl="4" class="d-flex justify-content-center" v-for="workout in workoutArr" :key="workout.workoutId">
@@ -131,18 +132,13 @@
                 loading: "",
                 errorMessage: "",
                 successMessage: "",
-                profileId : this.$auth.profileId,
+                profileId : localStorage.profileId,
                 fitnessLevel :'',
                 hasGoal : ''
             }
         },
         mounted() {
             this.checkIfUserHasGoal()
-            if(!this.hasGoal){
-                this.getFitnessLevel()
-                this.retrieveWorkouts()
-                this.retrievePrograms()
-            }
             
         },
         methods: {
@@ -175,7 +171,7 @@
                 }).then(()=>{
                     this.resetValues()
                     this.hasGoal =true 
-                    this.errorMessage = 'You already have a goal.. Try again after you completed it'
+                    // this.errorMessage = 'You already have a goal.. Try again after you completed it'
                     }
                 )
                 event.preventDefault()
@@ -277,6 +273,10 @@
                         if(response.data.length > 0 ){
                             this.hasGoal = true 
                             this.errorMessage = 'You already have a goal.. Try again after you completed it'
+                        }else{
+                            this.getFitnessLevel()
+                            this.retrieveWorkouts()
+                            this.retrievePrograms()
                         }
                     }
                 })

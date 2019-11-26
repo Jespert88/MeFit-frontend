@@ -74,7 +74,7 @@ export default {
       
     },
     methods: {
-           checkIfContributor: function(){
+        checkIfContributor: function(){
         axios.get('https://me-fit.herokuapp.com/profile/'+this.profileId).then(response =>{
             if(response.data.role == 2){
                  this.getWorkoutList()  

@@ -34,7 +34,7 @@
                 </b-col>
                 <b-col>
                   <b-form-group  label="Age" >
-                    <b-form-input  v-model="form.age"  min="1" max="100" type="number"  required ></b-form-input>
+                    <b-form-input  v-model="form.age"  min="0" max="100" type="number"  required ></b-form-input>
                   </b-form-group>
                 </b-col>
             </b-row>
@@ -47,12 +47,12 @@
             <b-row>
               <b-col>
                 <b-form-group id="input-group-6" label="Weight:" label-for="input-5">
-                  <b-form-input id="input-5" v-model="form.weight" min="25" max="400" type="number"  required></b-form-input>
+                  <b-form-input id="input-5" v-model="form.weight" min="0" max="400" type="number"  required></b-form-input>
                 </b-form-group> 
               </b-col>
               <b-col>
                 <b-form-group id="input-group-5" label="Height:" label-for="input-6">
-                  <b-form-input id="input-6" v-model="form.height" min="18" max="100" type="number"  required></b-form-input>
+                  <b-form-input id="input-6" v-model="form.height" min="0" max="300" type="number"  required></b-form-input>
                 </b-form-group>
               </b-col>
             </b-row>
@@ -112,7 +112,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      profileId: localStorage.profileId,
+      profileId:'',
         userID : this.$auth.userId,
            errorMessage: "",
             successfulMessage: "",
@@ -141,21 +141,21 @@ export default {
 
  mounted() {
    this.loading =true;
-   axios.get('https://me-fit.herokuapp.com/profile/'+ localStorage.profileId).then(response =>{
+   axios.get('https://me-fit.herokuapp.com/profile/user/'+ this.$auth.user.sub.substring(6)).then(response =>{
       this.loading = false;
       if (response.status =="202"){
       this.errorMessage = ""
-      this.userID = response.data.userId
       this.profileId = response.data.profileId
       this.form.email = this.$auth.user.email
       this.form.name = this.$auth.user.nickname
       this.form.height = response.data.height
       this.form.weight = response.data.weight
+      if(response.data.addressFk != null){
       this.form.street = response.data.addressFk.street
       this.form.city = response.data.addressFk.city
       this.form.country = response.data.addressFk.country
       this.form.postalCode = response.data.addressFk.postalCode
-      this.form.fitnesslevel = response.data.fitnessLevel
+      }
       this.form.fitnesslevel = response.data.fitnessLevel
       this.form.age = response.data.age
       } else if(response.status =="400"){
@@ -193,8 +193,6 @@ export default {
       this.loading=false
       this.successfulMessage = "Your profile details has been succesfully updated"
 
-    }).catch(e =>{
-      this.errorMessage = 'Something went wrong '+ e
     })
     },
     

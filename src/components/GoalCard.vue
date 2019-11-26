@@ -9,7 +9,6 @@
                 <b-tabs pills card fill> 
                     <b-tab title="Programs">
                         <b-row no-gutters>
-
                             <b-col xl="10" class="d-flex justify-content-center" v-for="programGoal in goal.programGoalFk" :key="programGoal.programGoalId">
                                 <ProgramCard :programGoal="programGoal" :toSelect="false" :goal="true" :toRemove="true" :toUpdate="true"/>
                             </b-col>
@@ -51,8 +50,8 @@ export default {
     },
     data() {
         return {
-            startDate: new Date(this.goal.startDate).toLocaleDateString("en-swe"),
-            endDate: new Date(this.goal.endDate).toLocaleDateString("en-swe")
+            startDate: new Date(this.goal.startDate).toLocaleDateString(),
+            endDate: new Date(this.goal.endDate).toLocaleDateString()
         }
     }
 }

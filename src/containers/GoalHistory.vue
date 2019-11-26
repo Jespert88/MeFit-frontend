@@ -4,7 +4,7 @@
 
      <b-alert v-if="errorMessage != ''" align="center" variant="danger" show dismissible>{{errorMessage}}</b-alert>
 
-     <div v-if="!loading">
+     <div v-if="!loading && !noGoal ">
         <b-card no-body class="full-width">
             <b-tabs pills card vertical> 
                 <b-tab :title="goal.name" v-for="goal in goalList" :key="goal.goalId">
@@ -31,8 +31,9 @@
             return {
                 goalList: [],
                 loading: false,
+                noGoal : false,
                 errorMessage: "",
-                profileId: this.$auth.profileId
+                profileId: localStorage.profileId
             }
         },
         mounted() {
@@ -47,12 +48,15 @@
                         this.loading = false
                         if(response.status == 202) {
                             // success
+                            this.noGoal = false;
+                            console.log(response.data)
                             this.goalList = response.data
                         } 
                     })
-                    .catch((e) => {
+                    .catch(() => {
                         this.loading = false
-                        this.errorMessage = e
+                        this.errorMessage = 'You have no goals in history'
+                        this.noGoal =true;
                     })
             }
         }

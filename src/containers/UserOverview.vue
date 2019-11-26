@@ -98,8 +98,6 @@ export default {
             axios
                 .get('https://me-fit.herokuapp.com/goal/status/user/' + localStorage.profileId)
                 .then((response) => {
-                    
-                    console.log(response.data)
                     if (response.status == '202') {
                         this.hasGoal = true
                         this.userGoal = response.data[0]

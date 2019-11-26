@@ -37,7 +37,7 @@
             
         <b-container  >
         <b-row>
-            <b-col v-for="exercise in exerciseArray" :key="exercise.id" class="col-lg-3" ><ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"  :toSelect="true"/></b-col>
+            <b-col v-for="exercise in exerciseArray" :key="exercise.id" class="col-lg-4"><ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"  :toSelect="true"/></b-col>
         </b-row>
         </b-container >
         </div>
@@ -140,14 +140,13 @@ export default {
             if (event) event.preventDefault()
         },
         resetValues: function(){
-            this.chosedExerciseArray = []
-            this.setArray = []
+            this.chosedExerciseArray.length= 0
+            this.setArray .length = 0
             this.errors = []
             this.name = " "
             this.type = " "
             this.profileId = this.$auth.profileId
             this.loading = false
-            this.chosedExerciseArray = 0
             this.exerciseArray = this.toSelectArray.slice(0)
         },
         createWorkout: function(){

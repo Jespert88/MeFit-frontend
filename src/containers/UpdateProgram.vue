@@ -74,11 +74,6 @@ export default {
     },
     mounted() {
         this.checkIfContributor()
-        // console.log(this.isContributor)
-        // if(!this.isContributor){
-        // }
-       
-
     },
     methods: {
         checkIfContributor: function(){
