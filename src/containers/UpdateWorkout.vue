@@ -58,7 +58,7 @@ data() {
         errors: [],
         name: "",
         type: "",
-        profileId :this.$auth.profileId,
+        profileId :localStorage.profileId,
         loading : false,
         workoutId :"",
         successMessage :"",
@@ -66,13 +66,35 @@ data() {
     }
   },
   created() {
-    if(!this.$auth.isContributor){
-        this.$router.push('/unauthorized')
-    } else{  
+    // if(!this.$auth.isContributor){
+    //     this.$router.push('/unauthorized')
+    // } else{  
 
-    if(this.sentId == undefined){
-    this.$router.push('/viewworkouts')
-    } else {
+  
+    // }
+    this.checkIfContributor()
+    },
+    props: {
+        sentId : Number,
+    },
+    methods: {
+        checkIfContributor: function(){
+        axios.get('https://me-fit.herokuapp.com/profile/'+this.profileId).then(response =>{
+            if(response.data.role == 2){
+                if(this.sentId == undefined){
+                this.$router.push('/viewworkouts')
+                } else {
+                this.fetchData()
+                }          
+            }
+            else if(response.data.role !=2 ){
+            this.$router.push('/unauthorized')
+            }
+        }).catch(()=>{
+            this.$router.push('/unauthorized')
+        })
+        },
+        fetchData : function(){
         this.loading= true
         Promise.all([axios.get('https://me-fit.herokuapp.com/workout/'+this.sentId), 
             axios.get('https://me-fit.herokuapp.com/exercises')]).then( response => {
@@ -93,13 +115,7 @@ data() {
 
             this.exerciseArray = response[1].data
             }).catch()
-        }
-    }
-    },
-    props: {
-        sentId : Number,
-    },
-    methods: {
+        },
         removeFromExercises :function(exercise){
         exercise.toBeSelected= false
 
@@ -124,12 +140,10 @@ data() {
 
             var pos = this.exerciseArray.indexOf(exercise)
             this.exerciseArray.splice(pos , 1)
-            console.log(this.chosedExerciseArray);
            if (event)  event.preventDefault()
 
         },
         resetValues : function(){
-            console.log(this.toSelectArray)
             this.chosedExerciseArray= []
             this.setArray= []
             this.errors= []
@@ -148,7 +162,6 @@ data() {
                 profileId : this.profileId
             }).then((results) => {
                     this.loading=false;
-                    console.log(results)
                     if (results.status == 204) {
                         this.successMessage ="Wokrout has been successfully updated"
                     } else if (results.status == 400) {
@@ -158,7 +171,12 @@ data() {
                     }
                 })
                 .catch((e) => {
+                    this.loading = false;
+                    if(e.response.status== 409){
+                    this.errorMessage = 'This workout is used. You cannot edit it'
+                    }else{
                     this.errorMessage = "Something went wroing: "+ e
+                    }
                 }).finally()
         }
     },

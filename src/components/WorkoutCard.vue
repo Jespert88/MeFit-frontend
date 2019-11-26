@@ -1,19 +1,17 @@
 
 <template>
         <b-card
-
-        style="min-width: 19rem;  background-color:#fafbf2;"
-        class="text-center"
+        style="min-width: 19rem;  background-color:#fafbf2; box-shadow: 1px 1px 5px #000;"
         >
 
             <template v-slot:header>
-                <b-card-text > {{ workout.name }}</b-card-text>
+                <b-card-text class="text-center" style="font-weight:bold" > {{ workout.name }}</b-card-text>
              </template>
             <b-card-text >
-                {{workout.type}}
+               Description: {{workout.type}}
             </b-card-text>
 
-            <div role="tablist" v-if="!toRemove">
+            <div role="tablist" v-if="!toRemove" >
                 <div v-for="set in workout.set" v-bind:key="set.setId">
                     <b-button block v-b-toggle="'set-' + set.setId + '-' + GUID" variant="info">{{set.exerciseFk.name}}</b-button>
                     <b-collapse :id="'set-' + set.setId + '-' + GUID" accordion="workout-accordion" role="tab">
@@ -69,6 +67,7 @@ export default {
             axios
                 .patch('https://me-fit.herokuapp.com/goal/workout/' + goalWorkout.goalWorkoutId)
                 .then((response) => {
+                    console.log(response)
                     if (response.status == 202) {
                         // success
                         this.reload()

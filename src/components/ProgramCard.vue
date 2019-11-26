@@ -2,7 +2,7 @@
     <div>
         <b-card v-if="goal"
         title= "Program"
-        style="min-width: 23rem;"
+        style="min-width: 23rem; box-shadow: 1px 1px 5px #000;"
         class="text-center content"
         >
           <!--   <b-card-text>
@@ -30,12 +30,14 @@
         </b-card>
 
         <b-card v-if="!goal"
-        :title= this.program.name
-        style="min-width: 23rem;"
-        class="text-center content"
-        >
+        style="min-width: 23rem; box-shadow: 1px 1px 5px #000;"
+        class=" content"
+        >   
+         <template v-slot:header >
+             <b-card-text class="text-center" style="font-weight:bold" > {{ program.name }}</b-card-text>
+         </template>
            <b-card-text>
-                {{this.program.category}}
+                Description : {{this.program.category}}
             </b-card-text> 
         <div role="tablist" v-if="!toRemove">
                 <div v-for="programWorkout in program.programWorkoutFk" :key="programWorkout.workoutFk.workoutId">

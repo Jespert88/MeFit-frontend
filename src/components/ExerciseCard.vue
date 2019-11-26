@@ -6,13 +6,13 @@
     img-src="https://topfitnesshome.com/wp-content/uploads/Women-Biceps-min-600x413.jpg"
     img-alt="Image"
     tag="article"
-    style="text-align:center; max-width: 15rem ;" 
+    style="max-width: 15rem ; box-shadow: 1px 1px 5px #000;" 
     class="mb-2"
  >
       <template v-slot:header>
-         <b-card-text > {{ exercise.name }}</b-card-text>
+         <b-card-text class="text-center" style="font-weight:bold" > {{ exercise.name }}</b-card-text>
       </template>
-        <b-card-text v-if="!toRemove"> {{ exercise.description }}</b-card-text>
+        <b-card-text v-if="!toRemove">Description : {{ exercise.description }}</b-card-text>
         <b-container>
             <b-row v-if="toSelect">
               <b-input-group>

@@ -68,16 +68,31 @@ export default {
             workoutListToSend: [],
             errorMessage: "",
             successMessage: "",
-            profileId: this.$auth.profileId
+            profileId: localStorage.profileId,
+            isContributor : false,
         }
     },
-    created() {
-        if(!this.$auth.isContributor){
-             this.$router.push('/unauthorized')
-        }
-        this.getWorkoutList()
+    mounted() {
+        this.checkIfContributor()
+        // console.log(this.isContributor)
+        // if(!this.isContributor){
+        // }
+       
+
     },
     methods: {
+        checkIfContributor: function(){
+        axios.get('https://me-fit.herokuapp.com/profile/'+this.profileId).then(response =>{
+            if(response.data.role == 2){
+                this.getWorkoutList()
+            }
+            else if(response.data.role !=2 ){
+            this.$router.push('/unauthorized')
+            }
+        }).catch(()=>{
+            this.$router.push('/unauthorized')
+        })
+        },
         getWorkoutList: function() {
             if(this.sentId == undefined){
             this.$router.push('/viewprograms')
@@ -134,7 +149,6 @@ export default {
                     workoutList: this.workoutListToSend
                 })
                 .then((results) => {
-                    console.log(results)
                     this.loading = false;
                     if (results.status == 204) {
                         // success
@@ -148,9 +162,13 @@ export default {
                     }
                 })
                 .catch((e) => {
-                    this.errorMessage = "Something went wrong, try again. " + e
+                    this.loading = false;
+                     if(e.response.status== 409){
+                        this.errorMessage = 'This workout is used. You cannot edit it'
+                        }else{    
+                        this.errorMessage = "Something went wroing: "+ e
+                    }                
                 })
-            
         }
     }
 }
