@@ -1,28 +1,23 @@
-
- <template>
-     
-  <b-card  
-    bg-variant=""
-    img-src="https://topfitnesshome.com/wp-content/uploads/Women-Biceps-min-600x413.jpg"
-    img-alt="Image"
-    tag="article"
-    style="text-align:center; max-width: 15rem ;" 
-    class="mb-2"
- >
-      <template v-slot:header>
-         <b-card-text > {{ exercise.name }}</b-card-text>
-      </template>
+<template>
+    <b-card  
+        bg-variant=""
+        :img-src="exercise.imageLink"
+        img-alt="Image"
+        :header="exercise.name"
+        style="text-align:center; max-width: 15rem ;" 
+        class="mb-2"
+    >
         <b-card-text v-if="!toRemove"> {{ exercise.description }}</b-card-text>
         <b-container>
             <b-row v-if="toSelect">
-              <b-input-group>
-                <b-col>
-                  <b-input  v-b-popover.hover="'Reps'" type="number" min="1" max="100" required v-model="reps" placeholder="Reps">Repetions</b-input>   
-                </b-col>
-                <b-col>
-                  <b-input  v-b-popover.hover="'Sets'" type="number" min="1" max="100" required v-model="sets" placeholder="">Sets</b-input>
-                 </b-col>
-              </b-input-group> 
+                <b-input-group>
+                    <b-col>
+                        <b-input  v-b-popover.hover="'Reps'" type="number" min="1" max="100" required v-model="reps" placeholder="Reps">Repetions</b-input>   
+                    </b-col>
+                    <b-col>
+                        <b-input  v-b-popover.hover="'Sets'" type="number" min="1" max="100" required v-model="sets" placeholder="">Sets</b-input>
+                    </b-col>
+                </b-input-group> 
             </b-row>
             <!-- Show reps / sets for CreateProgram -->
             <b-row v-if="!toSelect && setData != null  &&!toShow " >
@@ -52,14 +47,9 @@
             <b-row v-if="toRemove"  style="justify-content : center ; padding-top:10%">
                  <b-button type="submit" variant="danger" @click="removeFromExercises(exercise)">X</b-button>  
             </b-row>
-
-            
-        </b-container>
-            
-       
-   </b-card>
-
- </template> 
+        </b-container>            
+    </b-card>
+</template> 
 
 <script>
 export default {
@@ -80,15 +70,15 @@ export default {
     },
     methods: {
         addExerciseObj: function(exercise) {
-            exercise.sets =this.sets
-            exercise.reps= this.reps
+            exercise.sets = this.sets
+            exercise.reps = this.reps
             this.$emit("clicked-exerciseCard", exercise)    
         },
         removeFromExercises: function(exercise){
-        exercise.sets=1
-        exercise.reps=1
-        this.$emit("clicked-exerciseCardRemove", exercise)    
-        },
+            exercise.sets = 1
+            exercise.reps = 1
+            this.$emit("clicked-exerciseCardRemove", exercise)    
+        }
     }
 }
 </script>
