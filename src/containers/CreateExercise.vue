@@ -1,31 +1,21 @@
 <template>
-    <div >
-        <b-container>
+    <div class="col-5 offset-3">
+        <h3>Create a new exercise</h3>
+        <b-alert v-if="errorMessage != ''" show variant="danger" dismissible>{{errorMessage}}</b-alert>
+        <b-alert v-if="successMessage != ''" show variant="success" dismissible>{{successMessage}}</b-alert>
 
-        
-        <div>
-            <h3>Create a new exercise</h3>
-            <b-alert v-if="errorMessage != ''" show variant="danger" dismissible>{{errorMessage}}</b-alert>
-            <b-alert v-if="successMessage != ''" show variant="success" dismissible>{{successMessage}}</b-alert>
+        <b-form @submit="onSubmit">
+            <b-form-group label="Name*">
+                <b-form-input id="input-1"  type="text" required v-model="form.name"  placeholder="Enter Name"></b-form-input>
+            </b-form-group>
+            <b-form-group label="Description*">
+                <b-form-input type="text"  placeholder="Description" v-model="form.description" id="description" required></b-form-input>
+            </b-form-group>
+            <b-form-group label="Muscle group*">
+                <b-form-input type="text"  placeholder="Muscle group" v-model="form.muscleGroup" id="muscle group" required></b-form-input>
+            </b-form-group>
 
-
-            <b-form @submit="onSubmit">
-                <b-form-group>
-                    <b-form-input id="input-1"  type="text" required v-model="form.name"  placeholder="Enter Name"></b-form-input>
-                </b-form-group>
-                <b-form-group>
-                    <b-form-input type="text"  placeholder="Description" v-model="form.description" id="description" required></b-form-input>
-                </b-form-group>
-                <b-form-group>
-                    <b-form-input type="text"  placeholder="Muscle group" v-model="form.muscleGroup" id="muscle group" required></b-form-input>
-                </b-form-group>
-                <b-form-group>
-                    <b-form-input type="text" placeholder="imageLink" v-model="form.image" id="imageLink" required></b-form-input>
-                </b-form-group>
-                <b-form-group>
-                    <b-form-input type="text" placeholder="videoLink" v-model="form.video" id="videoLink" required></b-form-input>
-                </b-form-group>
-
+            <b-form-group label="Choose an image*">
                 <b-form-file
                     v-model="file"
                     v-on:change="onFileChange"
@@ -34,15 +24,14 @@
                     accept="image/*"
                     required
                 ></b-form-file>
+            </b-form-group>
 
-                <div class="mt-3">
-                    <img v-if="filePreview" height="300" width="300" :src="filePreview" />
-                </div>
+            <div class="mt-3">
+                <img v-if="filePreview" height="300" width="300" :src="filePreview" />
+            </div>
 
-                <b-button type="submit" variant="secondary"> Create Exercise</b-button>
-            </b-form>
-        </div>
-</b-container>
+            <b-button type="submit" variant="secondary"> Create Exercise</b-button>
+        </b-form>
 </div>
 </template>
 
@@ -55,9 +44,7 @@
                 form: {
                     name: "",
                     description: "",
-                    muscleGroup: "",
-                    image: "",
-                    video: ""
+                    muscleGroup: ""
                 },
                 file: null,
                 filePreview: null,
@@ -76,61 +63,48 @@
         methods: {
             onSubmit: function(event) {
                 event.preventDefault();
-                this.uploadFile()
-
-                // axios
-                //     .post("https://me-fit.herokuapp.com/addExercise", {
-                //         name: this.form.name,
-                //         description: this.form.description,
-                //         targetMuscle: this.form.muscleGroup,
-                //         imageLink: this.form.image,
-                //         videoLink: this.form.video,
-                //     })
-                //     .then ((results) => {
-                //         if(results.status == 201) {
-                //             this.successMessage = "Exercise has been succesfully created"
-                //         } else if (results.status == 400) {
-                //             this.errorMessage = "Bad request, try again"
-                //         } else if (results.status == 401) {
-                //             this.errorMessage = "You have no permission to do so"
-                //         }
-                //     })
-                //     .catch ((e) => {
-                //         this.errorMessage = "Something wend wrong, try again." + e
-                //     })
-                //     .finally (() => {
-                //         this.form = {}
-                //      })
-            },
-            onFileChange: function(chosenFile) {
-                const file = chosenFile.target.files[0]
-                // 4MB
-                if(file.size > 4000000) {
-                    // error, image is to large
-                }
-                this.filePreview = URL.createObjectURL(file)
-            },
-            uploadFile: function() {
-                console.log(this.file)
                 let formData = new FormData()
                 formData.append("file", this.file)
+                formData.append("exercise", JSON.stringify({
+                        name: this.form.name,
+                        description: this.form.description,
+                        targetMuscle: this.form.muscleGroup
+                    }))
                 axios
-                    //.post("https://me-fit.herokuapp.com/upload",
-                        .post("http://localhost:8080/upload",
+                    .post("https://me-fit.herokuapp.com/addExercise",
                         formData,
-                        {   
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }
+                        { headers: { 'Content-Type': 'multipart/form-data' } }
                     )
-                    .then((response) => {
-                        console.log("response: " + response.status)
+                    .then ((results) => {
+                        if(results.status == 201) {
+                            this.successMessage = "Exercise has been succesfully created"
+                        } 
                     })
-                    .catch((e) => {
-                        console.log("problem: " + e.response.status)
-                        console.log("problem: " + e.response.data)
+                    .catch ((e) => {
+                        this.errorMessage = "Something went wrong, try again: " + e
                     })
+                    .finally (() => {
+                        // reset values
+                        this.form = {}
+                        this.file = null
+                        this.filePreview = null
+                     })
+            },
+            onFileChange: function(chosenFile) {
+                const tempFile = chosenFile.target.files[0]
+                // 4MB
+                if(tempFile.size > 4000000) {
+                    // error, image is to large
+                    this.errorMessage = "Image is to large"
+                    // without this, this.file is undefined
+                    this.$nextTick(() => {
+                        this.file = null
+                        this.filePreview = null
+                    })
+                } else {
+                    this.errorMessage = ""
+                    this.filePreview = URL.createObjectURL(tempFile)
+                }   
             }
         }
     }
