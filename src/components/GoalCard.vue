@@ -1,12 +1,12 @@
 <template>
     <div>
-        <b-card v-if="goal" :title="goal.name" style="background-color:#fafbf2; width: 100%;" align="center">
+        <b-card v-if="goal" :title="goal.name" style="background-color:#fff !important; width: 100%;" align="center">
             <b-card-text>Start Date: {{startDate}}</b-card-text>
             <b-card-text>End Date: {{endDate}}</b-card-text>
             <b-card-text>Achieved: {{goal.achieved}}</b-card-text>
 
-            <b-card no-body class="full-width">
-                <b-tabs pills card fill> 
+            <b-card no-body class="full-width" style="background : #fff">
+                <b-tabs pills card fill>  
                     <b-tab title="Programs">
                         <b-row no-gutters>
                             <b-col xl="10" class="d-flex justify-content-center" v-for="programGoal in goal.programGoalFk" :key="programGoal.programGoalId">

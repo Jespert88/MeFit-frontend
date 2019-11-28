@@ -55,6 +55,11 @@ export default new Router({
 			component: LandingPage
 		},
 		{
+			path: "/logout",
+			name: "LandingPage",
+			component: LandingPage
+		},
+		{
 			path: "/dashboard",
 			name: "Dashboard",
 			component: Dashboard,

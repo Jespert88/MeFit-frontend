@@ -13,10 +13,11 @@
         <b-container style="paddin : 10px; margin-bottom:10px">
             <b-form v-if="!loading" @submit="createWorkout">    
                 <h1 id="bodyTitle">Create your workout</h1>
-                <b-form-group>
+                <b-form-group label="Workout Name:">
                     <b-form-input  type="text" v-model="name" required></b-form-input>
                 </b-form-group>
-                <b-form-group>
+                <b-form-group label="Type:">  
+                    
                     <b-form-input  type="text" v-model="type" required></b-form-input>
                 </b-form-group>
                   

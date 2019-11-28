@@ -2,7 +2,7 @@
     <div>
         <b-card v-if="goal"
         title= "Program"
-        style="min-width: 23rem; box-shadow: 1px 1px 5px #000;"
+        style="min-width: 23rem; box-shadow: 1px 1px 5px #000; background : #fff"
         class="text-center content"
         >
           <!--   <b-card-text>
