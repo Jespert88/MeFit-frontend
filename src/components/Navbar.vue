@@ -31,7 +31,7 @@
                       <router-link class="drop-link" to="" @click.native="logout"> Logout </router-link>
                     </b-dropdown-item>
               </b-nav-item-dropdown>
-            <router-link  v-if="!$auth.isAuthenticated && !$auth.loading" class="nav-link" to="" @click.native="login"> Login </router-link>
+            <router-link  v-if="!loggedIn" class="nav-link" to="" @click.native="login"> Login </router-link>
       </b-navbar-nav>
 
 
