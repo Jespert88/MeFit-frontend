@@ -41,7 +41,6 @@ export const useAuth0 = ({
           this.isAuthenticated = await this.auth0Client.isAuthenticated();
           this.error = null;
         } catch (e) {
-          console.error(e);
           this.error = e;
         } finally {
           this.popupOpen = false;
@@ -61,11 +60,9 @@ export const useAuth0 = ({
         }
       },
       loginWithRedirect(o) {
-        console.log('here1')
         return this.auth0Client.loginWithRedirect(o);
       },
       getIdTokenClaims(o) {
-        console.log('here2')
 
         return this.auth0Client.getIdTokenClaims(o);
       },
@@ -73,7 +70,6 @@ export const useAuth0 = ({
         return this.auth0Client.getTokenSilently(o);
       },
       getTokenWithPopup(o) {
-        console.log('here4')
 
         return this.auth0Client.getTokenWithPopup(o);
       },
