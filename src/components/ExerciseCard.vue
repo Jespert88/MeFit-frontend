@@ -8,6 +8,7 @@
         class="mb-2"
     >
         <b-card-text v-if="!toRemove"> {{ exercise.description }}</b-card-text>
+
         <b-container>
             <b-row v-if="toSelect">
                 <b-input-group>

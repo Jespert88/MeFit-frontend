@@ -26,7 +26,7 @@
                 </b-col>
                 <b-col>
                   <b-form-group  label="Age" >
-                    <b-form-input  v-model="form.age"  min="1" max="100" type="number"  required ></b-form-input>
+                    <b-form-input  v-model="form.age"  min="0" max="100" type="number"  required ></b-form-input>
                   </b-form-group>
                 </b-col>
             </b-row>
@@ -205,40 +205,5 @@ export default {
 }
 </script>
 
-<style scoped>
-/* Desktop */
 
-p {
-    font-size: 16px;
-    color: aliceblue;
-}
 
-h2 {
-    color: #3088a0;
-    text-align: center;
-}
-
-img {
-    width: 20%;
-    margin: auto;
-    margin-bottom: 10px;
-}
-
-#descriptionContainer>p {
-    color: black;
-    font-size: 14px;
-}
-
-#contentDiv,
-#progressDiv {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #3088a0;
-    text-align: center;
-}
-
-/* Mobile */
-@media (min-width: 360px) and (max-width: 600px) {}
-
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1024px) {}
-</style>

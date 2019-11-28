@@ -51,7 +51,6 @@
                     </b-tab>
                 </b-tabs>
             </b-card>
-
         </b-container>
     </div>
 </div>
@@ -85,17 +84,19 @@ export default {
             completedWorkouts: 0,
             totalWorkouts: 0,
             goalProgress: 0,
-            errorMessage: "There is no goal set. Set the goal first."
+            errorMessage: "There is no goal set. Set the goal first.",
+            profileId : '',
         }
     },
     mounted: function () {
         this.retrieveGoal()
+ 
     },
     methods: {
         retrieveGoal: function() {
             this.loading = true
             axios
-                .get('https://me-fit.herokuapp.com/goal/status/user/' + this.$auth.profileId)
+                .get('https://me-fit.herokuapp.com/goal/status/user/' + localStorage.profileId)
                 .then((response) => {
                     if (response.status == '202') {
                         this.hasGoal = true
