@@ -7,9 +7,13 @@ import { domain, clientId } from "../auth_config.json";
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Unicon from 'vue-unicons'
+import { uniEllipsisV, uniArrowDown,uniSortAmountDown  } from 'vue-unicons/src/icons'
+
+Unicon.add([uniEllipsisV, uniArrowDown,uniSortAmountDown ])
+Vue.use(Unicon)
 
 Vue.use(BootstrapVue)
-
 Vue.use(Auth0Plugin, {
   domain,
   clientId,

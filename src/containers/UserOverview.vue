@@ -90,7 +90,6 @@ export default {
     },
     mounted: function () {
         this.retrieveGoal()
- 
     },
     methods: {
         retrieveGoal: function() {

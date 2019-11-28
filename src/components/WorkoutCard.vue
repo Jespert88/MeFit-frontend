@@ -67,8 +67,7 @@ export default {
             axios
                 .patch('https://me-fit.herokuapp.com/goal/workout/' + goalWorkout.goalWorkoutId)
                 .then((response) => {
-                    console.log(response)
-                    if (response.status == 202) {
+                    if (response.status == 204) {
                         // success
                         this.reload()
                     } 

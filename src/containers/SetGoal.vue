@@ -146,7 +146,6 @@
             formSubmit: function(event) {
             this.errorMessage = ''
             this.successMessage = ''
-            console.log(this.chosedProgrmas)
             if(this.fitnessLevel =='Newbie' && (this.workoutListToSend.length> 3 || this.chosedProgrmas.length >1)){
                 this.errorMessage=  'Too many workouts.. Remeber you still a Newbie'
             }else if (this.fitnessLevel =='Average' && (this.workoutListToSend.length> 6 || this.chosedProgrmas.length >1)){
@@ -189,7 +188,7 @@
             },
             addToExerciseArray: function(program) {
                 /* Push every data you want to save to the array. */
-                
+                console.log(program)
                 this.chosedProgrmas.push(program)
                 var pos = this.programArr.indexOf(program)
                 this.programArr.splice(pos , 1)

@@ -3,7 +3,7 @@
      <Loading v-if="loading"/>
 
      <b-alert v-if="errorMessage != ''" align="center" variant="danger" show dismissible>{{errorMessage}}</b-alert>
-
+    <div v-if="noGoal" style="text-align:center"><h2>You have no goals archived </h2> </div>
      <div v-if="!loading && !noGoal ">
         <b-card no-body class="full-width">
             <b-tabs pills card vertical> 
@@ -48,9 +48,12 @@
                         this.loading = false
                         if(response.status == 202) {
                             // success
-                            this.noGoal = false;
-                            console.log(response.data)
-                            this.goalList = response.data
+                            if(response.data.length == 0 ){
+                                this.noGoal =true;
+                            } else{
+                                this.noGoal = false;
+                                this.goalList = response.data
+                            }
                         } 
                     })
                     .catch(() => {

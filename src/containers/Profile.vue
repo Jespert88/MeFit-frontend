@@ -8,7 +8,7 @@
         <h2>Personal information</h2>
         <b-row>
             <b-col>
-                <img :src="profileImage ? profileImage : $auth.user.picture" fluid  class="rounded-circle img-fluid profile-picture" style="max-width:20%">
+                <img :src="profileImage ? profileImage : $auth.user.picture" fluid  class="rounded-circle img-fluid profile-picture" style="max-width:18%">
                 <img v-if="$auth.isContributor" src="https://firebasestorage.googleapis.com/v0/b/me-fit-49bd9.appspot.com/o/adminStamp.jpg?alt=media&token=3e14207f-661f-4b5e-84b5-236f1f4b568b" fluid  class="rounded-circle img-fluid profile-picture" style="float:right"  >
             </b-col>
         </b-row>

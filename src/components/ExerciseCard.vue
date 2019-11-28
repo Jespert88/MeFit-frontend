@@ -2,18 +2,34 @@
     <b-card  
         bg-variant=""
         :img-src="exercise.imageLink"
-        img-alt="Image"
-        
-        :header="exercise.name"
-        style="text-align:center; max-width: 15rem ;" 
+        img-alt="Image" 
+        style=" max-width: 15rem ;" 
         class="mb-2"
     >
-        <b-card-text v-if="!toRemove"> {{ exercise.description }}</b-card-text>
+      <template v-slot:header>
+         <b-card-text class="text-center" style="font-weight:bold" > {{ exercise.name}}</b-card-text>
+        </template>
+        <b-row v-if="!toRemove">
+            <b-col cols="10" sm="10" xl="10" md="10">
+             <b-card-text > Muscle : {{ exercise.targetMuscle }}</b-card-text>
+            </b-col>
+            <b-col cols="1" sm="1" xl="1" md="1">
+                <label v-b-toggle="exercise.name" class="m-1"> 
+                    <unicon name="ellipsis-v" fill="black"></unicon>
+                </label>
+            </b-col>
+        </b-row>
 
+         
+        
+        <!-- Element to collapse -->
+        <b-collapse class="text-center" :id=" exercise.name"  accordion="exercise-accordion">
+            <p>{{ exercise.description }}</p>
+        </b-collapse>
         <b-container>
             <b-row v-if="toSelect">
                 <b-input-group>
-                    <b-col>
+                    <b-col >
                         <b-input  v-b-popover.hover="'Reps'" type="number" min="1" max="100" required v-model="reps" placeholder="Reps">Repetions</b-input>   
                     </b-col>
                     <b-col>

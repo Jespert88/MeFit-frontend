@@ -75,6 +75,7 @@ export default {
     top: 0;
     left: 0;
     transition: 0.2s;
+    min-width: 15%;
 }
 /* Sidenavbar ul container */
 .sideNavBtns {
