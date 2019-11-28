@@ -40,7 +40,6 @@
     methods: {
       onSubmit: function (event) {
         event.preventDefault();
-        console.log(this.form.name + this.form.email + this.form.city + this.form.text)
             if (event) {
               this.successMessage = "Your message has succesfully been sent"
             } else if (event) {

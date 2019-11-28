@@ -7,7 +7,7 @@ import Contact from '../views/Contact'
 
 import NotFound from '../views/NotFound'
 import Unauthorized from '../views/Unauthorized'
-
+import Help from '../views/Help'
 import WorkoutList from '../containers/WorkoutList'
 import ProgramList from '../containers/ProgramList'
 import ExerciseList from '../containers/ExerciseList'
@@ -38,6 +38,11 @@ export default new Router({
 			path: "/about",
 			name: "About",
 			component: About
+		},	
+		{
+			path: "/help",
+			name: "Help",
+			component: Help
 		},
 		{
 			path: "/contactus",

@@ -78,7 +78,6 @@ export default {
     },
     redirectToUpdateWorkout (workout){
       let id = workout.workoutId
-      console.log('updating ' + workout.workoutId)
       this.$router.push({name:'UpdateWorkout' , params :{sentId :id} })
     },
     showOnlyMyWorkouts () {
@@ -87,7 +86,6 @@ export default {
         event.preventDefault()
        }
       this.loading=true;
-      console.log(this.profileId)
       //get users workouts
       axios.get('https://me-fit.herokuapp.com/workout/user/'+this.profileId).then(response => {
       this.loading= false

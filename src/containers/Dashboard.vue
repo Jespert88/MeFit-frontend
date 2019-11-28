@@ -34,12 +34,9 @@ export default {
     methods: {
       checkIfProfileExist (){
        this.loading =true;
-      console.log('here')
       axios.get('https://me-fit.herokuapp.com/profile/user/'+this.userId).then(response => {
        this.loading =false;
-       console.log(response)
         if(response.status == '202' && response.data !=""){
-            console.log('fetched----')
             this.stuff = response.data.profileId
         }
           }).catch(e =>{
@@ -51,9 +48,6 @@ export default {
               this.$router.push('/profile')
             }
           })
-        }else {
-        console.log('erros is : ' +e)
-
         }
       })
     }

@@ -66,7 +66,6 @@ export default {
     },
     redirectToUpdateProgram (program){
       let id = program.programId
-      console.log('updating ' + program.programId)
       this.$router.push({name:'UpdateProgram' , params :{sentId :id} })
     },
     showOnlyMyPrograms () {

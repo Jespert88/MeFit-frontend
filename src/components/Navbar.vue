@@ -15,10 +15,11 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto" >
         <!-- User not logged in links -->
-       
         <router-link class="nav-link" to="/"> Home </router-link>
           <router-link class="nav-link" to="/about"> About </router-link>
           <router-link class="nav-link" to="/contactus"> Contact us </router-link>
+              <router-link class="nav-link" to="/help"> Help </router-link>
+
               <b-nav-item-dropdown v-if="$auth.isAuthenticated && !$auth.loading"  text="User" right  class="nav-link" no-caret style="margin: 0 !important; padding: 0 !important;">
                     <template v-slot:button-content>
                       <img :src="$auth.user.picture"  fluid  class="rounded-circle img-fluid profile-picture" id="logo" >

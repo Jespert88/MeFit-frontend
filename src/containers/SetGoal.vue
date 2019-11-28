@@ -188,7 +188,6 @@
             },
             addToExerciseArray: function(program) {
                 /* Push every data you want to save to the array. */
-                console.log(program)
                 this.chosedProgrmas.push(program)
                 var pos = this.programArr.indexOf(program)
                 this.programArr.splice(pos , 1)
