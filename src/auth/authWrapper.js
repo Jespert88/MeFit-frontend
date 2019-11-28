@@ -105,6 +105,7 @@ export const useAuth0 = ({
         this.loading = false;
         this.userId = this.user.sub.substring(6)
         localStorage.token = await this.auth0Client.getTokenSilently(this.user)
+        localStorage.isLoggedIn =  await this.auth0Client.isAuthenticated();
       }
 
       axios.get('https://me-fit.herokuapp.com/profile/user/'+this.user.sub.substring(6)).then(response =>{
