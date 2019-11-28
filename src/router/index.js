@@ -50,7 +50,7 @@ export default new Router({
 			component: Contact
 		},
 		{
-			path: "/",
+			path: "/home",
 			name: "LandingPage",
 			component: LandingPage
 		},

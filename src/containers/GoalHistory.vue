@@ -5,7 +5,7 @@
      <b-alert v-if="errorMessage != ''" align="center" variant="danger" show dismissible>{{errorMessage}}</b-alert>
     <div v-if="noGoal" style="text-align:center"><h2>You have no goals archived </h2> </div>
      <div v-if="!loading && !noGoal ">
-        <b-card no-body class="full-width">
+        <b-card no-body class="full-width" style="background:#fff">
             <b-tabs pills card vertical> 
                 <b-tab :title="goal.name" v-for="goal in goalList" :key="goal.goalId">
                     <GoalCard :goal="goal"/>

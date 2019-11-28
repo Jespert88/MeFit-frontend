@@ -3,7 +3,7 @@
         bg-variant=""
         :img-src="exercise.imageLink"
         img-alt="Image" 
-        style=" max-width: 15rem; background : #fff" 
+        style=" max-width: 15rem; background : #fff;" 
         class="mb-2"
     >
       <template v-slot:header>
