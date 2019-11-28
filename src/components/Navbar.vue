@@ -20,7 +20,7 @@
           <router-link class="nav-link" to="/contactus"> Contact us </router-link>
               <router-link class="nav-link" to="/help"> Help </router-link>
 
-              <b-nav-item-dropdown v-if=" ($auth.isAuthenticated||localStorage.profileId)   && !$auth.loading"  text="User" right  class="nav-link" no-caret style="margin: 0 !important; padding: 0 !important;">
+              <b-nav-item-dropdown v-if="loggedIn && !$auth.loading"  text="User" right  class="nav-link" no-caret style="margin: 0 !important; padding: 0 !important;">
                     <template v-slot:button-content>
                       <img :src="$auth.user.picture"  fluid  class="rounded-circle img-fluid profile-picture" id="logo" >
                     </template>
@@ -43,10 +43,25 @@
 
 <script>
 export default {
-  name: "NavBar",
+ data() {
+        return {
+            loggedIn : false
+        }
+    },
+   name: "NavBar",
+   created (){
+     this.checkIfLoggedIn()
+   },
   methods: {
     login() {
       this.$auth.loginWithRedirect();
+    },
+    checkIfLoggedIn (){
+      if(localStorage.profileId){
+        this.loggedIn = true
+      }else{
+        this.loggedIn = false
+      }
     },
     logout() {
       this.$auth.logout();
