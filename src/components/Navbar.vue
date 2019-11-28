@@ -20,7 +20,7 @@
           <router-link class="nav-link" to="/contactus"> Contact us </router-link>
               <router-link class="nav-link" to="/help"> Help </router-link>
 
-              <b-nav-item-dropdown v-if="loggedIn && !$auth.loading"  text="User" right  class="nav-link" no-caret style="margin: 0 !important; padding: 0 !important;">
+              <b-nav-item-dropdown v-if="$auth.isAuthenticated && !$auth.loading"  text="User" right  class="nav-link" no-caret style="margin: 0 !important; padding: 0 !important;">
                     <template v-slot:button-content>
                       <img :src="$auth.user.picture"  fluid  class="rounded-circle img-fluid profile-picture" id="logo" >
                     </template>
@@ -31,7 +31,7 @@
                       <router-link class="drop-link" to="" @click.native="logout"> Logout </router-link>
                     </b-dropdown-item>
               </b-nav-item-dropdown>
-            <router-link  v-if="!loggedIn" class="nav-link" to="" @click.native="login"> Login </router-link>
+            <router-link  v-if="!$auth.isAuthenticated && !$auth.loading" class="nav-link" to="" @click.native="login"> Login </router-link>
       </b-navbar-nav>
 
 
@@ -43,25 +43,10 @@
 
 <script>
 export default {
- data() {
-        return {
-            loggedIn : false
-        }
-    },
-   name: "NavBar",
-   created (){
-     this.checkIfLoggedIn()
-   },
+  name: "NavBar",
   methods: {
     login() {
       this.$auth.loginWithRedirect();
-    },
-    checkIfLoggedIn (){
-      if(localStorage.profileId){
-        this.loggedIn = true
-      }else{
-        this.loggedIn = false
-      }
     },
     logout() {
       this.$auth.logout();
