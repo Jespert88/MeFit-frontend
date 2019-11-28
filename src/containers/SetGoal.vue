@@ -146,6 +146,7 @@
             formSubmit: function(event) {
             this.errorMessage = ''
             this.successMessage = ''
+            console.log(this.chosedProgrmas)
             if(this.fitnessLevel =='Newbie' && (this.workoutListToSend.length> 3 || this.chosedProgrmas.length >1)){
                 this.errorMessage=  'Too many workouts.. Remeber you still a Newbie'
             }else if (this.fitnessLevel =='Average' && (this.workoutListToSend.length> 6 || this.chosedProgrmas.length >1)){

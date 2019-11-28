@@ -10,7 +10,7 @@ export const getInstance = () => instance;
 
 export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  redirectUri = 'http://localhost:3000/dashboard',
+  redirectUri = window.location.origin+ '/dashboard',
   ...options
 }) => {
   if (instance) return instance;

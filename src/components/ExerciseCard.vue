@@ -3,6 +3,7 @@
         bg-variant=""
         :img-src="exercise.imageLink"
         img-alt="Image"
+        
         :header="exercise.name"
         style="text-align:center; max-width: 15rem ;" 
         class="mb-2"
@@ -83,4 +84,9 @@ export default {
     }
 }
 </script>
+<style  scoped>
+.card-img{
+    height: 10rem
+}
+</style>
 

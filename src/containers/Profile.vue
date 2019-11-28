@@ -8,8 +8,8 @@
         <h2>Personal information</h2>
         <b-row>
             <b-col>
-                <img :src="profileImage ? profileImage : $auth.user.picture" fluid  class="rounded-circle img-fluid profile-picture" >
-                <img v-if="$auth.isContributor" src="https://firebasestorage.googleapis.com/v0/b/me-fit-49bd9.appspot.com/o/adminStamp.jpg?alt=media&token=3e14207f-661f-4b5e-84b5-236f1f4b568b" fluid  class="rounded-circle img-fluid profile-picture" >
+                <img :src="profileImage ? profileImage : $auth.user.picture" fluid  class="rounded-circle img-fluid profile-picture" style="max-width:20%">
+                <img v-if="$auth.isContributor" src="https://firebasestorage.googleapis.com/v0/b/me-fit-49bd9.appspot.com/o/adminStamp.jpg?alt=media&token=3e14207f-661f-4b5e-84b5-236f1f4b568b" fluid  class="rounded-circle img-fluid profile-picture" style="float:right"  >
             </b-col>
         </b-row>
             
@@ -75,13 +75,13 @@
               </b-row>
             
 
-            <b-button type="submit" variant="dark" style="margin: 3px;">Save</b-button>
+            <b-button type="submit" variant="dark" style="margin: 3px;"><label for="">Save</label></b-button>
 
             <b-button variant="dark" style="margin: 3px;">
                 <b-form-file no-drop accept="image/*" id="img" style="display:none;" v-on:change="onFileChange"/>
                 <label for="img">Edit profile picture</label>
             </b-button>
-            <b-button @click="submitContRequest" v-if="!$auth.isContributor && !$auth.isAdmin" variant="dark"> Submit a contributor request</b-button>
+            <b-button @click="submitContRequest" v-if="!$auth.isContributor && !$auth.isAdmin" variant="dark"> <label for="">Submit a contributor request</label> </b-button>
 
         </b-form>
     </b-container>
