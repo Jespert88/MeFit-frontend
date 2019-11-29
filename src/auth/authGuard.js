@@ -22,4 +22,25 @@ export const authGuard = (to, from, next) => {
   });
 };
 
+export const authGuardLevelTwo = (to, from, next) => {
+  const authService = getInstance();
+
+  const fn = () => {
+    if (authService.isAuthenticated) {
+      return next();
+    }
+  };
+
+  if (!authService.loading) {
+    return fn();
+  }
+
+  authService.$watch("loading", loading => {
+    if (loading === false) {
+      return fn();
+    }
+  });
+};
+
+
 

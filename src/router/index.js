@@ -25,7 +25,7 @@ import ShowOneExercise from '../containers/ShowOneExercise'
 import SetGoal from '../containers/SetGoal'
 import GoalHistory from '../containers/GoalHistory'
 
-import { authGuard } from "../auth";
+import { authGuard , authGuardLevelTwo} from "../auth";
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -37,32 +37,38 @@ export default new Router({
 		{
 			path: "/about",
 			name: "About",
-			component: About
+			component: About,
+			beforeEnter: authGuardLevelTwo
 		},	
 		{
 			path: "/help",
 			name: "Help",
-			component: Help
+			component: Help,
+			beforeEnter: authGuardLevelTwo
 		},
 		{
 			path: "/contactus",
 			name: "Contact",
-			component: Contact
+			component: Contact,
+			beforeEnter: authGuardLevelTwo
 		},
 		{
 			path: "/home",
 			name: "LandingPage",
-			component: LandingPage
+			component: LandingPage,
+			beforeEnter: authGuardLevelTwo
 		},
 		{
 			path: "/",
 			name: "LandingPage",
-			component: LandingPage
+			component: LandingPage,
+			beforeEnter: authGuardLevelTwo
 		},
 		{
 			path: "/logout",
 			name: "LandingPage",
-			component: LandingPage
+			component: LandingPage,
+			beforeEnter: authGuardLevelTwo
 		},
 		{
 			path: "/dashboard",
