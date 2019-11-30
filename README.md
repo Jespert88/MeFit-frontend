@@ -2,7 +2,7 @@
 
 ## Team members: Rolandas Janulis, Zacky Kharboutli, Maria Johnsson, Jesper Truedsson
 
-```
+
 ## Project setup
 ```
 npm install
