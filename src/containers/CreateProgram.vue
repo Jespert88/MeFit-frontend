@@ -19,14 +19,14 @@
                     </b-form-group>
                   
         
-                    <b-jumbotron v-if="workoutListToSend.length > 0" id="selectedContainer" style="border: 1px solid; margin-bottom:10px" required>
+                    <b-jumbotron v-if="workoutListToSend.length > 0" id="selectedContainer" class="col-lg-4"  style="border: 1px solid; margin-bottom:10px" required>
                         <b-row align-h="start">
-                            <b-col v-for="workout in workoutListToSend" :key="workout.id" cols="4" style="padding:10px;" >
+                            <b-col v-for="workout in workoutListToSend" :key="workout.id"  style="padding:10px;" >
                                 <WorkoutCard :workout="workout" :toRemove="true" @clicked-workoutCard="addToWorkoutListToSend" @clicked-RemoveWorkoutCard="removeFromChosed" :toUpdate="true"/>
                             </b-col>
                         </b-row>
                         <b-row >
-                            <b-button class="mx-auto bg-info" type="submit" variant="secondary">Create Workout</b-button>
+                            <b-button class="mx-auto bg-info" type="submit" variant="secondary">Create Program</b-button>
                         </b-row>
                     </b-jumbotron>
                 </b-form>

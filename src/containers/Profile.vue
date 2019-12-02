@@ -116,14 +116,12 @@ export default {
             },
             loading :false,
             profileImage: "",
-
             fitnesslevel: [{
                 text: 'Select your fitnesslevel',
                 value: null
             }, 'Newbie', 'Average', 'Fit', 'Professional'],
         }
     },
-  
     mounted() {
         this.loading =true;
         axios.get('https://me-fit.herokuapp.com/profile/user/'+ this.$auth.user.sub.substring(6)).then(response =>{

@@ -1,9 +1,9 @@
 <template>
-    <div class="col-5 offset-3">
+    <div class="content">
         <h3>Create a new exercise</h3>
         <b-alert v-if="errorMessage != ''" show variant="danger" dismissible>{{errorMessage}}</b-alert>
         <b-alert v-if="successMessage != ''" show variant="success" dismissible>{{successMessage}}</b-alert>
-
+        <b-container>
         <b-form @submit="onSubmit">
             <b-form-group label="Name*">
                 <b-form-input id="input-1"  type="text" required v-model="form.name"  placeholder="Enter Name"></b-form-input>
@@ -32,6 +32,7 @@
 
             <b-button type="submit" variant="secondary"> Create Exercise</b-button>
         </b-form>
+    </b-container>
 </div>
 </template>
 
@@ -53,14 +54,23 @@
             }
         },
         created(){
-            if(!this.$auth.isContributor){
-                this.$router.push('/unauthorized')
-            }
+            this.checkIfContributor()
+
+    
         },
         props: {
             exerciseCreated: {}
         },
         methods: {
+     checkIfContributor: function(){
+        axios.get('https://me-fit.herokuapp.com/profile/'+ localStorage.profileId).then(response =>{
+             if(response.data.role !=2 ){
+            this.$router.push('/unauthorized')
+            }
+        }).catch(()=>{
+            this.$router.push('/unauthorized')
+        })
+        },
             onSubmit: function(event) {
                 event.preventDefault();
                 let formData = new FormData()

@@ -23,13 +23,13 @@
                   
         
                 <b-jumbotron v-if="chosedExerciseArray.length >0" id="selectedContainer" style="border: 1px solid ;    margin-bottom:10px" required>
-                    <b-row  >
-                        <b-col v-for="exercise in chosedExerciseArray" :key="exercise.id" class="col-lg-4" style="padding:10px;" >
+                    <b-row no-gutters class="mx-auto" >
+                        <b-col class="col-lg-4" v-for="exercise in chosedExerciseArray" :key="exercise.id"  style="padding:10px;" >
                             <ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray" @clicked-exerciseCardRemove="removeFromExerciseArray" :toRemove="true"/>
                         </b-col>
                     </b-row>
                     <b-row >
-                        <b-button class="mx-auto bg-info" type="submit" variant="secondary">Create Workout</b-button>
+                        <b-button type="submit" variant="secondary">Create Workout</b-button>
                     </b-row>
                 </b-jumbotron >
             </b-form>
@@ -37,7 +37,7 @@
            
             
         <b-container  >
-        <b-row>
+        <b-row no-gutters>
             <b-col v-for="exercise in exerciseArray" :key="exercise.id" class="col-lg-4"><ExerciseCard :exercise="exercise" @clicked-exerciseCard="addToExerciseArray"  :toSelect="true"/></b-col>
         </b-row>
         </b-container >

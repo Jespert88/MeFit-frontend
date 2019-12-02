@@ -3,7 +3,7 @@
     <Loading v-if="loading"/>
       <h2 class="text-center" style="font-weight:bold">Exerices</h2>
     <b-container>
-      <b-row>
+      <b-row class="mx-auto">
             <b-col v-for="exercise in exerciseArray" :key="exercise.id" cols="12" xl="4" sm="10" md="6" ><ExerciseCard :exercise="exercise" :toShow="true" /></b-col>
         </b-row>
     </b-container>
