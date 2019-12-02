@@ -1,4 +1,7 @@
-# mefit-frontend
+# Project name: MeFit - A fitness application
+
+### Team members: Rolandas Janulis, Zacky Kharboutli, Maria Johnsson, Jesper Truedsson
+
 
 ## Project setup
 ```
