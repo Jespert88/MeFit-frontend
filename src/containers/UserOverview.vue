@@ -89,7 +89,7 @@ export default {
         }
     },
     created: function () {
-          this.retrieveGoal
+          this.retrieveGoal()
     },
     methods: {
         retrieveGoal: function() {
