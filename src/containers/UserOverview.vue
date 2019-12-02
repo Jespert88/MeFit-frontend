@@ -89,7 +89,11 @@ export default {
         }
     },
     created: function () {
-          this.loading = true
+          this.retrieveGoal()
+    },
+    methods: {
+        retrieveGoal: function() {
+            this.loading = true
             axios
                 .get('https://me-fit.herokuapp.com/goal/status/user/' + localStorage.profileId)
                 .then((response) => {
@@ -112,10 +116,6 @@ export default {
                     this.hasGoal = false
                     this.loading = false
                 })
-    },
-    methods: {
-        retrieveGoal: function() {
-          
         },
         // calculate the progress 
         counterComplete: function() {      
