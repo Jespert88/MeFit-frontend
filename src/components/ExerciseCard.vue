@@ -3,7 +3,7 @@
         bg-variant=""
         :img-src="exercise.imageLink"
         img-alt="Image" 
-        style=" max-width: 15rem; background : #fff;" 
+        style=" max-width: 12rem; background : #fff;" 
         class="mb-2"
     >
       <template v-slot:header>
@@ -39,19 +39,19 @@
             </b-row>
             <!-- Show reps / sets for CreateProgram -->
             <b-row v-if="!toSelect && setData != null  &&!toShow " >
-                <b-col>
+                <b-col cols="6">
                     <label>Sets: {{setData.setRepetitions}}</label>
                 </b-col>
-                <b-col>
+                <b-col cols="6">
                     <label>Reps: {{setData.repetitions}}</label>
                 </b-col>
             </b-row>
             <!-- Show reps / sets for CreateWorkout -->
             <b-row v-if="!toSelect && setData == null &&!toShow">
-                <b-col>
+                <b-col cols="6">
                     <label>Sets: {{this.exercise.sets}}</label>
                 </b-col>
-                <b-col>
+                <b-col cols="6">
                     <label>Reps: {{this.exercise.reps}}</label>
                 </b-col>
             </b-row>

@@ -2,10 +2,10 @@
   <div class  ="content">
     <b-container fluid>
         <b-row >
-          <b-col cols="3" md="3" xl="2" sm="3">
+          <b-col cols="0" md="3" xl="2" sm="3">
             <SideNavbar/>
           </b-col>
-          <b-col  cols="3" md="9" xl="10" sm="9">
+          <b-col  cols="12" md="9" xl="10" sm="9">
             <router-view id="routerView" :stuff="stuff"/>
           </b-col>
         </b-row>
@@ -46,8 +46,6 @@ export default {
         }).then(response =>{
           if (response.status == '201'){
             let profileId = response.headers.location.substring(37);
-            /* eslint-disable */
-            console.log('the profile id'+ profileId)
             localStorage.profileId = profileId;
             this.$router.push('/profile')
             }

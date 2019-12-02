@@ -20,12 +20,12 @@
 
                 <!-- <Datepicker :inline="true" :highlighted="highlighted"></Datepicker> -->
                 
-                <b-jumbotron container-fluid v-if="chosedProgrmas.length > 0 || workoutListToSend.length > 0 " border-variant ="dark">
+        <b-jumbotron style="min-width:21rem;" container-fluid v-if="chosedProgrmas.length > 0 || workoutListToSend.length > 0 " border-variant ="dark">
 			<b-row>
-				<b-col v-for="program in chosedProgrmas" :key="program.id" class="col-lg-6" style="padding:10px;" >
+				<b-col v-for="program in chosedProgrmas" :key="program.id" class="col-lg-6" style="padding:5px;" >
 					<ProgramCard :program="program" :goal="false" :toRemove="true" @clickedToRemove="removeFromPrograms"  @clicked-exerciseCard="addToExerciseArray" :toSelectProgram="false" :toViewAndUpdate="false" />
 				</b-col>
-				<b-col v-for="workout in workoutListToSend" :key="workout.id" class="col-lg-4" style="padding:10px;" >
+				<b-col v-for="workout in workoutListToSend" :key="workout.id" class="col-lg-4" style="padding:5px;" >
 					<WorkoutCard :workout="workout" :toRemove="true" @clicked-RemoveWorkoutCard="removeFromWorkoutList" @clicked-workoutCard="addToWorkoutListToSend" :toUpdate="true"/>
 				</b-col>
 			</b-row>
@@ -38,7 +38,7 @@
 
 
 
-        <b-card no-body class="full-width" style="min-width:25rem; background : #fff;">
+        <b-card no-body class="full-width" style="min-width:21rem; background : #fff;">
             <b-tabs pills card fill> 
                 <b-tab title="Programs">
                     <!-- <b-form @submit="searchProgram">

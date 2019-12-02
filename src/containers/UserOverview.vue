@@ -25,7 +25,7 @@
                 <Datepicker :inline="true" :highlighted="highlightedDates"></Datepicker>
             </div>
     
-            <b-card no-body class="full-width">
+            <b-card no-body class="full-width" style="background: #fff;">
                 <b-tabs pills card fill> 
                     <b-tab title="Programs">
                         <b-row no-gutters>

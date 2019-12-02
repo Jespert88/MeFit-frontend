@@ -1,6 +1,15 @@
 <template>
-    <div id="mySidenav" class="sidenav">
-        <ul class="list-group">
+<div id="mySidenav" class="sidenav">
+
+  <b-navbar toggleable="lg" type="dark" variant="dark" id="SideNavbar">
+
+    <!-- Top navbar toggle button -->
+    <b-navbar-toggle target="nav-collapse1" id="toggleBtn"></b-navbar-toggle>
+    <!-- Nav items collapse container -->
+    <b-collapse id="nav-collapse1" is-nav>
+
+      <b-navbar-nav class="ml-auto" >
+           <ul class="list-group">
             <li class="nav-item">
                 <router-link class="nav-link" to="/profile">
                     <b-button class="sideNavBtns" variant="outline-light" >Profile</b-button>
@@ -52,8 +61,13 @@
                 </router-link>
             </li>
         </ul>
-    </div>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
 </template>
+
+    
 
 <script>
 export default {
@@ -63,6 +77,12 @@ export default {
 
 <style>
 /* Desktop CSS */
+#SideNavbar {
+    margin: 0px !important;
+    z-index: 1;
+    background-color: #123e4b !important;
+    max-height: 80%;
+}
 .list-group {
     list-style: none;
 }
@@ -70,7 +90,6 @@ export default {
     height: 100%;
     background:  #123e4b !important;
     padding-top: 8%;
-    position: fixed;
     overflow-x: hidden;
     top: 0;
     left: 0;
@@ -89,4 +108,12 @@ export default {
     color: #fff;
     background: rgba(0, 0, 0, 0.5)
 }
+
+.nav-link {
+    color: #fff !important;
+    padding-top: 7%; 
+}
+
+/* Dropdown Links */
+
 </style>
