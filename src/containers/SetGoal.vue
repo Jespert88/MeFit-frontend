@@ -38,7 +38,7 @@
 
 
 
-        <b-card no-body class="full-width" style="min-width:25rem">
+        <b-card no-body class="full-width" style="min-width:25rem; background : #fff;">
             <b-tabs pills card fill> 
                 <b-tab title="Programs">
                     <!-- <b-form @submit="searchProgram">

@@ -45,7 +45,11 @@ export default {
             userId :  this.$auth.user.sub.substring(6)
         }).then(response =>{
           if (response.status == '201'){
-              this.$router.push('/profile')
+            let profileId = response.headers.location.substring(37);
+            /* eslint-disable */
+            console.log('the profile id'+ profileId)
+            localStorage.profileId = profileId;
+            this.$router.push('/profile')
             }
           })
         }
