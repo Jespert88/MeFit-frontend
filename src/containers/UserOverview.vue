@@ -5,14 +5,14 @@
     <Loading v-if="loading"/>
 
     <div v-if="!loading" class="mainContainer">
-        <!-- <div v-if="!hasGoal" align="center">
+        <div v-if="!hasGoal" align="center">
             <b-alert show variant="danger" dismissible>
                 <h2>{{errorMessage}}</h2>
                 <div>
                     <b-button variant="primary" to="/setgoal">Set Goal</b-button>
                 </div>
             </b-alert>
-        </div> -->
+        </div>
 
         <b-container v-if="hasGoal" fluid id="stuff">
             <div class="text-center" id="progressBar">
@@ -89,7 +89,7 @@ export default {
         }
     },
     created: function () {
-          this.retrieveGoal()
+          this.retrieveGoal
     },
     methods: {
         retrieveGoal: function() {
